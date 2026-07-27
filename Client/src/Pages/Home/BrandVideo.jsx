@@ -9,7 +9,7 @@ const BrandVideo = () => {
         playsInline
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/Images/video.mp4" type="video/mp4" />
+        <source src="/Images/video.mp4" type="video/mp4" loading="lazy" />
       </video>
       Overlay
       <div className="absolute inset-0 bg-black/50" />

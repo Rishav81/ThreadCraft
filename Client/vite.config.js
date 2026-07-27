@@ -10,4 +10,9 @@ export default defineConfig({
     tailwindcss(),
     babel({ presets: [reactCompilerPreset()] }),
   ],
+  server: {
+    watch: {
+      usePolling: true,
+    },
+  },
 });

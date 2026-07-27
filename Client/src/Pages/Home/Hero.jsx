@@ -1,14 +1,17 @@
 import BrandVideo from "./BrandVideo";
 import Categories from "./Categories";
+import FeaturedCollection from "./FeaturedCollection";
+import NewArrival from "./NewArrival";
 
 const Hero = () => {
   return (
     <>
-      <section className="relative  h-[95vh] overflow-hidden">
+      <section className="relative  h-[95vh] overflow-hidden ">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src="/Images/Profile.jpg"
+            loading="eager"
             alt="ThreadCraft Hero"
             className="w-full h-full object-cover"
           />
@@ -86,6 +89,8 @@ const Hero = () => {
       </section>
       <Categories />
       <BrandVideo />
+      <FeaturedCollection />
+      <NewArrival />
     </>
   );
 };

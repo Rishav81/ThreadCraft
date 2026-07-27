@@ -8,7 +8,7 @@ const MainLayout = () => {
       <Navbar />
 
       {/* IMPORTANT: prevents overlap */}
-      <main className="pt-[0px]">
+      <main>
         <Outlet />
       </main>
 
