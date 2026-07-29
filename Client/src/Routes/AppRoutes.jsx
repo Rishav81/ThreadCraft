@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import Hero from "../Pages/Home/Hero";
 import Shop from "../Pages/Shop/Shop";
-import Login from "../Pages/Login";
-import Register from "../Pages/Register";
+import Login from "../Pages/Auth/Login";
+import Register from "../Pages/Auth/Register";
 import MainLayout from "../Layouts/MainLayout";
 import PageNotFound from "../Pages/PageNotFound";
 

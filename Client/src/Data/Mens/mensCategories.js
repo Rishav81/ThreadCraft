@@ -43,26 +43,31 @@ const mensCategories = [
     id: 9,
     name: "Casual Wear",
     image: "/Images/casual.jpg",
+    style: "Casual",
   },
   {
     id: 10,
     name: "Formal Wear",
     image: "/Images/blazer.webp",
+    style: "Formal",
   },
   {
     id: 11,
     name: "Activewear",
     image: "/Images/activeWear.webp",
+    style: "Activewear",
   },
   {
     id: 12,
     name: "Oversized Collection",
     image: "/Images/oversized.jpeg",
+    style: "Oversized",
   },
   {
     id: 13,
     name: "Streetwear",
     image: "/Images/streetWear.webp",
+    style: "Streetwear",
   },
   {
     id: 14,

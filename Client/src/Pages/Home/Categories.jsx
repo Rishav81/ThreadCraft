@@ -1,4 +1,3 @@
-import { FiArrowRight } from "react-icons/fi";
 import categories from "../../Data/categories";
 
 const Categories = () => {
@@ -98,27 +97,6 @@ const Categories = () => {
                 <h3 className="mt-2 text-3xl font-bold text-white">
                   {category.title}
                 </h3>
-
-                <div
-                  className="
-                    mt-5
-                    flex
-                    items-center
-                    gap-2
-                    text-[#C19A6B]
-                    font-medium
-                  "
-                >
-                  <span>Discover</span>
-
-                  <FiArrowRight
-                    className="
-                      transition-transform
-                      duration-300
-                      group-hover:translate-x-2
-                    "
-                  />
-                </div>
               </div>
             </div>
           ))}
