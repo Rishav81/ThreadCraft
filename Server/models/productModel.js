@@ -2,15 +2,28 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
+    // Basic
     name: {
       type: String,
       required: true,
       trim: true,
     },
 
+    brand: {
+      type: String,
+      trim: true,
+    },
+
+    sku: {
+      type: String,
+      unique: true,
+      trim: true,
+    },
+
     gender: {
       type: String,
       required: true,
+      enum: ["Men", "Women", "Kids"],
     },
 
     category: {
@@ -20,16 +33,14 @@ const productSchema = new mongoose.Schema(
 
     style: {
       type: String,
+    },
+
+    description: {
+      type: String,
       required: true,
     },
 
-    image: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
-
+    // Pricing
     price: {
       type: Number,
       required: true,
@@ -37,24 +48,33 @@ const productSchema = new mongoose.Schema(
 
     oldPrice: {
       type: Number,
-      required: true,
     },
 
-    discount: {
+    // Inventory
+    stock: {
       type: Number,
       required: true,
-    },
-
-    rating: {
-      type: Number,
-      default: 0,
-      required: true,
-    },
-
-    reviews: {
-      type: Number,
       default: 0,
     },
+
+    // Images
+
+    images: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+        alt: String,
+      },
+    ],
+
+    // Variants
+    sizes: [
+      {
+        type: String,
+      },
+    ],
 
     colors: [
       {
@@ -62,22 +82,20 @@ const productSchema = new mongoose.Schema(
       },
     ],
 
-    sizes: [
+    // Details
+    material: String,
+
+    fit: String,
+
+    occasion: String,
+
+    tags: [
       {
         type: String,
       },
     ],
 
-    stock: {
-      type: Number,
-      required: true,
-    },
-
-    badge: {
-      type: String,
-      required: true,
-    },
-
+    // Flags
     featured: {
       type: Boolean,
       default: false,
@@ -93,29 +111,20 @@ const productSchema = new mongoose.Schema(
       default: false,
     },
 
-    tags: [
-      {
-        type: String,
-      },
-    ],
-
-    material: {
+    status: {
       type: String,
+      enum: ["draft", "published"],
+      default: "draft",
     },
 
-    fit: {
-      type: String,
+    rating: {
+      type: Number,
+      default: 0,
     },
 
-    occasion: [
-      {
-        type: String,
-      },
-    ],
-
-    description: {
-      type: String,
-      required: true,
+    reviews: {
+      type: Number,
+      default: 0,
     },
   },
   {
@@ -123,6 +132,4 @@ const productSchema = new mongoose.Schema(
   },
 );
 
-const Product = mongoose.model("Product", productSchema);
-
-export default Product;
+export default mongoose.model("Product", productSchema);

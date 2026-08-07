@@ -1,30 +1,99 @@
 import Product from "../models/productModel.js";
+import uploadToCloudinary from "../utils/uploadCloudinary.js";
 
 export const createProduct = async (req, res) => {
   try {
-    //1.Getting data from body
-    const data = req.body;
+    const {
+      name,
+      brand,
+      sku,
+      gender,
+      category,
+      style,
+      description,
+      price,
+      oldPrice,
+      discount,
+      stock,
+      sizes,
+      colors,
+      material,
+      fit,
+      occasion,
+      tags,
+      featured,
+      trending,
+      bestSeller,
+      status,
+    } = req.body;
 
-    //2.Checking all required field
-    if (!data.name || !data.price || !data.category || !data.stock) {
+    const uploadedImages = [];
+
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const imageUrl = await uploadToCloudinary(file.buffer);
+
+        uploadedImages.push({
+          url: imageUrl,
+        });
+      }
+    }
+
+    if (
+      !name ||
+      !gender ||
+      !category ||
+      !description ||
+      !price ||
+      stock === undefined
+    ) {
       return res.status(400).json({
         success: false,
-        message: "All field required.",
+        message: "Please fill all required fields.",
       });
     }
 
-    //3.Creating new product
-    const product = new Product(data);
+    const product = await Product.create({
+      name,
+      brand,
+      sku,
 
-    //4.Saving to DB
-    await product.save();
+      gender,
+      category,
+      style,
+      description,
 
-    //5.Sending Response
+      price,
+      oldPrice,
+      discount,
+
+      stock,
+
+      images: uploadedImages,
+
+      sizes: sizes ? JSON.parse(sizes) : [],
+      colors: colors ? JSON.parse(colors) : [],
+
+      material,
+      fit,
+      occasion,
+      tags: tags ? JSON.parse(tags) : [],
+
+      featured: featured === "true",
+      trending: trending === "true",
+      bestSeller: bestSeller === "true",
+
+      status,
+    });
+
     res.status(201).json({
       success: true,
-      message: "Product Created Successfully",
+      message: "Product created successfully",
+      product,
     });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       success: false,
       message: error.message,
