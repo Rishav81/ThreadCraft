@@ -4,24 +4,22 @@ import {
   containerVariants,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
-
-const Categories = ({ product }) => {
+const WomenCategories = ({ product }) => {
   const uniqueCategories = product
     .filter(
       (item, index, self) =>
-        index === self.findIndex((p) => p.gender === item.gender),
+        index === self.findIndex((p) => p.category === item.category),
     )
-    .map((gender) => ({
-      ...gender,
-      itemCount: product.filter((item) => item.gender === gender.gender).length,
+    .map((category) => ({
+      ...category,
+      itemCount: product.filter((item) => item.category === category.category)
+        .length,
     }));
   return (
     <motion.section
       variants={containerVariants}
-      className="relative pb-6 pt-12 bg-[#F5F3EF]"
+      className=" pt-6  px-4 sm:px-6 lg:px-8"
     >
-      <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#402401] via-[#C19A6B]/60 to-transparent" />
-
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -30,25 +28,18 @@ const Categories = ({ product }) => {
           once: true,
           amount: 0.3,
         }}
-        className="relative max-w-7xl mx-auto px-6"
+        className=" max-w-7xl mx-auto "
       >
         {/* Categories Content */}
-        <motion.div className="mb-4">
-          <motion.p
-            variants={itemVariants}
-            className="uppercase tracking-[0.4em] text-white text-xs font-semibold"
-          >
-            Curated Collections
-          </motion.p>
-
+        <div className="mb-6">
           <motion.h2
             variants={itemVariants}
-            className=" uppercase tracking-[0.4em] text-white text-xs md:text-lg font-semibold "
+            className="mt-3 text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight"
           >
             Find Your
             <span className="text-[#C19A6B]"> Signature Style</span>
           </motion.h2>
-        </motion.div>
+        </div>
 
         {/* Cards */}
         <motion.div
@@ -56,17 +47,16 @@ const Categories = ({ product }) => {
           className="
             flex
             gap-6
-            justify-start
             overflow-x-auto
            
             scrollbar-hide
             pb-3
           "
         >
-          {uniqueCategories.map((gender) => (
+          {uniqueCategories.map((category) => (
             <Link
-              key={gender._id}
-              to={`/${gender.gender.toLowerCase()}`}
+              key={category._id}
+              to={`/category/${category.category.toLowerCase()}`}
               className="
                 relative
                 min-w-[250px]
@@ -84,8 +74,8 @@ const Categories = ({ product }) => {
             >
               {/* Image */}
               <img
-                src={gender.images?.[0]?.url}
-                alt={gender.title}
+                src={category.images?.[0]?.url}
+                alt={category.name}
                 loading="lazy"
                 className="
                   absolute
@@ -100,27 +90,40 @@ const Categories = ({ product }) => {
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-
-              {/* Border */}
-              <div className="absolute inset-0  rounded-[32px]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/30 to-transparent" />
 
               {/* Content */}
               <div
                 className="
-               
-                 absolute
+                  absolute
                   bottom-8
                   left-8
                   right-8
                   transition-all
                   duration-500
-                  group-hover:bottom-10
+                  group-hover:scale-102
                 "
               >
-                <h3 className=" text-2xl font-bold text-white line-clamp-1">
-                  {gender.gender}
-                </h3>
+                <motion.p
+                  variants={itemVariants}
+                  className="uppercase text-sm tracking-tight text-white/70"
+                >
+                  Premium Collection
+                </motion.p>
+
+                <motion.h3
+                  variants={itemVariants}
+                  className=" text-2xl font-bold text-white line-clamp-1"
+                >
+                  {category.name}
+                </motion.h3>
+                <motion.span
+                  variants={itemVariants}
+                  className=" text-sm tracking-tight text-white/70"
+                >
+                  {" "}
+                  ({category.itemCount} Items)
+                </motion.span>
               </div>
             </Link>
           ))}
@@ -130,4 +133,4 @@ const Categories = ({ product }) => {
   );
 };
 
-export default Categories;
+export default WomenCategories;

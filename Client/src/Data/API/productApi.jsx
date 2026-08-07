@@ -1,5 +1,9 @@
-import api from "./axios";
+import { productApi } from "./axios";
 
 export const getProducts = () => {
-  return api.get("/products");
+  return productApi.get("/");
+};
+
+export const createProduct = (formData) => {
+  return productApi.post("/add-product", formData);
 };

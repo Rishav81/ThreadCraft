@@ -1,40 +1,48 @@
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import ProductCard from "../../Components/Product/ProductCard";
-import featuredProduct from "../../Data/featuredProduct";
+import {
+  containerVariants,
+  itemVariants,
+} from "../../Components/Ui/HeroAnimation";
+import { motion } from "framer-motion";
 
-const FeaturedCollection = () => {
+const FeaturedCollection = ({ products }) => {
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8  ">
-      <div className="max-w-7xl mx-auto ">
+    <motion.section
+      variants={containerVariants}
+      className="pt-6 px-4 sm:px-6 lg:px-8  "
+    >
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{
+          once: true,
+          amount: 0.3,
+        }}
+        className="max-w-7xl mx-auto "
+      >
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-center justify-between mb-4">
-          <div>
-            <h2 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-black leading-tight ">
-              Featured <span className="text-[#C19A6B]">Collection</span>
-            </h2>
 
-            <p className="mt-5 text-gray-600 max-w-xl">
-              Discover our handpicked premium collection crafted for timeless
-              style and everyday elegance.
-            </p>
-          </div>
-
-          <Link
-            to="/shop"
-            className="group mt-6 md:mt-0 inline-flex items-center gap-2 text-[#C19A6B] font-medium hover:text-white transition-all duration-300"
+        <div className="mb-4">
+          <motion.h2
+            variants={itemVariants}
+            className="mt-3 uppercase tracking-[0.4em] text-[#C19A6B] text-xs md:text-lg font-semibold "
           >
-            Explore Collection
-            <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
+            Featured <span className="text-[#C19A6B]">Collection of 2026</span>
+          </motion.h2>
         </div>
 
         {/* Products Grid */}
-        <div className="overflow-x-auto scrollbar-hide mt-5">
+        <motion.div
+          variants={itemVariants}
+          className="overflow-x-auto scrollbar-hide mt-5"
+        >
           <div className="flex gap-6">
-            {featuredProduct.map((product) => (
+            {products.map((product) => (
               <div
-                key={product.id}
+                key={product._id}
                 className="
           shrink-0
           basis-1/3
@@ -46,9 +54,9 @@ const FeaturedCollection = () => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 };
 

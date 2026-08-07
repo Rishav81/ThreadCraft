@@ -1,25 +1,45 @@
 import ProductCard from "../../Components/Product/ProductCard";
+import {
+  containerVariants,
+  itemVariants,
+} from "../../Components/Ui/HeroAnimation";
+import { motion } from "framer-motion";
 
-const BestSeller = ({ product }) => {
+const BestSeller = ({ product = [] }) => {
+  if (product.length === 0) {
+    return null;
+  }
   return (
-    <section className="pt-6 px-4 sm:px-6 lg:px-8  ">
-      <div className="max-w-7xl mx-auto ">
+    <motion.section
+      variants={containerVariants}
+      className="pt-6 px-4 sm:px-6 lg:px-8  "
+    >
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{
+          once: true,
+          amount: 0.3,
+        }}
+        className="max-w-7xl mx-auto "
+      >
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-center justify-between mb-4">
-          <div>
-            <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-black leading-tight ">
-              Best Seller <span className="text-[#C19A6B]"> Collection</span>
-            </h2>
 
-            <p className="mt-2 text-gray-600 max-w-xl text-sm">
-              Discover our best seller premium collection crafted for timeless
-              style and everyday elegance.
-            </p>
-          </div>
+        <div className="mb-4">
+          <motion.h2
+            variants={itemVariants}
+            className="mt-3 uppercase tracking-[0.4em] text-[#C19A6B] text-xs md:text-lg font-semibold  "
+          >
+            Best Seller <span className="text-[#C19A6B]"> Collection</span>
+          </motion.h2>
         </div>
 
         {/* Products Grid */}
-        <div className="overflow-x-auto scrollbar-hide mt-5">
+        <motion.div
+          variants={itemVariants}
+          className="overflow-x-auto scrollbar-hide mt-5"
+        >
           <div className="flex gap-6">
             {product.map((product) => (
               <div
@@ -35,9 +55,9 @@ const BestSeller = ({ product }) => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 };
 

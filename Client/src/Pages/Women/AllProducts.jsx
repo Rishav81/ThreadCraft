@@ -5,14 +5,11 @@ import {
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
 
-const Rating = ({ product = [] }) => {
-  if (product.length === 0) {
-    return null;
-  }
+const AllProducts = ({ product }) => {
   return (
     <motion.section
       variants={containerVariants}
-      className="pt-6 px-4 sm:px-6 lg:px-8  "
+      className="py-6 px-4 sm:px-6 lg:px-8  "
     >
       <motion.div
         variants={containerVariants}
@@ -29,10 +26,18 @@ const Rating = ({ product = [] }) => {
         <div className="mb-4">
           <motion.h2
             variants={itemVariants}
-            className="mt-3 uppercase tracking-[0.4em] text-[#C19A6B] text-xs md:text-lg font-semibold  "
+            className="mt-3 text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight "
           >
-            Top Rated <span className="text-[#C19A6B]"> Collection</span>
+            All <span className="text-[#C19A6B]"> Collection</span>
           </motion.h2>
+
+          <motion.p
+            variants={itemVariants}
+            className="mt-2 text-gray-600 max-w-xl text-sm line-clamp-2"
+          >
+            Discover our all premium collection crafted for timeless style and
+            everyday elegance.
+          </motion.p>
         </div>
 
         {/* Products Grid */}
@@ -61,4 +66,4 @@ const Rating = ({ product = [] }) => {
   );
 };
 
-export default Rating;
+export default AllProducts;

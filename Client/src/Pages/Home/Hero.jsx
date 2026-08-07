@@ -1,96 +1,270 @@
-import BrandVideo from "./BrandVideo";
-import Categories from "./Categories";
-import FeaturedCollection from "./FeaturedCollection";
-import NewArrival from "./NewArrival";
+import { useState, useEffect, useMemo, lazy, Suspense } from "react";
+import { motion } from "framer-motion";
+const BrandVideo = lazy(() => import("./BrandVideo"));
+const Categories = lazy(() => import("./Categories"));
+const NewArrival = lazy(() => import("./NewArrival"));
+
+import { getProducts } from "../../Data/API/productApi";
+import LazySection from "../../Components/Ui/LazySection";
+import {
+  containerVariants,
+  itemVariants,
+} from "../../Components/Ui/HeroAnimation";
+const FeaturedCollection = lazy(() => import("./FeaturedCollection"));
 
 const Hero = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getProducts();
+        setProducts(response.data.products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const categoryItem = useMemo(() => {
+    return products.filter((product) => product.gender);
+  }, [products]);
+
+  const featuredProducts = useMemo(() => {
+    return products.filter((product) => product.featured);
+  }, [products]);
+
+  const newArrivalProducts = useMemo(() => {
+    return products.filter((product) => {
+      const createdDate = new Date(product.createdAt);
+      const today = new Date();
+
+      return (today - createdDate) / (1000 * 60 * 60 * 24) <= 10;
+    });
+  }, [products]);
   return (
     <>
-      <section className="relative  h-[95vh] overflow-hidden ">
+      <section className="relative min-h-screen  overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/Images/Profile.jpg"
-            loading="eager"
-            alt="ThreadCraft Hero"
-            className="w-full h-full object-cover"
-          />
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/45"></div>
-        </div>
+        <motion.img
+          src="/Images/Profile.jpg"
+          alt="Profile"
+          className="absolute inset-0 h-full lg:h-fit w-full object-cover object-center "
+          animate={{
+            scale: [1, 1.06, 1],
+            x: [0, -18, 0],
+            y: [0, 12, 0],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-        {/* Background Brand Text */}
-        <h1
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/45" />
+
+        {/* Luxury Gradient */}
+        <div
           className="
-          absolute
-          top-20
-          md:top-12
-          lg:top-6
-          left-1/2
-          -translate-x-1/2
-          text-[14vw]
-          font-extrabold
-          uppercase
-          tracking-tight
-          text-white/10
-          whitespace-nowrap
-          select-none
-          pointer-events-none
-          z-10
-        "
-        >
-          Thr
-          <span
-            className="
-    text-transparent
-    [-webkit-text-stroke:0.5px_#C19A6B]
-    md:[-webkit-text-stroke:1.2px_#C19A6B]
-    lg:[-webkit-text-stroke:2px_#C19A6B]
-  "
-          >
-            eadC
-          </span>
-          raft
-        </h1>
+      absolute inset-0
+      bg-gradient-to-r
+      from-black/70
+      via-black/40
+      to-black/10
+    "
+        />
 
         {/* Hero Content */}
         <div
-          className="relative z-20 flex h-full items-center mt-12 
-        md:mt-30"
+          className="
+          relative
+          z-20
+          min-h-[90svh]
+          flex
+          items-center
+          "
         >
-          <div className="max-w-7xl mx-auto px-6 md:px-6 w-full">
-            <div className="max-w-2xl">
-              <p className="uppercase tracking-[0.3em] text-[#C19A6B] font-medium">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="
+            max-w-7xl
+            mx-auto
+            
+            px-6
+            "
+          >
+            <div
+              className="
+            
+              pt-20
+              md:pt-28
+              
+              "
+            >
+              {/* Small Heading */}
+              <motion.span
+                variants={itemVariants}
+                className="
+                uppercase
+                tracking-[0.35em]
+                text-[#C19A6B]
+                text-xs
+                sm:text-sm
+                font-semibold
+                
+                "
+              >
                 Premium Clothing Brand
-              </p>
+              </motion.span>
 
-              <h2 className="mt-4 text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight">
+              {/* Main Heading */}
+              <motion.h2
+                variants={itemVariants}
+                className="
+                mt-5
+                text-4xl
+                sm:text-5xl
+                md:text-6xl
+                lg:text-7xl
+                font-black
+                leading-[1.05]
+                text-white
+                "
+              >
                 Elevate Your Everyday Style
-              </h2>
+              </motion.h2>
 
-              <p className="mt-6 text-gray-200 text-base sm:text-lg leading-8 max-w-xl">
+              {/* Description */}
+              <motion.p
+                variants={itemVariants}
+                className="
+                mt-6
+                max-w-xl
+                text-neutral-200
+                text-base
+                sm:text-lg
+                leading-8
+                "
+              >
                 Discover timeless fashion crafted with premium fabrics, modern
                 silhouettes, and unmatched attention to detail. Designed for
                 those who wear confidence every day.
-              </p>
+              </motion.p>
 
-              <div className="mt-10 flex flex-wrap gap-4">
-                <button className="px-8 py-3 rounded-md bg-[#C19A6B] text-black font-semibold transition hover:scale-105">
-                  Shop Now
-                </button>
+              {/* Buttons */}
+              <motion.div
+                variants={itemVariants}
+                className="mt-10 flex flex-col sm:flex-row gap-5"
+              >
+                <motion.button
+                  whileHover={{
+                    scale: 1.02,
+                  }}
+                  whileTap={{
+                    scale: 0.98,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="
+          group
+          relative
+          overflow-hidden
+          rounded-full
+          bg-[#C19A6B]
+          px-10
+          py-4
+          font-semibold
+          text-white
+          hover:text-[#C19A6B]
+          transition
+          "
+                >
+                  <span className="relative z-10">Shop Collection</span>
 
-                <button className="px-8 py-3 rounded-md border border-white text-white transition hover:bg-white hover:text-black">
-                  Explore
-                </button>
-              </div>
+                  <span
+                    className="
+            absolute
+            inset-0
+            translate-y-full
+            bg-white 
+            transition
+            duration-300
+            group-hover:translate-y-0
+            "
+                  />
+                </motion.button>
+
+                <motion.button
+                  whileHover={{
+                    borderColor: "#ffffff",
+                  }}
+                  className="
+          rounded-full
+          border
+          border-white/50
+          px-10
+          py-4
+          text-white
+          backdrop-blur-md
+          transition
+          hover:bg-white
+          hover:text-black
+          duration-300
+          "
+                >
+                  Explore Styles
+                </motion.button>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
+        </div>
+        {/* Bottom Scroll Indicator */}
+        <div
+          className="
+    absolute
+    bottom-8
+    left-1/2
+    -translate-x-1/2
+    text-white/70
+    text-xs
+    tracking-[0.4em]
+    uppercase animate-bounce
+    "
+        >
+          Scroll
         </div>
       </section>
-      <Categories />
-      <BrandVideo />
-      <FeaturedCollection />
-      <NewArrival />
+
+      <LazySection>
+        <Suspense fallback={null}>
+          <Categories product={categoryItem} />
+        </Suspense>
+      </LazySection>
+
+      <LazySection>
+        <Suspense fallback={null}>
+          <BrandVideo />
+        </Suspense>
+      </LazySection>
+
+      <LazySection>
+        <Suspense fallback={null}>
+          <FeaturedCollection products={featuredProducts} />
+        </Suspense>
+      </LazySection>
+
+      <LazySection>
+        <Suspense fallback={null}>
+          <NewArrival products={newArrivalProducts} />
+        </Suspense>
+      </LazySection>
     </>
   );
 };

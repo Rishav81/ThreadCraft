@@ -4,18 +4,16 @@ import {
 } from "../../Components/Ui/HeroAnimation";
 import LazySection from "../../Components/Ui/LazySection";
 import { getProducts } from "../../Data/API/productApi";
-const MensCategories = lazy(() => import("./MensCategories"));
-const Promotion = lazy(() => import("./Promotion"));
-const BestSeller = lazy(() => import("./BestSeller"));
-const NewArrival = lazy(() => import("./NewArrival"));
-const AllProducts = lazy(() => import("./AllProducts"));
-const Trending = lazy(() => import("./Trending"));
-const Rating = lazy(() => import("./Rating"));
 import { motion } from "framer-motion";
 
 import { lazy, Suspense, useEffect, useState } from "react";
+const WomenCategories = lazy(() => import("./WomenCategories"));
+const Trending = lazy(() => import("./Trending"));
+const BestSeller = lazy(() => import("./BestSeller"));
+const NewArrival = lazy(() => import("./NewArrival"));
+const AllProducts = lazy(() => import("./AllProducts"));
 
-const Landing = () => {
+const WomenHero = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -32,16 +30,18 @@ const Landing = () => {
     fetchProducts();
   }, []);
 
-  const mensProducts = products.filter((product) => product.gender === "Men");
+  const womenProducts = products.filter(
+    (product) => product.gender === "Women",
+  );
 
-  const trendingProducts = mensProducts.filter(
+  const trendingProducts = womenProducts.filter(
     (product) => product.trending === true,
   );
-  const bestSellerProducts = mensProducts.filter(
+
+  const bestSellerProducts = womenProducts.filter(
     (product) => product.bestSeller === true,
   );
-  const rating = mensProducts.filter((product) => product.rating >= 4.5);
-  const newArrivalProducts = mensProducts.filter((product) => {
+  const newArrivalProducts = womenProducts.filter((product) => {
     const createdDate = new Date(product.createdAt);
 
     const today = new Date();
@@ -50,17 +50,18 @@ const Landing = () => {
 
     return diff <= 10;
   });
-  const mensCategories = mensProducts.filter((product) => product.category);
+
+  const womenCategories = womenProducts.filter((product) => product.category);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r from-black via-[#111111] to-black  ">
+    <section className="relative overflow-hidden  bg-gradient-to-r from-black via-[#111111] to-black ">
       <section className="relative h-screen  overflow-hidden">
         {/* Background Image */}
 
         <motion.img
-          src="/Images/Poster.png"
+          src="/Images/Women-Hero.png"
           alt="Women Collection"
-          className="absolute inset-0 h-full lg:h-fit w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           animate={{
             scale: [1, 1.06, 1],
             x: [0, -18, 0],
@@ -93,11 +94,9 @@ const Landing = () => {
       relative z-10
       flex h-full
       items-center
-    justify-between
-      max-w-7xl mx-auto
-     
+      max-w-7xl
+      mx-auto
       px-6
-      
     "
         >
           <motion.div
@@ -123,31 +122,32 @@ const Landing = () => {
         text-xs
         uppercase
         tracking-[0.4em]
-        text-[#C19A6B] animate-pulse
+        text-[#C19A6B]
+        animate-pulse
         "
             >
               <span className="h-2 w-2 rounded-full bg-[#C19A6B]" />
-              Men's Collection
+              Women's Collection
             </div>
 
             {/* Heading */}
+
             <motion.h1
               variants={itemVariants}
               className="
-               text-5xl
-               md:text-6xl
-               lg:text-8xl
-               font-light
-               uppercase
-               leading-[0.95]
-               tracking-tight
-               text-white
-             "
+    text-5xl
+    md:text-6xl
+    lg:text-8xl
+    font-light
+    uppercase
+    leading-[0.95]
+    tracking-tight
+    text-white
+  "
             >
               Redefine
               <span className="block text-[#C19A6B]">Your Elegance</span>
             </motion.h1>
-
             {/* Description */}
             <motion.p
               variants={itemVariants}
@@ -160,10 +160,9 @@ const Landing = () => {
     text-gray-200
   "
             >
-              Discover premium menswear crafted for the modern gentleman. From
-              refined shirts and tailored jackets to elevated denim and
-              contemporary streetwear, every piece is designed to embody
-              confidence, sophistication, and effortless style.
+              Discover timeless silhouettes crafted for the modern woman.
+              Premium fabrics, elegant designs, and effortless style created for
+              every moment.
             </motion.p>
 
             {/* Buttons */}
@@ -187,7 +186,6 @@ const Landing = () => {
                 hover:text-[#C19A6B] transition "
               >
                 <span className="relative z-10">Shop Collection</span>
-
                 <span
                   className="
             absolute
@@ -243,18 +241,15 @@ const Landing = () => {
       </section>
       <LazySection>
         <Suspense fallback={null}>
-          <MensCategories product={mensCategories} />
+          <WomenCategories product={womenCategories} />
           <NewArrival product={newArrivalProducts} />
-          <Rating product={rating} />
           <Trending product={trendingProducts} />
           <BestSeller product={bestSellerProducts} />
-
-          <AllProducts product={mensProducts} />
-          <Promotion />
+          <AllProducts product={womenProducts} />
         </Suspense>
       </LazySection>
     </section>
   );
 };
 
-export default Landing;
+export default WomenHero;
