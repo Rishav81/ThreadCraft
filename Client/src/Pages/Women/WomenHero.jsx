@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
 import {
   containerVariants,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
 import LazySection from "../../Components/Ui/LazySection";
-import { getProducts } from "../../Data/API/productApi";
+
 import { motion } from "framer-motion";
 
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
+import { useProducts } from "../../Context/ProductContext";
 const WomenCategories = lazy(() => import("./WomenCategories"));
 const Trending = lazy(() => import("./Trending"));
 const BestSeller = lazy(() => import("./BestSeller"));
@@ -14,21 +16,7 @@ const NewArrival = lazy(() => import("./NewArrival"));
 const AllProducts = lazy(() => import("./AllProducts"));
 
 const WomenHero = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await getProducts();
-
-        setProducts(response.data.products);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  const { products } = useProducts();
 
   const womenProducts = products.filter(
     (product) => product.gender === "Women",
@@ -54,36 +42,39 @@ const WomenHero = () => {
   const womenCategories = womenProducts.filter((product) => product.category);
 
   return (
-    <section className="relative overflow-hidden  bg-gradient-to-r from-black via-[#111111] to-black ">
-      <section className="relative h-screen  overflow-hidden">
-        {/* Background Image */}
-
+    <>
+      <section className="relative h-[78vh] min-h-[620px] w-full overflow-hidden lg:h-screen ">
+        {/* Background */}
         <motion.img
           src="/Images/Women-Hero.png"
-          alt="Women Collection"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          alt="Women's Collection"
+          className="
+      absolute inset-0
+      h-full w-full
+      object-cover
+      object-[60%_center]
+      md:object-center
+    "
           animate={{
             scale: [1, 1.06, 1],
-            x: [0, -18, 0],
-            y: [0, 12, 0],
           }}
           transition={{
-            duration: 18,
+            duration: 20,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/45" />
+        {/* Main overlay */}
+        <div className="absolute inset-0 bg-black/35" />
 
-        {/* Luxury Gradient */}
+        {/* Editorial gradient */}
         <div
           className="
       absolute inset-0
       bg-gradient-to-r
-      from-black/70
-      via-black/40
+      from-black/80
+      via-black/45
       to-black/10
     "
         />
@@ -92,138 +83,136 @@ const WomenHero = () => {
         <div
           className="
       relative z-10
-      flex h-full
-      items-center
-      max-w-7xl
       mx-auto
+      flex h-full
+      w-full
+      max-w-7xl
+      items-center
       px-6
+      lg:px-10
     "
         >
           <motion.div
-            className="max-w-3xl text-left"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            className="max-w-2xl"
           >
-            {/* Badge */}
-            <div
+            {/* Editorial Label */}
+            <motion.div
+              variants={itemVariants}
               className="
-        mb-6
-        inline-flex
-        items-center
-        gap-3
-        rounded-full
-        border
-        border-[#C19A6B]/40
-        bg-white/5
-        backdrop-blur-md
-        px-5
-        py-2
-        text-xs
-        uppercase
-        tracking-[0.4em]
-        text-[#C19A6B]
-        animate-pulse
+          mb-7
+          flex items-center gap-3
+          text-[10px]
+          font-medium
+          uppercase
+          tracking-[0.4em]
+          text-[#C19A6B]
+          sm:text-xs
         "
             >
-              <span className="h-2 w-2 rounded-full bg-[#C19A6B]" />
+              <span className="h-px w-10 bg-[#C19A6B]" />
               Women's Collection
-            </div>
+              <span className="h-px w-10 bg-[#C19A6B]" />
+            </motion.div>
 
             {/* Heading */}
-
             <motion.h1
               variants={itemVariants}
               className="
-    text-5xl
-    md:text-6xl
-    lg:text-8xl
-    font-light
-    uppercase
-    leading-[0.95]
-    tracking-tight
-    text-white
-  "
+          text-5xl
+          font-light
+          uppercase
+          leading-[0.9]
+          tracking-[-0.03em]
+          text-white
+          sm:text-6xl
+          md:text-7xl
+          lg:text-8xl
+        "
             >
               Redefine
               <span className="block text-[#C19A6B]">Your Elegance</span>
             </motion.h1>
+
             {/* Description */}
             <motion.p
               variants={itemVariants}
               className="
-    mt-6
-    max-w-xl
-    text-base
-    md:text-lg
-    leading-relaxed
-    text-gray-200
-  "
+          mt-7
+          max-w-xl
+          text-sm
+          leading-7
+          text-white/70
+          sm:text-base
+          sm:leading-8
+        "
             >
               Discover timeless silhouettes crafted for the modern woman.
-              Premium fabrics, elegant designs, and effortless style created for
-              every moment.
+              Refined fabrics, effortless tailoring, and contemporary details
+              designed for every occasion.
             </motion.p>
 
-            {/* Buttons */}
-
+            {/* Collection Meta */}
             <motion.div
               variants={itemVariants}
-              className="mt-10 flex flex-col sm:flex-row gap-5"
+              className="
+          mt-6
+          flex items-center gap-4
+          text-[10px]
+          uppercase
+          tracking-[0.3em]
+          text-white/50
+        "
             >
-              <motion.button
-                whileHover={{
-                  scale: 1.02,
-                }}
-                whileTap={{
-                  scale: 0.98,
-                }}
-                transition={{
-                  duration: 0.2,
-                }}
-                className=" group relative overflow-hidden rounded-full
-                bg-[#C19A6B] px-10 py-4 font-semibold text-white
-                hover:text-[#C19A6B] transition "
-              >
-                <span className="relative z-10">Shop Collection</span>
-                <span
-                  className="
-            absolute
-            inset-0
-            translate-y-full
-            bg-white 
-            transition
-            duration-300
-            group-hover:translate-y-0
-            "
-                />
-              </motion.button>
+              <span>New Season</span>
 
-              <motion.button
-                whileHover={{
-                  borderColor: "#ffffff",
-                }}
+              <span className="h-1 w-1 rounded-full bg-[#C19A6B]" />
+
+              <span>Women's Collection</span>
+            </motion.div>
+
+            {/* CTA */}
+            <motion.div variants={itemVariants} className="mt-9">
+              <Link
+                to="/shop"
                 className="
-          rounded-full
-          border
-          border-white/50
-          px-10
-          py-4
-          text-white
-          backdrop-blur-md
-          transition
-          hover:bg-white
-          hover:text-black
-          duration-300
+            group
+            relative
+            inline-flex
+            overflow-hidden
+            rounded-tr-3xl
+            bg-[#C19A6B]
+            px-8
+            py-4
+            text-sm
+            font-semibold
+            uppercase
+            tracking-wider
+            text-white
+            transition
+            hover:text-[#C19A6B]
           "
               >
-                Explore Styles
-              </motion.button>
+                <span className="relative z-10">Shop Now</span>
+
+                <span
+                  className="
+              absolute inset-0
+              translate-y-full
+              bg-white
+              transition-transform
+              duration-300
+              group-hover:translate-y-0
+            "
+                />
+              </Link>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Bottom Scroll Indicator */}
+        {/* Scroll Indicator */}
         <div
           className="
     absolute
@@ -239,16 +228,33 @@ const WomenHero = () => {
           Scroll
         </div>
       </section>
+
       <LazySection>
         <Suspense fallback={null}>
           <WomenCategories product={womenCategories} />
+        </Suspense>
+      </LazySection>
+      <LazySection>
+        <Suspense fallback={null}>
           <NewArrival product={newArrivalProducts} />
+        </Suspense>
+      </LazySection>
+      <LazySection>
+        <Suspense fallback={null}>
           <Trending product={trendingProducts} />
+        </Suspense>
+      </LazySection>
+      <LazySection>
+        <Suspense fallback={null}>
           <BestSeller product={bestSellerProducts} />
+        </Suspense>
+      </LazySection>
+      <LazySection>
+        <Suspense fallback={null}>
           <AllProducts product={womenProducts} />
         </Suspense>
       </LazySection>
-    </section>
+    </>
   );
 };
 

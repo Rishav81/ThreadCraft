@@ -36,7 +36,7 @@ const Trending = ({ product }) => {
           variants={itemVariants}
           className="overflow-x-auto scrollbar-hide mt-5"
         >
-          <div className="flex gap-6">
+          <div className="flex gap-2">
             {product.map((product) => (
               <div
                 key={product._id}

@@ -1,32 +1,22 @@
-import { useState, useEffect, useMemo, lazy, Suspense } from "react";
+import { useMemo, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-const BrandVideo = lazy(() => import("./BrandVideo"));
+
 const Categories = lazy(() => import("./Categories"));
 const NewArrival = lazy(() => import("./NewArrival"));
 
-import { getProducts } from "../../Data/API/productApi";
 import LazySection from "../../Components/Ui/LazySection";
 import {
   containerVariants,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
+import { Link } from "react-router-dom";
+import { useProducts } from "../../Context/ProductContext";
+const WhyChoose = lazy(() => import("./WhyChoose"));
+const BrandBanner = lazy(() => import("./BrandBanner"));
 const FeaturedCollection = lazy(() => import("./FeaturedCollection"));
 
 const Hero = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await getProducts();
-        setProducts(response.data.products);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  const { products } = useProducts();
 
   const categoryItem = useMemo(() => {
     return products.filter((product) => product.gender);
@@ -46,16 +36,14 @@ const Hero = () => {
   }, [products]);
   return (
     <>
-      <section className="relative min-h-screen  overflow-hidden">
+      <section className="relative h-[85vh] min-h-[500px] w-full overflow-hidden md:h-screen  ">
         {/* Background Image */}
         <motion.img
           src="/Images/Profile.jpg"
           alt="Profile"
-          className="absolute inset-0 h-full lg:h-fit w-full object-cover object-center "
+          className="absolute inset-0 h-full lg:h-fit w-full object-cover object-[20%_center] md:object-center  "
           animate={{
             scale: [1, 1.06, 1],
-            x: [0, -18, 0],
-            y: [0, 12, 0],
           }}
           transition={{
             duration: 18,
@@ -80,151 +68,179 @@ const Hero = () => {
 
         {/* Hero Content */}
         <div
-          className="
-          relative
-          z-20
-          min-h-[90svh]
-          flex
-          items-center
-          "
+          className="  relative
+    z-20
+    w-full
+    h-full
+    max-w-7xl
+    mx-auto
+    px-6
+    flex
+    items-center
+    
+  "
         >
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="
-            max-w-7xl
-            mx-auto
-            
-            px-6
-            "
+            className="flex flex-col text-left "
           >
-            <div
+            <motion.div
+              variants={itemVariants}
               className="
-            
-              pt-20
-              md:pt-28
-              
-              "
+          mb-7
+          flex items-center gap-3
+          text-[8px]
+         md:text-[10px]
+          font-medium
+          uppercase
+          tracking-[0.4em]
+          text-[#C19A6B]
+          sm:text-xs
+        "
             >
-              {/* Small Heading */}
-              <motion.span
-                variants={itemVariants}
-                className="
-                uppercase
-                tracking-[0.35em]
-                text-[#C19A6B]
-                text-xs
-                sm:text-sm
-                font-semibold
-                
-                "
-              >
-                Premium Clothing Brand
-              </motion.span>
+              <span className="h-px w-10 bg-[#C19A6B]" />
+              Premium clothing Brand
+              <span className="h-px w-10 bg-[#C19A6B]" />
+            </motion.div>
 
-              {/* Main Heading */}
-              <motion.h2
-                variants={itemVariants}
-                className="
-                mt-5
-                text-4xl
-                sm:text-5xl
-                md:text-6xl
-                lg:text-7xl
-                font-black
-                leading-[1.05]
-                text-white
-                "
-              >
-                Elevate Your Everyday Style
-              </motion.h2>
-
-              {/* Description */}
-              <motion.p
-                variants={itemVariants}
-                className="
-                mt-6
-                max-w-xl
-                text-neutral-200
-                text-base
-                sm:text-lg
-                leading-8
-                "
-              >
-                Discover timeless fashion crafted with premium fabrics, modern
-                silhouettes, and unmatched attention to detail. Designed for
-                those who wear confidence every day.
-              </motion.p>
-
-              {/* Buttons */}
-              <motion.div
-                variants={itemVariants}
-                className="mt-10 flex flex-col sm:flex-row gap-5"
-              >
-                <motion.button
-                  whileHover={{
-                    scale: 1.02,
-                  }}
-                  whileTap={{
-                    scale: 0.98,
-                  }}
-                  transition={{
-                    duration: 0.2,
-                  }}
-                  className="
-          group
-          relative
-          overflow-hidden
-          rounded-full
-          bg-[#C19A6B]
-          px-10
-          py-4
-          font-semibold
+            {/* Main Heading */}
+            <motion.h1
+              variants={itemVariants}
+              className="
+          text-5xl
+          font-light
+          uppercase
+          leading-[0.9]
+          tracking-[-0.03em]
           text-white
-          hover:text-[#C19A6B]
-          transition
+          sm:text-6xl
+          md:text-7xl
+          lg:text-8xl
+        "
+            >
+              Elevate Your
+              <span className="block text-[#C19A6B]">Everyday Style</span>
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              variants={itemVariants}
+              className="
+          mt-7
+          max-w-xl
+          text-sm
+          leading-7
+          text-white/70
+          sm:text-base
+          sm:leading-8
+        "
+            >
+              Discover timeless fashion crafted with premium fabrics, modern
+              silhouettes, and unmatched attention to detail. Designed for those
+              who wear confidence every day.
+            </motion.p>
+
+            <motion.div
+              variants={itemVariants}
+              className="
+          mt-6
+          flex items-center gap-4
+          text-[10px]
+          uppercase
+          tracking-[0.3em]
+          text-white/50
+        "
+            >
+              <span>New Brand</span>
+
+              <span className="h-1 w-1 rounded-full bg-[#C19A6B]" />
+
+              <span>Premium Collection</span>
+            </motion.div>
+
+            {/* Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-6 lg:mt-10 flex flex-row gap-5 "
+            >
+              {/* <motion.div variants={itemVariants}>
+                <Link
+                  to="/shop"
+                  className="
+            group
+            relative
+            inline-flex
+            overflow-hidden
+            rounded-tr-3xl
+            bg-[#C19A6B]
+            px-4 md:px-6 lg:px-8
+            py-4
+               border border-[#C19A6B]
+            text-sm
+            font-semibold
+            uppercase
+            tracking-wider
+            text-white
+            transition
+            hover:text-[#C19A6B]
           "
                 >
-                  <span className="relative z-10">Shop Collection</span>
+                  <span className="relative z-10">Shop Now</span>
 
                   <span
                     className="
-            absolute
-            inset-0
-            translate-y-full
-            bg-white 
-            transition
-            duration-300
-            group-hover:translate-y-0
+              absolute inset-0
+              translate-y-full
+              bg-white
+              transition-transform
+              duration-300
+              group-hover:translate-y-0
             "
                   />
-                </motion.button>
-
-                <motion.button
-                  whileHover={{
-                    borderColor: "#ffffff",
-                  }}
+                </Link>
+              </motion.div> */}
+              <motion.div variants={itemVariants}>
+                <Link
+                  to="/collections"
                   className="
-          rounded-full
-          border
-          border-white/50
-          px-10
-          py-4
-          text-white
-          backdrop-blur-md
-          transition
-          hover:bg-white
-          hover:text-black
-          duration-300
+            group
+            relative
+            inline-flex
+            overflow-hidden
+            rounded-tr-3xl
+            bg-[#C19A6B]
+            px-4 md:px-6 lg:px-8
+            py-4
+               border border-[#C19A6B]
+            text-sm
+            font-semibold
+            uppercase
+            tracking-wider
+            text-white
+            transition
+            hover:text-[#C19A6B]
           "
                 >
-                  Explore Styles
-                </motion.button>
+                  <span className="relative z-10">Explore Styles</span>
+
+                  <span
+                    className="
+              absolute inset-0
+              translate-y-full
+              bg-white
+              transition-transform
+              duration-300
+              group-hover:translate-y-0
+            "
+                  />
+                </Link>
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
+
         {/* Bottom Scroll Indicator */}
         <div
           className="
@@ -247,13 +263,11 @@ const Hero = () => {
           <Categories product={categoryItem} />
         </Suspense>
       </LazySection>
-
       <LazySection>
         <Suspense fallback={null}>
-          <BrandVideo />
+          <BrandBanner />
         </Suspense>
       </LazySection>
-
       <LazySection>
         <Suspense fallback={null}>
           <FeaturedCollection products={featuredProducts} />
@@ -263,6 +277,11 @@ const Hero = () => {
       <LazySection>
         <Suspense fallback={null}>
           <NewArrival products={newArrivalProducts} />
+        </Suspense>
+      </LazySection>
+      <LazySection>
+        <Suspense fallback={null}>
+          <WhyChoose />
         </Suspense>
       </LazySection>
     </>

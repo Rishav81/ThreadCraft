@@ -17,6 +17,7 @@ html {
 
 body {
   overflow-x: hidden;
+  background-color: rgb(3, 2, 1);
 }
 .input-style {
   @apply w-full rounded-xl border border-gray-200 bg-white px-4 py-3 outline-none transition focus:border-[#C19A6B] focus:ring-4 focus:ring-[#C19A6B]/10;

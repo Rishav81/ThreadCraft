@@ -1,7 +1,9 @@
 import { productApi } from "./axios";
 
-export const getProducts = () => {
-  return productApi.get("/");
+export const getProducts = (filters = {}) => {
+  return productApi.get("/", {
+    params: filters,
+  });
 };
 
 export const createProduct = (formData) => {

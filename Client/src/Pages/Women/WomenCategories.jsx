@@ -4,7 +4,7 @@ import {
   containerVariants,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
-const WomenCategories = ({ product }) => {
+const WomenCategories = ({ product = [] }) => {
   const uniqueCategories = product
     .filter(
       (item, index, self) =>
@@ -15,6 +15,9 @@ const WomenCategories = ({ product }) => {
       itemCount: product.filter((item) => item.category === category.category)
         .length,
     }));
+  if (uniqueCategories.length === 0) {
+    return null;
+  }
   return (
     <motion.section
       variants={containerVariants}
@@ -31,10 +34,10 @@ const WomenCategories = ({ product }) => {
         className=" max-w-7xl mx-auto "
       >
         {/* Categories Content */}
-        <div className="mb-6">
+        <div className="mb-4">
           <motion.h2
             variants={itemVariants}
-            className="mt-3 text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight"
+            className="mt-3 uppercase tracking-[0.4em] text-[#C19A6B] text-xs md:text-lg font-semibold"
           >
             Find Your
             <span className="text-[#C19A6B]"> Signature Style</span>

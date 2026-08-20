@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginAccount } from "../../Data/API/authApi";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { useAuth } from "../../Context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { checkAuth } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -36,6 +38,7 @@ const Login = () => {
       const response = await loginAccount(formData);
 
       if (response.data.success) {
+        await checkAuth();
         navigate("/");
       }
     } catch (error) {

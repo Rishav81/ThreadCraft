@@ -7,6 +7,9 @@ import cookieParser from "cookie-parser";
 import productRouter from "./routes/productRoute.js";
 import AuthRouter from "./routes/authRoute.js";
 import userRouter from "./routes/userRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
+import paymentRouter from "./routes/paymentRoute.js";
 
 const app = express();
 
@@ -26,7 +29,10 @@ app.use(cookieParser());
 app.get("/", (req, res) => res.send("Thread Craft is running!"));
 app.use("/api/products", productRouter);
 app.use("/api/auth", AuthRouter);
-app.use("/api/profile", userRouter);
+app.use("/api", userRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api", orderRouter);
+app.use("/api/payment", paymentRouter);
 
 //Server PORT
 const PORT = process.env.PORT || 5000;

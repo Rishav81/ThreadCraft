@@ -4,6 +4,7 @@ import {
   imageAnimation,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
+import { Link } from "react-router-dom";
 
 const BrandVideo = () => {
   return (
@@ -65,12 +66,15 @@ const BrandVideo = () => {
           is designed to inspire confidence.
         </motion.p>
 
-        <motion.button
-          variants={itemVariants}
-          className="mt-8 rounded-full border border-[#C19A6B] px-8 py-3 text-[#C19A6B] transition hover:bg-[#C19A6B] hover:text-black"
-        >
-          Explore Collection
-        </motion.button>
+        <motion.div variants={itemVariants} className="mt-8 ">
+          <Link
+            to="/collections"
+            className="rounded-xl border border-[#C19A6B] px-8 py-3 text-[#C19A6B] transition hover:bg-[#C19A6B] hover:text-black duration-500"
+          >
+            {" "}
+            Explore Collection
+          </Link>
+        </motion.div>
       </motion.div>
     </motion.section>
   );

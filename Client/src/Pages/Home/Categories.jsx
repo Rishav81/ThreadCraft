@@ -5,7 +5,7 @@ import {
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
 
-const Categories = ({ product }) => {
+const Categories = ({ product = [] }) => {
   const uniqueCategories = product
     .filter(
       (item, index, self) =>
@@ -15,52 +15,39 @@ const Categories = ({ product }) => {
       ...gender,
       itemCount: product.filter((item) => item.gender === gender.gender).length,
     }));
+  if (uniqueCategories === 0) {
+    return null;
+  }
   return (
     <motion.section
       variants={containerVariants}
-      className="relative pb-6 pt-12 bg-[#F5F3EF]"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{
+        once: true,
+        amount: 0.3,
+      }}
+      className="relative pt-6 px-4 sm:px-6 lg:px-8 "
     >
-      <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#402401] via-[#C19A6B]/60 to-transparent" />
-
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{
-          once: true,
-          amount: 0.3,
-        }}
-        className="relative max-w-7xl mx-auto px-6"
-      >
-        {/* Categories Content */}
+      <div className="relative max-w-7xl mx-auto ">
         <motion.div className="mb-4">
           <motion.p
             variants={itemVariants}
-            className="uppercase tracking-[0.4em] text-white text-xs font-semibold"
+            className="uppercase tracking-[0.4em] text-white text-xs md:text-lg font-semibold"
           >
             Curated Collections
           </motion.p>
-
-          <motion.h2
-            variants={itemVariants}
-            className=" uppercase tracking-[0.4em] text-white text-xs md:text-lg font-semibold "
-          >
-            Find Your
-            <span className="text-[#C19A6B]"> Signature Style</span>
-          </motion.h2>
         </motion.div>
 
-        {/* Cards */}
         <motion.div
           variants={itemVariants}
           className="
             flex
             gap-6
-            justify-start
             overflow-x-auto
            
             scrollbar-hide
-            pb-3
+            
           "
         >
           {uniqueCategories.map((gender) => (
@@ -83,9 +70,9 @@ const Categories = ({ product }) => {
               "
             >
               {/* Image */}
-              <img
+              <motion.img
                 src={gender.images?.[0]?.url}
-                alt={gender.title}
+                alt={gender.name}
                 loading="lazy"
                 className="
                   absolute
@@ -100,32 +87,31 @@ const Categories = ({ product }) => {
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-
-              {/* Border */}
-              <div className="absolute inset-0  rounded-[32px]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/30 to-transparent" />
 
               {/* Content */}
               <div
                 className="
-               
-                 absolute
+                  absolute
                   bottom-8
                   left-8
                   right-8
                   transition-all
                   duration-500
-                  group-hover:bottom-10
+                  group-hover:scale-102
                 "
               >
-                <h3 className=" text-2xl font-bold text-white line-clamp-1">
+                <motion.h3
+                  variants={itemVariants}
+                  className=" text-2xl font-bold text-white line-clamp-1"
+                >
                   {gender.gender}
-                </h3>
+                </motion.h3>
               </div>
             </Link>
           ))}
         </motion.div>
-      </motion.div>
+      </div>
     </motion.section>
   );
 };

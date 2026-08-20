@@ -5,7 +5,10 @@ import {
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
 
-const NewArrival = ({ product }) => {
+const NewArrival = ({ product = [] }) => {
+  if (product.length === 0) {
+    return null;
+  }
   return (
     <motion.section
       variants={containerVariants}
@@ -26,18 +29,10 @@ const NewArrival = ({ product }) => {
         <div className="mb-4">
           <motion.h2
             variants={itemVariants}
-            className="mt-3 text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight "
+            className="mt-3 uppercase tracking-[0.4em] text-[#C19A6B] text-xs md:text-lg font-semibold "
           >
             New Arrival <span className="text-[#C19A6B]"> Collection</span>
           </motion.h2>
-
-          <motion.p
-            variants={itemVariants}
-            className="mt-2 text-gray-600 max-w-xl text-sm"
-          >
-            Discover our new arrival premium collection crafted for timeless
-            style and everyday elegance.
-          </motion.p>
         </div>
 
         {/* Products Grid */}
@@ -45,7 +40,7 @@ const NewArrival = ({ product }) => {
           variants={itemVariants}
           className="overflow-x-auto scrollbar-hide mt-5"
         >
-          <div className="flex gap-6">
+          <div className="flex gap-2">
             {product.map((product) => (
               <div
                 key={product._id}

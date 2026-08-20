@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
 import ProductCard from "../../Components/Product/ProductCard";
 import {
   containerVariants,
@@ -7,7 +5,10 @@ import {
 } from "../../Components/Ui/HeroAnimation";
 import { motion } from "framer-motion";
 
-const FeaturedCollection = ({ products }) => {
+const FeaturedCollection = ({ products = [] }) => {
+  if (products.length === 0) {
+    return null;
+  }
   return (
     <motion.section
       variants={containerVariants}
@@ -39,7 +40,7 @@ const FeaturedCollection = ({ products }) => {
           variants={itemVariants}
           className="overflow-x-auto scrollbar-hide mt-5"
         >
-          <div className="flex gap-6">
+          <div className="flex gap-2">
             {products.map((product) => (
               <div
                 key={product._id}

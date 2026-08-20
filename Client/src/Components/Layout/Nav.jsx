@@ -10,7 +10,7 @@ const navItems = [
   { name: "Men's", path: "/men" },
   { name: "Women's", path: "/women" },
   { name: "Kid's", path: "/kids" },
-  { name: "New Arrivals", path: "/new-arrivals" },
+  { name: "New Arrivals", path: "/new-arrival" },
   { name: "Collections", path: "/collections" },
 ];
 

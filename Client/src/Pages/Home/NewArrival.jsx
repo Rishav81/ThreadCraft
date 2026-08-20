@@ -6,7 +6,10 @@ import {
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
 
-const NewArrival = ({ products }) => {
+const NewArrival = ({ products = [] }) => {
+  if (products.length === 0) {
+    return null;
+  }
   return (
     <motion.section
       variants={containerVariants}
@@ -39,7 +42,7 @@ const NewArrival = ({ products }) => {
           variants={itemVariants}
           className="overflow-x-auto scrollbar-hide mt-5"
         >
-          <div className="flex gap-6">
+          <div className="flex gap-2">
             {products.map((product) => (
               <div
                 key={product._id}

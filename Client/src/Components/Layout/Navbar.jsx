@@ -1,10 +1,7 @@
-import { Link } from "react-router-dom";
-
 import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingBag, FiUser, FiMenu, FiX } from "react-icons/fi";
-import Nav from "./Nav";
-import Profile from "./Profile";
-import SearchBar from "./SearchBar";
+
 import {
   Baby,
   BadgePlus,
@@ -15,22 +12,48 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import Nav from "./Nav";
+import Profile from "./Profile";
+import SearchBar from "./SearchBar";
+
+import { useCart } from "../../Context/CartContext";
+import { useAuth } from "../../Context/AuthContext";
+import { useAuthModal } from "../../Context/AuthModelContext";
+
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { openLoginModal } = useAuthModal();
+
+  const { cartCount } = useCart();
+
   const [isOpen, setIsOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+
   const profileRef = useRef(null);
   const sidebarRef = useRef(null);
 
+  const handleCartClick = () => {
+    if (!isAuthenticated) {
+      openLoginModal();
+      return;
+    }
+    navigate("/cart");
+  };
+
   useEffect(() => {
-    function handleClickOutside(event) {
+    const handleClickOutside = (event) => {
+      // Close profile
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setShowProfile(false);
       }
+
+      // Close mobile menu
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
         setIsOpen(false);
       }
-    }
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -39,48 +62,78 @@ const Navbar = () => {
     };
   }, []);
 
+  // =========================
+  // MOBILE NAVIGATION
+  // =========================
+
+  const handleMobileLinkClick = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 ">
+    <header className="fixed left-0 top-0 z-50 w-full">
       <nav
         className="
-  max-w-7xl
-  mx-auto
-  mt-2 md:mt-3 lg:mt-4
-  px-2 md:px-4 lg:px-6
-  py-2
-
-
-"
+          mx-auto
+          mt-2
+          max-w-7xl
+          px-2
+          py-2
+          md:mt-3
+          md:px-4
+          lg:mt-4
+          lg:px-6
+        "
       >
         <div className="flex items-center justify-between">
-          {/* Left */}
+          {/* =========================
+              LEFT
+          ========================= */}
+
           <div className="flex items-center gap-4">
+            {/* Mobile Menu */}
             <button
+              type="button"
               onClick={() => setIsOpen(true)}
-              className="lg:hidden text-white"
+              className="text-white lg:hidden"
+              aria-label="Open menu"
             >
               <FiMenu size={26} />
             </button>
 
+            {/* Logo */}
             <Link to="/" className="font-black tracking-wider text-white">
-              <span className="hidden md:inline text-4xl ">
-                Thread<span className="text-[#C19A6B]">Craft</span>
+              {/* Desktop */}
+              <span className="hidden text-4xl md:inline">
+                Thread
+                <span className="text-[#C19A6B]">Craft</span>
               </span>
 
-              <span className="md:hidden text-4xl">
+              {/* Mobile */}
+              <span className="text-4xl md:hidden">
                 T<span className="text-[#C19A6B]">C</span>
               </span>
             </Link>
           </div>
 
+          {/* =========================
+              DESKTOP NAV
+          ========================= */}
+
           <Nav />
 
-          {/* Right */}
+          {/* =========================
+              RIGHT ACTIONS
+          ========================= */}
+
           <div className="flex items-center gap-5">
+            {/* Search */}
             <div>
               <button
+                type="button"
                 onClick={() => setShowSearch(true)}
-                className="   text-white hover:text-[#C19A6B] transition cursor-pointer"
+                className="cursor-pointer text-white transition hover:text-[#C19A6B]"
+                aria-label="Search"
               >
                 <FiSearch size={22} />
               </button>
@@ -88,10 +141,13 @@ const Navbar = () => {
               {showSearch && <SearchBar onClose={() => setShowSearch(false)} />}
             </div>
 
-            <div ref={profileRef}>
+            {/* Profile */}
+            <div ref={profileRef} className="relative">
               <button
+                type="button"
                 onClick={() => setShowProfile((prev) => !prev)}
-                className="text-white hover:text-[#C19A6B] transition cursor-pointer"
+                className="cursor-pointer text-white transition hover:text-[#C19A6B]"
+                aria-label="Profile"
               >
                 <FiUser size={22} />
               </button>
@@ -99,133 +155,187 @@ const Navbar = () => {
               {showProfile && <Profile />}
             </div>
 
-            <button className=" relative text-white hover:text-[#C19A6B] transition cursor-pointer">
+            {/* Cart */}
+            <button
+              type="button"
+              onClick={handleCartClick}
+              className="relative cursor-pointer text-white transition hover:text-[#C19A6B]"
+              aria-label="Shopping cart"
+            >
               <FiShoppingBag size={22} />
 
-              <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-[#C19A6B] text-black text-xs flex items-center justify-center font-bold">
-                0
-              </span>
+              {cartCount > 0 && (
+                <span
+                  className="
+                    absolute
+                    -right-2
+                    -top-2
+                    flex
+                    h-5
+                    w-5
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-[#C19A6B]
+                    text-xs
+                    font-bold
+                    text-black
+                  "
+                >
+                  {cartCount}
+                </span>
+              )}
             </button>
           </div>
         </div>
       </nav>
 
-      <>
-        {isOpen && (
-          <aside
-            ref={sidebarRef}
-            className={`absolute left-0 top-6 z-50 w-80 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl ${
-              isOpen ? "translate-x-0" : "-translate-x-full"
-            }`}
-          >
-            <div className="flex items-center justify-between  p-5 border-white/10">
-              <h2 className="text-xl font-bold text-gray-600">
-                Thread<span className="text-[#C19A6B]">Craft</span>
-              </h2>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-gray-600"
-              >
-                <FiX size={24} />
-              </button>
-            </div>
+      {/* =========================
+          MOBILE MENU
+      ========================= */}
 
-            <hr className="text-gray-600" />
+      {isOpen && (
+        <aside
+          ref={sidebarRef}
+          className="
+            absolute
+            left-0
+            top-6
+            z-50
+            w-80
+            overflow-hidden
+            rounded-2xl
+            border
+            border-gray-200
+            bg-white
+            shadow-2xl
+          "
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between p-5">
+            <h2 className="text-xl font-bold text-gray-600">
+              Thread
+              <span className="text-[#C19A6B]">Craft</span>
+            </h2>
 
-            <div className="flex flex-col px-5 py-2 gap-3 text-gray-600">
-              <Link
-                to="/"
-                className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-              >
-                <div className="flex items-center gap-3">
-                  <House size={20} />
-                  <span>Home</span>
-                </div>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="text-gray-600"
+              aria-label="Close menu"
+            >
+              <FiX size={24} />
+            </button>
+          </div>
 
-                <ChevronRight
-                  size={18}
-                  className="transition group-hover:translate-x-1"
-                />
-              </Link>
+          <hr className="border-gray-200" />
 
-              <Link
-                to="/men"
-                className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-              >
-                <div className="flex items-center gap-3">
-                  <Shirt size={20} />
-                  <span>Men's</span>
-                </div>
+          {/* Links */}
+          <div className="flex flex-col gap-3 px-5 py-2 text-gray-600">
+            {/* Home */}
+            <Link
+              to="/"
+              onClick={handleMobileLinkClick}
+              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
+            >
+              <div className="flex items-center gap-3">
+                <House size={20} />
+                <span>Home</span>
+              </div>
 
-                <ChevronRight
-                  size={18}
-                  className="transition group-hover:translate-x-1"
-                />
-              </Link>
+              <ChevronRight
+                size={18}
+                className="transition group-hover:translate-x-1"
+              />
+            </Link>
 
-              <Link
-                to="/women"
-                className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-              >
-                <div className="flex items-center gap-3">
-                  <Sparkles size={20} />
-                  <span>Women's</span>
-                </div>
+            {/* Men's */}
+            <Link
+              to="/men"
+              onClick={handleMobileLinkClick}
+              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
+            >
+              <div className="flex items-center gap-3">
+                <Shirt size={20} />
+                <span>Men's</span>
+              </div>
 
-                <ChevronRight
-                  size={18}
-                  className="transition group-hover:translate-x-1"
-                />
-              </Link>
+              <ChevronRight
+                size={18}
+                className="transition group-hover:translate-x-1"
+              />
+            </Link>
 
-              <Link
-                to="/kids"
-                className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-              >
-                <div className="flex items-center gap-3">
-                  <Baby size={20} />
-                  <span>Kid's</span>
-                </div>
+            {/* Women's */}
+            <Link
+              to="/women"
+              onClick={handleMobileLinkClick}
+              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
+            >
+              <div className="flex items-center gap-3">
+                <Sparkles size={20} />
+                <span>Women's</span>
+              </div>
 
-                <ChevronRight
-                  size={18}
-                  className="transition group-hover:translate-x-1"
-                />
-              </Link>
+              <ChevronRight
+                size={18}
+                className="transition group-hover:translate-x-1"
+              />
+            </Link>
 
-              <Link
-                to="/new-arrivals"
-                className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-              >
-                <div className="flex items-center gap-3">
-                  <BadgePlus size={20} />
-                  <span>New Arrivals</span>
-                </div>
+            {/* Kids */}
+            <Link
+              to="/kids"
+              onClick={handleMobileLinkClick}
+              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
+            >
+              <div className="flex items-center gap-3">
+                <Baby size={20} />
+                <span>Kid's</span>
+              </div>
 
-                <ChevronRight
-                  size={18}
-                  className="transition group-hover:translate-x-1"
-                />
-              </Link>
+              <ChevronRight
+                size={18}
+                className="transition group-hover:translate-x-1"
+              />
+            </Link>
 
-              <Link
-                to="/collections"
-                className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-              >
-                <div className="flex items-center gap-3">
-                  <LayoutGrid size={20} />
-                  <span>Collections</span>
-                </div>
+            {/* New Arrivals */}
+            <Link
+              to="/new-arrival"
+              onClick={handleMobileLinkClick}
+              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
+            >
+              <div className="flex items-center gap-3">
+                <BadgePlus size={20} />
+                <span>New Arrivals</span>
+              </div>
 
-                <ChevronRight
-                  size={18}
-                  className="transition group-hover:translate-x-1"
-                />
-              </Link>
-            </div>
-          </aside>
-        )}
-      </>
+              <ChevronRight
+                size={18}
+                className="transition group-hover:translate-x-1"
+              />
+            </Link>
+
+            {/* Collections */}
+            <Link
+              to="/collections"
+              onClick={handleMobileLinkClick}
+              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
+            >
+              <div className="flex items-center gap-3">
+                <LayoutGrid size={20} />
+                <span>Collections</span>
+              </div>
+
+              <ChevronRight
+                size={18}
+                className="transition group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
+        </aside>
+      )}
     </header>
   );
 };
