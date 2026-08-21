@@ -20,10 +20,20 @@ const Profile = () => {
   };
 
   return (
-    <div className="absolute right-0 top-6 z-50 w-80 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
-      {/* Arrow */}
-      <div className="absolute -top-2 right-7 h-4 w-4 rotate-45 border-l border-t border-gray-200 bg-white"></div>
-
+    <div
+      className=" absolute
+            left-[-260px]
+            md:right-0
+            top-6
+            z-50
+            w-80
+            overflow-hidden
+            rounded-2xl
+            border
+            border-gray-200
+            bg-white
+            shadow-2xl"
+    >
       {/* User Info */}
       {/* User Info */}
       <Link to="/profile" className="flex items-center gap-4 p-5">
