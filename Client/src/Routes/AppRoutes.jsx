@@ -25,6 +25,10 @@ const Cart = lazy(() => import("../Pages/Cart/Cart"));
 const CheckOut = lazy(() => import("../Pages/Cart/CheckOut"));
 const OrderConfirmed = lazy(() => import("../Pages/Order/OrderConfiirmed"));
 const Orders = lazy(() => import("../Pages/Order/Orders"));
+const Wishlists = lazy(() => import("../Pages/Wishlist/Wishlists"));
+const UserProfile = lazy(() => import("../Pages/Profile/UserProfile"));
+const MyListedItems = lazy(() => import("../Pages/Profile/MyListedItems"));
+const EditProduct = lazy(() => import("../Pages/Products/EditProduct"));
 
 const PageNotFound = lazy(() => import("../Pages/PageNotFound"));
 
@@ -44,11 +48,15 @@ const AppRoutes = () => {
               <Route path="/kids" element={<KidHero />} />
               <Route path="/new-Arrival" element={<NewArrivalHero />} />
               <Route path="/add-product" element={<AddProduct />} />
+              <Route path="/edit-product/:id" element={<EditProduct />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/order-confirmed" element={<OrderConfirmed />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/wishlist" element={<Wishlists />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route path="/my-products" element={<MyListedItems />} />
             </Route>
 
             <Route

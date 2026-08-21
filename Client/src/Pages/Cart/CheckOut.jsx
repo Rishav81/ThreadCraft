@@ -497,10 +497,200 @@ const CheckOut = () => {
   // LOADING
   // =========================================================
 
+  // =========================================================
+  // LOADING
+  // =========================================================
+
   if (loading && !isBuyNow) {
     return (
-      <main className="flex min-h-screen items-center justify-center text-white">
-        <p className="text-sm text-white/40">Loading checkout...</p>
+      <main className="min-h-screen px-4 pb-20 pt-20 text-white sm:px-6 md:pt-24 lg:px-10 lg:pt-32">
+        <div className="mx-auto max-w-7xl">
+          {/* =====================================================
+            HEADER SKELETON
+        ===================================================== */}
+
+          <div className="mb-10 md:mb-12">
+            {/* Back to cart */}
+            <div className="h-3 w-28 animate-pulse rounded bg-white/10" />
+
+            {/* Small label */}
+            <div className="mt-7 h-3 w-28 animate-pulse rounded bg-white/10" />
+
+            {/* Heading */}
+            <div className="mt-4 h-10 w-80 max-w-full animate-pulse rounded bg-white/10 sm:h-12" />
+
+            {/* Description */}
+            <div className="mt-4 h-4 w-72 max-w-full animate-pulse rounded bg-white/10" />
+          </div>
+
+          {/* =====================================================
+            CHECKOUT SKELETON
+        ===================================================== */}
+
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_400px]">
+            {/* ===================================================
+              LEFT
+          =================================================== */}
+
+            <div className="space-y-6">
+              {/* CONTACT INFORMATION */}
+
+              <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
+                <div className="mb-7">
+                  <div className="h-3 w-6 animate-pulse rounded bg-white/10" />
+
+                  <div className="mt-3 h-6 w-52 animate-pulse rounded bg-white/10" />
+
+                  <div className="mt-3 h-4 w-80 max-w-full animate-pulse rounded bg-white/10" />
+                </div>
+
+                <div className="space-y-5">
+                  {/* Name */}
+                  <div>
+                    <div className="mb-2 h-3 w-20 animate-pulse rounded bg-white/10" />
+                    <div className="h-12 w-full animate-pulse rounded-sm bg-white/[0.04]" />
+                  </div>
+
+                  {/* Email + Phone */}
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <div>
+                      <div className="mb-2 h-3 w-24 animate-pulse rounded bg-white/10" />
+                      <div className="h-12 w-full animate-pulse rounded-sm bg-white/[0.04]" />
+                    </div>
+
+                    <div>
+                      <div className="mb-2 h-3 w-24 animate-pulse rounded bg-white/10" />
+                      <div className="h-12 w-full animate-pulse rounded-sm bg-white/[0.04]" />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* SHIPPING ADDRESS */}
+
+              <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
+                <div className="mb-7">
+                  <div className="h-3 w-6 animate-pulse rounded bg-white/10" />
+
+                  <div className="mt-3 h-6 w-48 animate-pulse rounded bg-white/10" />
+
+                  <div className="mt-3 h-4 w-72 max-w-full animate-pulse rounded bg-white/10" />
+                </div>
+
+                <div className="space-y-5">
+                  {/* Address */}
+                  <div>
+                    <div className="mb-2 h-3 w-20 animate-pulse rounded bg-white/10" />
+                    <div className="h-28 w-full animate-pulse rounded-sm bg-white/[0.04]" />
+                  </div>
+
+                  {/* City + State */}
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <div>
+                      <div className="mb-2 h-3 w-14 animate-pulse rounded bg-white/10" />
+                      <div className="h-12 w-full animate-pulse rounded-sm bg-white/[0.04]" />
+                    </div>
+
+                    <div>
+                      <div className="mb-2 h-3 w-16 animate-pulse rounded bg-white/10" />
+                      <div className="h-12 w-full animate-pulse rounded-sm bg-white/[0.04]" />
+                    </div>
+                  </div>
+
+                  {/* Pincode */}
+                  <div className="md:w-1/2">
+                    <div className="mb-2 h-3 w-16 animate-pulse rounded bg-white/10" />
+                    <div className="h-12 w-full animate-pulse rounded-sm bg-white/[0.04]" />
+                  </div>
+                </div>
+              </section>
+
+              {/* PAYMENT */}
+
+              <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
+                <div className="mb-7">
+                  <div className="h-3 w-6 animate-pulse rounded bg-white/10" />
+
+                  <div className="mt-3 h-6 w-44 animate-pulse rounded bg-white/10" />
+                </div>
+
+                <div className="h-20 w-full animate-pulse rounded-lg bg-white/[0.04]" />
+              </section>
+            </div>
+
+            {/* ===================================================
+              RIGHT — ORDER SUMMARY
+          =================================================== */}
+
+            <aside className="h-fit lg:sticky lg:top-28">
+              <div className="rounded-xl border border-white/10 bg-[#111111] p-6">
+                {/* Summary Header */}
+
+                <div className="flex items-center justify-between">
+                  <div className="h-5 w-32 animate-pulse rounded bg-white/10" />
+
+                  <div className="h-3 w-12 animate-pulse rounded bg-white/10" />
+                </div>
+
+                {/* Products */}
+
+                <div className="mt-6 space-y-5">
+                  {[1, 2].map((item) => (
+                    <div key={item} className="flex gap-4">
+                      {/* Image */}
+                      <div className="h-24 w-20 shrink-0 animate-pulse rounded bg-white/[0.05]" />
+
+                      {/* Details */}
+                      <div className="min-w-0 flex-1">
+                        <div className="h-4 w-3/4 animate-pulse rounded bg-white/10" />
+
+                        <div className="mt-3 h-3 w-20 animate-pulse rounded bg-white/10" />
+
+                        <div className="mt-2 h-3 w-24 animate-pulse rounded bg-white/10" />
+                      </div>
+
+                      {/* Price */}
+                      <div className="h-4 w-14 shrink-0 animate-pulse rounded bg-white/10" />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Divider */}
+
+                <div className="my-6 h-px bg-white/10" />
+
+                {/* Price Skeleton */}
+
+                <div className="space-y-4">
+                  <div className="flex justify-between">
+                    <div className="h-4 w-16 animate-pulse rounded bg-white/10" />
+                    <div className="h-4 w-20 animate-pulse rounded bg-white/10" />
+                  </div>
+
+                  <div className="flex justify-between">
+                    <div className="h-4 w-16 animate-pulse rounded bg-white/10" />
+                    <div className="h-4 w-14 animate-pulse rounded bg-white/10" />
+                  </div>
+                </div>
+
+                {/* Total */}
+
+                <div className="mt-6 flex justify-between border-t border-white/10 pt-5">
+                  <div className="h-5 w-12 animate-pulse rounded bg-white/10" />
+                  <div className="h-6 w-24 animate-pulse rounded bg-white/10" />
+                </div>
+
+                {/* Button */}
+
+                <div className="mt-7 h-14 w-full animate-pulse rounded-sm bg-white/10" />
+
+                {/* Security */}
+
+                <div className="mx-auto mt-5 h-3 w-28 animate-pulse rounded bg-white/10" />
+              </div>
+            </aside>
+          </div>
+        </div>
       </main>
     );
   }

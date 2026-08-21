@@ -10,6 +10,7 @@ import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import paymentRouter from "./routes/paymentRoute.js";
+import wishListRouter from "./routes/wishListRoute.js";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api", orderRouter);
 app.use("/api/payment", paymentRouter);
+app.use("/api", wishListRouter);
 
 //Server PORT
 const PORT = process.env.PORT || 5000;

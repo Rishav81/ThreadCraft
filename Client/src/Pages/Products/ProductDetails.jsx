@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiShoppingBag, FiMinus, FiPlus, FiChevronDown } from "react-icons/fi";
+import {
+  FiShoppingBag,
+  FiMinus,
+  FiPlus,
+  FiChevronDown,
+  FiHeart,
+} from "react-icons/fi";
 
 import { useProducts } from "../../Context/ProductContext";
 import { useCart } from "../../Context/CartContext";
 import { useAuth } from "../../Context/AuthContext";
 import { useAuthModal } from "../../Context/AuthModelContext";
-import { useBuyNow } from "../../Context/BuyNowContext";
+// import { useBuyNow } from "../../Context/BuyNowContext";
+import { useWishlist } from "../../Context/WishListContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -16,7 +23,8 @@ const ProductDetails = () => {
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
   const { openLoginModal } = useAuthModal();
-  const { setBuyNow } = useBuyNow();
+  // const { setBuyNow } = useBuyNow();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
@@ -151,6 +159,23 @@ const ProductDetails = () => {
     }
   };
 
+  const handleWishlist = async () => {
+    if (!isAuthenticated) {
+      openLoginModal();
+      return;
+    }
+
+    try {
+      if (isInWishlist(product._id)) {
+        await removeFromWishlist(product._id);
+      } else {
+        await addToWishlist(product._id);
+      }
+    } catch (error) {
+      console.error("Wishlist Error:", error);
+    }
+  };
+
   return (
     <main className="mt-20 px-4 text-white lg:mt-28 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl">
@@ -211,14 +236,37 @@ const ProductDetails = () => {
               key={selectedImage}
               initial={{ opacity: 0.4 }}
               animate={{ opacity: 1 }}
-              className="order-1 overflow-hidden sm:order-2"
+              className="order-1 relative overflow-hidden sm:order-2"
             >
               {images.length > 0 && (
-                <img
-                  src={images[selectedImage]?.url}
-                  alt={product.name}
-                  className="aspect-[4/5] w-full rounded-2xl object-cover"
-                />
+                <>
+                  <img
+                    src={images[selectedImage]?.url}
+                    alt={product.name}
+                    className="aspect-[4/5] w-full rounded-2xl object-cover"
+                  />
+
+                  {/* Wishlist Button */}
+                  <button
+                    type="button"
+                    onClick={handleWishlist}
+                    aria-label={
+                      isInWishlist(product._id)
+                        ? "Remove from wishlist"
+                        : "Add to wishlist"
+                    }
+                    className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-md transition duration-300 hover:border-[#C19A6B] hover:bg-black/70"
+                  >
+                    <FiHeart
+                      size={20}
+                      className={
+                        isInWishlist(product._id)
+                          ? "fill-[#C19A6B] text-[#C19A6B]"
+                          : "text-white"
+                      }
+                    />
+                  </button>
+                </>
               )}
             </motion.div>
           </div>

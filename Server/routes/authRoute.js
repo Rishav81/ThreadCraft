@@ -4,9 +4,10 @@ import {
   logoutAccount,
   registerAccount,
 } from "../controllers/AuthController.js";
+import { upload } from "../middleware/uploadMiddleware.js";
 
 const AuthRouter = express.Router();
-AuthRouter.post("/register", registerAccount);
+AuthRouter.post("/register", upload.single("profileImage"), registerAccount);
 AuthRouter.post("/login", loginAccount);
 AuthRouter.post("/logout", logoutAccount);
 

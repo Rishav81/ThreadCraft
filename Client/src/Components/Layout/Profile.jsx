@@ -1,15 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import {
-  User,
-  Package,
-  Heart,
-  MapPin,
-  Settings,
-  LogOut,
-  LogIn,
-  ChevronRight,
-  PackagePlus,
-} from "lucide-react";
+import { User, LogOut, LogIn, ChevronRight, PackagePlus } from "lucide-react";
 import { useAuth } from "../../Context/AuthContext";
 import { useAuthModal } from "../../Context/AuthModelContext";
 
@@ -35,9 +25,18 @@ const Profile = () => {
       <div className="absolute -top-2 right-7 h-4 w-4 rotate-45 border-l border-t border-gray-200 bg-white"></div>
 
       {/* User Info */}
-      <div className="flex items-center gap-4 p-5">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#C19A6B]/15">
-          <User className="h-7 w-7 text-[#C19A6B]" />
+      {/* User Info */}
+      <Link to="/profile" className="flex items-center gap-4 p-5">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#C19A6B]/15">
+          {isAuthenticated && user?.profileImage ? (
+            <img
+              src={user?.profileImage}
+              alt={user?.fullName || "Profile"}
+              className="h-full w-full object-cover cursor-pointer"
+            />
+          ) : (
+            <User className="h-7 w-7 text-[#C19A6B]" />
+          )}
         </div>
 
         <div className="min-w-0">
@@ -61,7 +60,7 @@ const Profile = () => {
             </>
           )}
         </div>
-      </div>
+      </Link>
 
       <hr />
 
@@ -69,51 +68,6 @@ const Profile = () => {
       {isAuthenticated && (
         <>
           <div className="p-2">
-            <Link
-              to="/orders"
-              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <Package size={20} />
-                <span>My Orders</span>
-              </div>
-
-              <ChevronRight
-                size={18}
-                className="transition group-hover:translate-x-1"
-              />
-            </Link>
-
-            <Link
-              to="/wishlist"
-              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <Heart size={20} />
-                <span>Wishlist</span>
-              </div>
-
-              <ChevronRight
-                size={18}
-                className="transition group-hover:translate-x-1"
-              />
-            </Link>
-
-            <Link
-              to="/address"
-              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <MapPin size={20} />
-                <span>Address Book</span>
-              </div>
-
-              <ChevronRight
-                size={18}
-                className="transition group-hover:translate-x-1"
-              />
-            </Link>
-
             <Link
               to="/profile"
               className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
@@ -136,21 +90,6 @@ const Profile = () => {
               <div className="flex items-center gap-3">
                 <PackagePlus size={20} />
                 <span>Add Products</span>
-              </div>
-
-              <ChevronRight
-                size={18}
-                className="transition group-hover:translate-x-1"
-              />
-            </Link>
-
-            <Link
-              to="/settings"
-              className="group flex items-center justify-between rounded-xl px-3 py-3 transition hover:bg-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <Settings size={20} />
-                <span>Settings</span>
               </div>
 
               <ChevronRight

@@ -138,16 +138,130 @@ const Orders = () => {
   // LOADING
   // ============================================================
 
+  // ============================================================
+  // LOADING
+  // ============================================================
+
   if (loading) {
     return (
-      <main className="min-h-screen px-4 pb-20 pt-24 text-white sm:px-6 md:pt-28 lg:px-10 lg:pt-32">
+      <main className="min-h-screen bg-[#111111] px-4 pb-20 pt-20 text-white md:px-6 md:pt-24 lg:px-10 lg:pt-32">
         <div className="mx-auto max-w-7xl">
-          <div className="flex min-h-[500px] flex-col items-center justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-[#C19A6B]" />
+          {/* =====================================================
+            HEADER SKELETON
+        ===================================================== */}
 
-            <p className="mt-5 text-xs uppercase tracking-[0.2em] text-white/40">
-              Loading your orders...
-            </p>
+          <div className="mb-10 md:mb-12">
+            {/* Back */}
+
+            <div className="h-3 w-32 animate-pulse rounded bg-white/10" />
+
+            {/* Title */}
+
+            <div className="mt-5 h-8 w-48 animate-pulse rounded bg-white/10 md:h-10 md:w-60" />
+
+            {/* Description */}
+
+            <div className="mt-3 h-4 w-72 max-w-full animate-pulse rounded bg-white/10" />
+          </div>
+
+          {/* =====================================================
+            ORDER SKELETONS
+        ===================================================== */}
+
+          <div className="space-y-6">
+            {[1, 2, 3].map((order) => (
+              <div
+                key={order}
+                className="overflow-hidden rounded-xl border border-white/10 bg-[#111111]"
+              >
+                {/* =================================================
+                  ORDER HEADER
+              ================================================= */}
+
+                <div className="border-b border-white/10 p-5 md:p-6">
+                  <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                    {/* Order Information */}
+
+                    <div className="flex flex-wrap gap-x-8 gap-y-5">
+                      {[1, 2, 3].map((item) => (
+                        <div key={item}>
+                          <div className="h-2.5 w-14 animate-pulse rounded bg-white/10" />
+
+                          <div className="mt-2 h-4 w-24 animate-pulse rounded bg-white/10" />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Status */}
+
+                    <div className="flex gap-2">
+                      <div className="h-7 w-20 animate-pulse rounded-full bg-white/10" />
+
+                      <div className="h-7 w-28 animate-pulse rounded-full bg-white/10" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* =================================================
+                  ORDER ITEMS
+              ================================================= */}
+
+                <div className="p-5 md:p-6">
+                  <div className="space-y-5">
+                    {[1, 2].map((item) => (
+                      <div key={item} className="flex gap-4">
+                        {/* Image */}
+
+                        <div className="h-28 w-20 shrink-0 animate-pulse rounded-lg bg-white/5 md:h-32 md:w-24" />
+
+                        {/* Details */}
+
+                        <div className="flex min-w-0 flex-1 justify-between gap-4">
+                          <div className="space-y-3">
+                            <div className="h-4 w-40 max-w-[55vw] animate-pulse rounded bg-white/10" />
+
+                            <div className="h-3 w-24 animate-pulse rounded bg-white/10" />
+
+                            <div className="h-3 w-28 animate-pulse rounded bg-white/10" />
+                          </div>
+
+                          <div className="h-4 w-20 animate-pulse rounded bg-white/10" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* =================================================
+                    SUMMARY
+                ================================================= */}
+
+                  <div className="mt-6 border-t border-white/10 pt-5">
+                    <div className="flex items-end justify-between">
+                      <div className="space-y-3">
+                        <div className="h-3 w-28 animate-pulse rounded bg-white/10" />
+                        <div className="h-3 w-24 animate-pulse rounded bg-white/10" />
+                      </div>
+
+                      <div className="text-right">
+                        <div className="ml-auto h-2.5 w-20 animate-pulse rounded bg-white/10" />
+
+                        <div className="mt-2 h-6 w-24 animate-pulse rounded bg-white/10" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* =================================================
+                  FOOTER
+              ================================================= */}
+
+                <div className="flex items-center justify-between border-t border-white/10 bg-white/[0.015] px-5 py-4">
+                  <div className="h-3 w-32 animate-pulse rounded bg-white/10" />
+
+                  <div className="h-3 w-20 animate-pulse rounded bg-white/10" />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </main>
@@ -229,39 +343,21 @@ const Orders = () => {
   // ============================================================
 
   return (
-    <main className="min-h-screen px-4 pb-20 pt-20 text-white sm:px-6 md:pt-24 lg:px-10 lg:pt-32">
+    <main className="min-h-screen px-4 pb-20 pt-20 text-white md:px-6 md:pt-24 lg:px-10 ">
       <div className="mx-auto max-w-7xl">
         {/* =====================================================
             HEADER
         ===================================================== */}
 
-        <div className="mb-10 md:mb-12">
-          <Link
-            to="/"
-            className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white/40 transition hover:text-[#C19A6B]"
-          >
-            <FiArrowLeft size={14} />
-            Continue Shopping
-          </Link>
-
-          <p className="text-xs uppercase tracking-[0.3em] text-[#C19A6B]">
-            My Account
-          </p>
-
-          <div className="mt-3 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <h1 className="text-4xl font-light tracking-wide sm:text-5xl">
-                My Orders
-              </h1>
-
-              <p className="mt-3 text-sm text-white/40">
-                View and track your ThreadCraft purchases.
-              </p>
-            </div>
-
-            <div className="text-xs uppercase tracking-[0.15em] text-white/30">
-              {orders.length} {orders.length === 1 ? "Order" : "Orders"}
-            </div>
+        <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <h1 className="text-xl md:text-2xl lg:text-4xl font-light tracking-wide ">
+              My Orders{" "}
+              <span className="text-xs uppercase tracking-[0.15em] text-white/30">
+                ( {orders.length} {orders.length === 1 ? "Order" : "Orders"}
+                ){" "}
+              </span>
+            </h1>
           </div>
         </div>
 
@@ -279,8 +375,8 @@ const Orders = () => {
                   ORDER HEADER
               ================================================= */}
 
-              <div className="border-b border-white/10 p-5 sm:p-6">
-                <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="border-b border-white/10 p-5 md:p-6">
+                <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                   {/* ORDER INFO */}
 
                   <div className="flex flex-wrap gap-x-8 gap-y-4">
@@ -305,7 +401,7 @@ const Orders = () => {
                       </p>
                     </div>
 
-                    <div>
+                    <div className="hidden md:block">
                       <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
                         Total
                       </p>
@@ -342,7 +438,7 @@ const Orders = () => {
                   ORDER ITEMS
               ================================================= */}
 
-              <div className="p-5 sm:p-6">
+              <div className="p-5 md:p-6">
                 <div className="space-y-5">
                   {order.items?.map((item, index) => {
                     const image =
@@ -358,7 +454,7 @@ const Orders = () => {
                       >
                         {/* IMAGE */}
 
-                        <div className="h-28 w-20 shrink-0 overflow-hidden rounded-lg bg-white/[0.03] sm:h-32 sm:w-24">
+                        <div className="h-28 w-20 shrink-0 overflow-hidden rounded-lg bg-white/[0.03] md:h-32 md:w-24">
                           {image ? (
                             <img
                               src={image}
@@ -375,9 +471,9 @@ const Orders = () => {
                         {/* DETAILS */}
 
                         <div className="min-w-0 flex-1">
-                          <div className="flex flex-col justify-between gap-2 sm:flex-row">
+                          <div className="flex  justify-between gap-2 flex-row">
                             <div>
-                              <h3 className="line-clamp-2 text-sm font-medium sm:text-base">
+                              <h3 className="line-clamp-2 text-sm font-medium md:text-base">
                                 {item.name}
                               </h3>
 
@@ -413,7 +509,7 @@ const Orders = () => {
                 ================================================= */}
 
                 <div className="mt-6 border-t border-white/10 pt-5">
-                  <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                  <div className="flex  gap-5 flex-row items-end justify-between">
                     <div className="space-y-2 text-xs">
                       <div className="flex gap-8">
                         <span className="text-white/30">Subtotal</span>
@@ -434,7 +530,7 @@ const Orders = () => {
                       </div>
                     </div>
 
-                    <div className="text-left sm:text-right">
+                    <div className="text-right">
                       <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
                         Order Total
                       </p>
@@ -451,8 +547,8 @@ const Orders = () => {
                   FOOTER
               ================================================= */}
 
-              <div className="flex flex-col gap-4 border-t border-white/10 bg-white/[0.015] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-                <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.12em] text-white/25">
+              <div className="flex  gap-2 md:gap-4 border-t border-white/10 bg-white/[0.015] px-2 md:px-5 py-4 flex-row items-center justify-between ">
+                <div className="flex items-center gap-2 text-[10px] uppercase tracking-tight text-white/25">
                   <FiShield size={13} />
                   Secure ThreadCraft Order
                 </div>

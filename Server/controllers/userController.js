@@ -3,6 +3,7 @@ import User from "../models/userModel.js";
 export const getUserProfile = async (req, res) => {
   try {
     const userId = req.user.id;
+
     const user = await User.findById(userId);
 
     if (!user) {
@@ -18,9 +19,12 @@ export const getUserProfile = async (req, res) => {
         id: user._id,
         fullName: user.fullName,
         email: user.email,
+        profileImage: user.profileImage || "",
       },
     });
   } catch (err) {
+    console.error("GET USER PROFILE ERROR:", err);
+
     return res.status(500).json({
       success: false,
       message: err.message,

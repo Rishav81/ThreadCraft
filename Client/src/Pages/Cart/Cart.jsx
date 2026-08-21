@@ -13,18 +13,10 @@ import { useMemo, useState } from "react";
 const Cart = () => {
   const navigate = useNavigate();
 
-  const { cartItems, updateQuantity, removeFromCart } = useCart();
+  const { cartItems, updateQuantity, removeFromCart, loading } = useCart();
   const { products } = useProducts();
 
-  // =========================================================
-  // SELECTED ITEMS
-  // =========================================================
-
   const [selectedItems, setSelectedItems] = useState([]);
-
-  // =========================================================
-  // FIND PRODUCT
-  // =========================================================
 
   const getProduct = (productId) => {
     return products.find((product) => product._id === productId);
@@ -158,6 +150,153 @@ const Cart = () => {
       },
     });
   };
+
+  // =========================================================
+  // CART LOADING
+  // =========================================================
+
+  if (loading) {
+    return (
+      <main className="min-h-screen px-4 pb-20 pt-20 text-white sm:px-6 md:pt-24 lg:px-10 lg:pt-32">
+        <div className="mx-auto max-w-7xl">
+          {/* =====================================================
+            HEADER SKELETON
+        ===================================================== */}
+
+          <div className="mb-10 md:mb-12">
+            <div className="h-3 w-28 animate-pulse rounded bg-white/10" />
+
+            <div className="mt-4 flex items-center gap-3">
+              <div className="h-10 w-48 animate-pulse rounded bg-white/10 sm:h-12 sm:w-60" />
+
+              <div className="h-5 w-20 animate-pulse rounded bg-white/10" />
+            </div>
+
+            <div className="mt-4 h-4 w-80 max-w-full animate-pulse rounded bg-white/10" />
+          </div>
+
+          {/* =====================================================
+            MAIN SKELETON
+        ===================================================== */}
+
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_400px]">
+            {/* ===================================================
+              LEFT — CART ITEMS
+          =================================================== */}
+
+            <div className="space-y-4">
+              {/* SELECT ALL */}
+
+              <div className="flex items-center justify-between rounded-xl border border-white/10 bg-[#111111] px-5 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-5 w-5 animate-pulse rounded-sm bg-white/10" />
+
+                  <div className="h-4 w-20 animate-pulse rounded bg-white/10" />
+                </div>
+
+                <div className="h-3 w-16 animate-pulse rounded bg-white/10" />
+              </div>
+
+              {/* CART ITEM SKELETONS */}
+
+              {[1, 2].map((item) => (
+                <div
+                  key={item}
+                  className="flex flex-col gap-5 rounded-xl border border-white/10 bg-[#111111] p-4 md:flex-row md:justify-between"
+                >
+                  <div className="flex min-w-0 flex-1 gap-4 sm:gap-6">
+                    {/* CHECKBOX */}
+
+                    <div className="mt-2 h-5 w-5 shrink-0 animate-pulse rounded-sm bg-white/10" />
+
+                    {/* IMAGE */}
+
+                    <div className="h-40 w-28 shrink-0 animate-pulse rounded bg-white/5 sm:h-48 sm:w-36" />
+
+                    {/* DETAILS */}
+
+                    <div className="flex min-w-0 flex-1 flex-col justify-between">
+                      <div>
+                        <div className="h-5 w-3/4 animate-pulse rounded bg-white/10" />
+
+                        <div className="mt-4 h-3 w-24 animate-pulse rounded bg-white/10" />
+
+                        <div className="mt-3 h-3 w-32 animate-pulse rounded bg-white/10" />
+                      </div>
+
+                      {/* QUANTITY */}
+
+                      <div className="mt-5">
+                        <div className="mb-2 h-2 w-16 animate-pulse rounded bg-white/10" />
+
+                        <div className="h-9 w-28 animate-pulse rounded bg-white/10" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* TOTAL + REMOVE */}
+
+                  <div className="flex items-end justify-between md:min-w-[130px] md:flex-col md:items-end md:justify-between">
+                    <div className="order-2 h-3 w-16 animate-pulse rounded bg-white/10 md:order-1" />
+
+                    <div className="order-1 h-5 w-20 animate-pulse rounded bg-white/10 md:order-2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* ===================================================
+              RIGHT — SUMMARY SKELETON
+          =================================================== */}
+
+            <div className="h-fit lg:sticky lg:top-28">
+              <div className="rounded-xl border border-white/10 bg-[#111111] p-6">
+                {/* TITLE */}
+
+                <div className="h-5 w-32 animate-pulse rounded bg-white/10" />
+
+                {/* SELECTED */}
+
+                <div className="mt-6 flex justify-between border-b border-white/10 pb-5">
+                  <div className="h-3 w-24 animate-pulse rounded bg-white/10" />
+                  <div className="h-3 w-8 animate-pulse rounded bg-white/10" />
+                </div>
+
+                {/* SUBTOTAL */}
+
+                <div className="mt-5 flex justify-between">
+                  <div className="h-3 w-16 animate-pulse rounded bg-white/10" />
+                  <div className="h-4 w-20 animate-pulse rounded bg-white/10" />
+                </div>
+
+                {/* SHIPPING */}
+
+                <div className="mt-5 flex justify-between">
+                  <div className="h-3 w-16 animate-pulse rounded bg-white/10" />
+                  <div className="h-3 w-28 animate-pulse rounded bg-white/10" />
+                </div>
+
+                {/* TOTAL */}
+
+                <div className="mt-5 flex justify-between">
+                  <div className="h-5 w-12 animate-pulse rounded bg-white/10" />
+                  <div className="h-5 w-24 animate-pulse rounded bg-white/10" />
+                </div>
+
+                {/* CHECKOUT */}
+
+                <div className="mt-8 h-14 w-full animate-pulse rounded-sm bg-white/10" />
+
+                {/* CONTINUE */}
+
+                <div className="mx-auto mt-5 h-3 w-32 animate-pulse rounded bg-white/10" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   // =========================================================
   // EMPTY CART

@@ -33,5 +33,9 @@ export const paymentApi = axios.create({
   baseURL: "http://localhost/api/payment",
   withCredentials: true,
 });
+export const wishlistApi = axios.create({
+  baseURL: "http://localhost/api",
+  withCredentials: true,
+});
 
 export default api;
