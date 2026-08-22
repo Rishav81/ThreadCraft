@@ -6,7 +6,7 @@ import {
   getMyProducts,
   singleProduct,
   updateProduct,
-} from "../controllers/ProductController.js";
+} from "../controllers/productController.js";
 import { upload } from "../middleware/uploadMiddleware.js";
 import { protect } from "../middleware/authMiddleware.js";
 
