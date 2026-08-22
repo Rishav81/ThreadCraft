@@ -3,7 +3,7 @@ import {
   loginAccount,
   logoutAccount,
   registerAccount,
-} from "../controllers/AuthController.js";
+} from "../controllers/authController.js";
 import { upload } from "../middleware/uploadMiddleware.js";
 
 const AuthRouter = express.Router();
