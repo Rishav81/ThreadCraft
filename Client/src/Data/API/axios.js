@@ -13,7 +13,7 @@ export const auth = axios.create({
 });
 
 export const userAuth = axios.create({
-  baseURL: `${API_URL}/profile`,
+  baseURL: API_URL,
   withCredentials: true,
 });
 
@@ -38,7 +38,7 @@ export const paymentApi = axios.create({
 });
 
 export const wishlistApi = axios.create({
-  baseURL: `${API_URL}/wishlist`,
+  baseURL: API_URL,
   withCredentials: true,
 });
 

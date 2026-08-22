@@ -19,7 +19,7 @@ productRouter.post(
 
   createProduct,
 );
-productRouter.get("/", protect, getAllProduct);
+productRouter.get("/", getAllProduct);
 productRouter.get("/my-products", protect, getMyProducts);
 productRouter.get("/:id", protect, singleProduct);
 productRouter.put("/:id", protect, upload.array("images", 5), updateProduct);
