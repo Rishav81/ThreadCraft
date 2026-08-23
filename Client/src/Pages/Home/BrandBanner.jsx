@@ -9,7 +9,7 @@ const BrandBanner = () => {
     >
       {/* Background Image */}
       <img
-        src="/Images/BrandBanner.png"
+        src="/Images/BrandBanner.webp"
         alt="ThreadCraft premium collection"
         className="absolute inset-0 h-full lg:h-fit  w-full object-cover object-[80%_center]   "
         loading="lazy"

@@ -75,9 +75,10 @@ const WhyChoose = () => {
         >
           <div className="relative overflow-hidden rounded-2xl">
             <motion.img
-              src="/Images/heroBanner.avif"
+              src="/Images/heroBanner.webp"
               alt="ThreadCraft premium clothing"
               loading="lazy"
+              decoding="async"
               whileHover={{ scale: 1.04 }}
               transition={{
                 duration: 0.8,

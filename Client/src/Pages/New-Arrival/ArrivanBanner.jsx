@@ -25,7 +25,7 @@ const ArrivalBanner = () => {
       >
         <Link className="block overflow-hidden rounded-3xl">
           <motion.img
-            src="/Images/HoodyBanner.jpg"
+            src="/Images/HoodyBanner.webp"
             alt="ThreadCraft latest hoodie arrivals"
             loading="lazy"
             className="
