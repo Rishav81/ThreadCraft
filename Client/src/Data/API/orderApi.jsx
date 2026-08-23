@@ -7,7 +7,7 @@ import { orderApi } from "./axios";
 
 export const createOrder = async (orderData) => {
   try {
-    const response = await orderApi.post("/", orderData);
+    const response = await orderApi.post("/orders", orderData);
 
     return response.data;
   } catch (error) {
@@ -27,7 +27,7 @@ export const createOrder = async (orderData) => {
 
 export const getMyOrders = async () => {
   try {
-    const response = await orderApi.get("/");
+    const response = await orderApi.get("/orders");
 
     return response.data;
   } catch (error) {
