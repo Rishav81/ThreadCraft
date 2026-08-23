@@ -5,6 +5,7 @@ import {
   containerVariants,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
+import { Link } from "react-router-dom";
 
 const reasons = [
   {
@@ -86,7 +87,10 @@ const WhyChoose = () => {
           }}
           className="relative"
         >
-          <div className="group relative overflow-hidden rounded-2xl">
+          <Link
+            to="/women"
+            className="group relative overflow-hidden rounded-2xl"
+          >
             <motion.img
               src="/Images/heroBanner.webp"
               alt="ThreadCraft premium clothing"
@@ -101,6 +105,7 @@ const WhyChoose = () => {
                 h-[420px]
                 w-full
                 object-cover
+                object-[_top]
                 sm:h-[520px]
                 lg:h-[620px]
               "
@@ -141,7 +146,7 @@ const WhyChoose = () => {
                 Designed for everyday living
               </span>
             </div>
-          </div>
+          </Link>
 
           {/* Decorative Border */}
           <motion.div
@@ -156,7 +161,7 @@ const WhyChoose = () => {
               delay: 0.25,
               ease: premiumEase,
             }}
-            className="
+            className=" hidden lg:block
               pointer-events-none
               absolute
               -bottom-3
