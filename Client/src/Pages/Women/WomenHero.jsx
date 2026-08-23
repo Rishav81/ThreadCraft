@@ -46,7 +46,7 @@ const WomenHero = () => {
       <section className="relative h-[78vh] min-h-[620px] w-full overflow-hidden lg:h-screen ">
         {/* Background */}
         <motion.img
-          src="/Images/Women-Hero.webP"
+          src="/Images/Women-Hero.webp"
           alt="Women's Collection"
           loading="lazy"
           decoding="async"
@@ -234,25 +234,9 @@ const WomenHero = () => {
       <LazySection>
         <Suspense fallback={null}>
           <WomenCategories product={womenCategories} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <NewArrival product={newArrivalProducts} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <Trending product={trendingProducts} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <BestSeller product={bestSellerProducts} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <AllProducts product={womenProducts} />
         </Suspense>
       </LazySection>

@@ -232,25 +232,9 @@ const KidHero = () => {
       <LazySection>
         <Suspense fallback={null}>
           <KidsCategories product={kidsCategories} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <Trending product={trendingProducts} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <NewArrival product={newArrivalProducts} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <BestSeller product={bestSellerProducts} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <AllProducts product={kidsProducts} />
         </Suspense>
       </LazySection>

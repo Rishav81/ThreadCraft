@@ -18,7 +18,7 @@ const Banner = () => {
     >
       {/* Background Image */}
       <motion.img
-        src="/Images/BannerCollection.avif"
+        src="/Images/BannerCollection.webp"
         loading="lazy"
         alt=""
         aria-hidden="true"

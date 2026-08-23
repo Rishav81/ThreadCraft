@@ -39,7 +39,7 @@ const NewArrivalHero = () => {
       <section className="relative h-[75vh] min-h-[600px] w-full overflow-hidden lg:h-screen">
         {/* Background Image */}
         <motion.img
-          src="/Images/newArrival.webP"
+          src="/Images/newArrival.webp"
           alt="New Arrivals"
           className="
           absolute inset-0
@@ -232,20 +232,8 @@ const NewArrivalHero = () => {
       <LazySection>
         <Suspense fallback={null}>
           <CollectionIntro />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <NewArrival product={newArrival} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <ArrivalBanner />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <CategoryArrival
             products={{
               men: mensArrival,
@@ -253,11 +241,6 @@ const NewArrivalHero = () => {
               kids: kidsArrival,
             }}
           />
-        </Suspense>
-      </LazySection>
-
-      <LazySection>
-        <Suspense fallback={null}>
           <CommingSoon />
         </Suspense>
       </LazySection>

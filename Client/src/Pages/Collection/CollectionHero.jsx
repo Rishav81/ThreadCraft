@@ -22,7 +22,7 @@ const CollectionHero = () => {
       <section className="relative h-[75vh] min-h-[600px] w-full overflow-hidden lg:h-screen">
         {/* Background Image */}
         <motion.img
-          src="/Images/newArrival.png"
+          src="/Images/newArrival.webp"
           alt="ThreadCraft premium fashion collection"
           className="
           absolute inset-0
@@ -160,8 +160,10 @@ const CollectionHero = () => {
           <div className="relative hidden md:block">
             {/* Main Image */}
             <motion.img
-              src="/Images/bannerCollection1.avif"
+              src="/Images/bannerCollection1.webp"
               alt="ThreadCraft collection"
+              loading="lazy"
+              decoding="async"
               className="
       h-[420px]
       lg:h-[580px]
@@ -173,8 +175,10 @@ const CollectionHero = () => {
 
             {/* Supporting Image */}
             <motion.img
-              src="/Images/bannerCollection.jpg"
+              src="/Images/bannerCollection.webp"
               alt="ThreadCraft collection detail"
+              loading="lazy"
+              decoding="async"
               className="
       absolute
       -bottom-16
@@ -187,8 +191,10 @@ const CollectionHero = () => {
     "
             />
             <motion.img
-              src="/Images/bannerCollection2.avif"
+              src="/Images/bannerCollection2.webp"
               alt="ThreadCraft collection detail"
+              loading="lazy"
+              decoding="async"
               className="
       absolute hidden lg:block
       -bottom-16
@@ -223,16 +229,7 @@ const CollectionHero = () => {
       <LazySection>
         <Suspense fallback={null}>
           <CollectionCategory product={categoryItem} />
-        </Suspense>
-      </LazySection>
-
-      <LazySection>
-        <Suspense fallback={null}>
           <Banner />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <CollectionBar />
         </Suspense>
       </LazySection>
