@@ -39,9 +39,12 @@ const Hero = () => {
       <section className="relative h-[85vh] min-h-[500px] w-full overflow-hidden md:h-screen  ">
         {/* Background Image */}
         <motion.img
-          src="/Images/Profile.jpg"
+          src="/Images/Profile.webp"
           alt="Profile"
-          className="absolute inset-0 h-full lg:h-fit w-full object-cover object-[20%_center] md:object-center  "
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+          className="absolute inset-0 h-full lg:h-fit w-full object-cover object-[20%_center] md:object-center"
           animate={{
             scale: [1, 1.06, 1],
           }}
@@ -261,26 +264,9 @@ const Hero = () => {
       <LazySection>
         <Suspense fallback={null}>
           <Categories product={categoryItem} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <BrandBanner />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <FeaturedCollection products={featuredProducts} />
-        </Suspense>
-      </LazySection>
-
-      <LazySection>
-        <Suspense fallback={null}>
           <NewArrival products={newArrivalProducts} />
-        </Suspense>
-      </LazySection>
-      <LazySection>
-        <Suspense fallback={null}>
           <WhyChoose />
         </Suspense>
       </LazySection>

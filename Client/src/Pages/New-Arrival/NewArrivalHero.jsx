@@ -39,7 +39,7 @@ const NewArrivalHero = () => {
       <section className="relative h-[75vh] min-h-[600px] w-full overflow-hidden lg:h-screen">
         {/* Background Image */}
         <motion.img
-          src="/Images/newArrival.png"
+          src="/Images/newArrival.webP"
           alt="New Arrivals"
           className="
           absolute inset-0
@@ -49,6 +49,7 @@ const NewArrivalHero = () => {
           md:object-center
         "
           loading="lazy"
+          decoding="async"
           animate={{
             scale: [1, 1.06, 1],
           }}

@@ -13,6 +13,7 @@ const BrandBanner = () => {
         alt="ThreadCraft premium collection"
         className="absolute inset-0 h-full lg:h-fit  w-full object-cover object-[80%_center]   "
         loading="lazy"
+        decoding="async"
       />
 
       {/* Dark Overlay */}

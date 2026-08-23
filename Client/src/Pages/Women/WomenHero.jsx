@@ -46,8 +46,10 @@ const WomenHero = () => {
       <section className="relative h-[78vh] min-h-[620px] w-full overflow-hidden lg:h-screen ">
         {/* Background */}
         <motion.img
-          src="/Images/Women-Hero.png"
+          src="/Images/Women-Hero.webP"
           alt="Women's Collection"
+          loading="lazy"
+          decoding="async"
           className="
       absolute inset-0
       h-full w-full
