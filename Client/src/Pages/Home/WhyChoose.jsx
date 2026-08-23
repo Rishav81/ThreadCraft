@@ -33,6 +33,8 @@ const reasons = [
   },
 ];
 
+const premiumEase = [0.22, 1, 0.36, 1];
+
 const WhyChoose = () => {
   return (
     <motion.section
@@ -69,20 +71,31 @@ const WhyChoose = () => {
         {/* =================================================
             IMAGE
         ================================================== */}
+
         <motion.div
           variants={itemVariants}
-          className="group relative overflow-hidden"
+          initial={{ opacity: 0, x: -60, scale: 0.96 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          transition={{
+            duration: 0.9,
+            ease: premiumEase,
+          }}
+          className="relative"
         >
-          <div className="relative overflow-hidden rounded-2xl">
+          <div className="group relative overflow-hidden rounded-2xl">
             <motion.img
               src="/Images/heroBanner.webp"
               alt="ThreadCraft premium clothing"
               loading="lazy"
               decoding="async"
-              whileHover={{ scale: 1.04 }}
+              whileHover={{ scale: 1.035 }}
               transition={{
                 duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
+                ease: premiumEase,
               }}
               className="
                 h-[420px]
@@ -96,12 +109,12 @@ const WhyChoose = () => {
             {/* Image Overlay */}
             <div
               className="
+                pointer-events-none
                 absolute
                 inset-0
                 bg-gradient-to-t
                 from-black/40
                 via-black/20
-                to-black/10
                 to-transparent
               "
             />
@@ -131,7 +144,18 @@ const WhyChoose = () => {
           </div>
 
           {/* Decorative Border */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{
+              once: true,
+              amount: 0.3,
+            }}
+            transition={{
+              duration: 0.8,
+              delay: 0.25,
+              ease: premiumEase,
+            }}
             className="
               pointer-events-none
               absolute
@@ -150,24 +174,14 @@ const WhyChoose = () => {
         {/* =================================================
             CONTENT
         ================================================== */}
+
         <motion.div variants={containerVariants} className="w-full">
           {/* Label */}
           <motion.div
             variants={itemVariants}
-            className="
-              mb-5
-              flex
-              items-center
-              gap-3
-            "
+            className="mb-5 flex items-center gap-3"
           >
-            <span
-              className="
-                h-px
-                w-8
-                bg-[#C19A6B]
-              "
-            />
+            <span className="h-px w-8 bg-[#C19A6B]" />
 
             <span
               className="
@@ -223,6 +237,7 @@ const WhyChoose = () => {
           {/* =================================================
               REASONS
           ================================================== */}
+
           <motion.div
             variants={containerVariants}
             className="

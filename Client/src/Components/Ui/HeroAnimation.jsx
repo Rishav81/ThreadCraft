@@ -25,6 +25,7 @@ export const itemVariants = {
     },
   },
 };
+
 export const imageAnimation = {
   animate: {
     scale: [1, 1.04, 1],
