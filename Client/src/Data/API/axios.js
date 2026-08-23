@@ -28,7 +28,7 @@ export const cartApi = axios.create({
 });
 
 export const orderApi = axios.create({
-  baseURL: `${API_URL}/orders`,
+  baseURL: API_URL,
   withCredentials: true,
 });
 
