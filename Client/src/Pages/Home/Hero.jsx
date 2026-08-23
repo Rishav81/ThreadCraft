@@ -229,7 +229,7 @@ const Hero = () => {
                   <span className="relative z-10">Explore Styles</span>
 
                   <span
-                    className="
+                    className=" hidden lg:block
               absolute inset-0
               translate-y-full
               bg-white

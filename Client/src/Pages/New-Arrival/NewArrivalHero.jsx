@@ -197,7 +197,7 @@ const NewArrivalHero = () => {
                   <span className="relative z-10">New Arrivals</span>
 
                   <span
-                    className="
+                    className="hidden lg:block
                     absolute
                     inset-0
                     translate-y-full

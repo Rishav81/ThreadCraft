@@ -169,7 +169,7 @@ const Navbar = () => {
                   className="
                     absolute
                     -right-2
-                    -top-2
+                    -top-0
                     flex
                     h-5
                     w-5

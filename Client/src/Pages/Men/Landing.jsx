@@ -65,9 +65,6 @@ const Landing = () => {
           }}
         />
 
-        {/* Main overlay */}
-        <div className="absolute inset-0 bg-black/35" />
-
         {/* Editorial gradient */}
         <div
           className="
@@ -199,7 +196,7 @@ const Landing = () => {
                 <span className="relative z-10">Shop Now</span>
 
                 <span
-                  className="
+                  className="hidden lg:block
               absolute inset-0
               translate-y-full
               bg-white
