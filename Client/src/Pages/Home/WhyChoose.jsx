@@ -105,7 +105,9 @@ const WhyChoose = () => {
                 h-[420px]
                 w-full
                 object-cover
+                rounded-2xl
               object-[20%_top]
+              lg:object-center
                 sm:h-[520px]
                 lg:h-[620px]
               "
