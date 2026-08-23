@@ -96,7 +96,7 @@ const WhyChoose = () => {
               alt="ThreadCraft premium clothing"
               loading="lazy"
               decoding="async"
-              whileHover={{ scale: 1.035 }}
+              whileHover={{ scale: 0.98 }}
               transition={{
                 duration: 0.8,
                 ease: premiumEase,
