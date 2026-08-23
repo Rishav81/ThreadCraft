@@ -105,7 +105,7 @@ const WhyChoose = () => {
                 h-[420px]
                 w-full
                 object-cover
-                object-[_top]
+              object-[20%_top]
                 sm:h-[520px]
                 lg:h-[620px]
               "
@@ -161,7 +161,7 @@ const WhyChoose = () => {
               delay: 0.25,
               ease: premiumEase,
             }}
-            className=" hidden lg:block
+            className=" 
               pointer-events-none
               absolute
               -bottom-3
