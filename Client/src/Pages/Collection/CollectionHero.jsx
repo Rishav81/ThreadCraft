@@ -175,7 +175,7 @@ const CollectionHero = () => {
 
             {/* Supporting Image */}
             <motion.img
-              src="/Images/bannerCollection.webp"
+              src="/Images/activeWear.webp"
               alt="ThreadCraft collection detail"
               loading="lazy"
               decoding="async"
