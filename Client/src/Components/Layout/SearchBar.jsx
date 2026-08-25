@@ -1,19 +1,15 @@
-import { Search, X, Clock3, TrendingUp } from "lucide-react";
+import { Search, X, ArrowRight, CornerDownLeft } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
-const recentSearches = ["Oversized T-Shirt", "Cargo Pants", "Hoodie"];
-
-const trendingSearches = [
-  "Linen Shirt",
-  "Sneakers",
-  "Summer Collection",
-  "Denim Jacket",
-  "Polo T-Shirt",
-];
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ onClose }) => {
   const [search, setSearch] = useState("");
   const searchRef = useRef(null);
+  const navigate = useNavigate();
+
+  // ============================================================
+  // CLOSE SEARCH
+  // ============================================================
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,111 +33,125 @@ const SearchBar = ({ onClose }) => {
     };
   }, [onClose]);
 
+  // ============================================================
+  // SEARCH
+  // ============================================================
+
+  const handleSearch = () => {
+    const query = search.trim();
+    if (!query) return;
+
+    navigate(`/search?q=${encodeURIComponent(query)}`);
+    onClose();
+  };
+
+  // ============================================================
+  // KEYBOARD
+  // ============================================================
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+
+    if (event.key === "Escape") {
+      onClose();
+    }
+  };
+
+  // ============================================================
+  // RENDER
+  // ============================================================
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center bg-black/60 backdrop-blur-sm px-4 pt-16 sm:px-6 sm:pt-20">
+    <div className="fixed inset-0 z-[100] flex items-start justify-center bg-black/70 px-4 pt-16 backdrop-blur-md transition-all sm:px-6 ">
       <div
         ref={searchRef}
-        className="w-full max-w-5xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)] sm:w-[95%] lg:w-[75%]"
+        className="w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#121212]/95 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all"
       >
-        {/* Search Input */}
-        <div className="border-b border-gray-100 p-4 sm:p-5 md:p-6">
-          <div className="relative">
+        {/* Search Input Area */}
+        <div className="p-3 sm:p-4">
+          <div className="relative flex items-center">
             <Search
-              size={22}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+              size={20}
+              strokeWidth={2}
+              className="pointer-events-none absolute left-4 text-white/40"
             />
 
             <input
               autoFocus
-              type="text"
+              type="search"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search for products, brands and categories..."
-              className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 pl-12 pr-12 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-all duration-300 focus:border-[#C19A6B] focus:bg-white focus:ring-4 focus:ring-[#C19A6B]/10 sm:h-14 sm:pl-14 sm:pr-14 sm:text-base"
+              onChange={(event) => setSearch(event.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Search products, brands or categories..."
+              className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-12 text-sm text-white placeholder-white/35 outline-none transition duration-200 focus:border-[#C19A6B]/70 focus:bg-white/[0.07] focus:ring-4 focus:ring-[#C19A6B]/15 sm:h-14 sm:text-base"
             />
 
             {search && (
               <button
+                type="button"
                 onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-gray-400 transition hover:bg-gray-100 hover:text-black"
+                aria-label="Clear search"
+                className="absolute right-3 flex h-8 w-8 items-center justify-center rounded-lg text-white/40 transition hover:bg-white/10 hover:text-white"
               >
-                <X size={20} />
+                <X size={16} />
               </button>
             )}
           </div>
         </div>
 
-        {/* Default Content */}
-        {!search && (
-          <div className="grid max-h-[70vh] grid-cols-1 gap-8 overflow-y-auto p-5 md:grid-cols-2 md:p-6">
-            {/* Recent Searches */}
-            <div>
-              <div className="mb-5 flex items-center gap-2">
-                <Clock3 size={18} className="text-[#C19A6B]" />
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Recent Searches
-                </h3>
+        {/* Search Suggestions & Context Area */}
+        <div className="border-t border-white/[0.06] bg-white/[0.01] px-4 py-3 sm:px-5">
+          {!search.trim() ? (
+            <div className="flex items-center justify-between py-1 text-xs text-white/40">
+              <div className="flex items-center gap-3">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#C19A6B]/10 text-[#C19A6B]">
+                  <Search size={14} />
+                </div>
+                <div>
+                  <p className="font-medium text-white/70">
+                    ThreadCraft Search
+                  </p>
+                  <p className="text-[11px] text-white/35">
+                    Find products, brands, and categories
+                  </p>
+                </div>
               </div>
-
-              <div className="space-y-2">
-                {recentSearches.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => setSearch(item)}
-                    className="flex w-full items-center rounded-xl px-4 py-3 text-left text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-[#C19A6B]/10 hover:text-[#C19A6B] sm:text-base"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
+              <span className="hidden text-[11px] tracking-wide text-white/25 sm:inline">
+                ESC to close
+              </span>
             </div>
-
-            {/* Trending */}
-            <div>
-              <div className="mb-5 flex items-center gap-2">
-                <TrendingUp size={18} className="text-[#C19A6B]" />
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Trending
-                </h3>
+          ) : (
+            <button
+              type="button"
+              onClick={handleSearch}
+              className="group flex w-full items-center justify-between rounded-xl border border-transparent p-2 text-left transition duration-200 hover:border-[#C19A6B]/25 hover:bg-[#C19A6B]/10"
+            >
+              <div className="flex items-center gap-3 overflow-hidden">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C19A6B]/15 text-[#C19A6B] transition group-hover:bg-[#C19A6B] group-hover:text-black">
+                  <Search size={15} />
+                </div>
+                <div className="truncate">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C19A6B]">
+                    Search for
+                  </span>
+                  <p className="truncate text-sm font-medium text-white">
+                    {search.trim()}
+                  </p>
+                </div>
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                {trendingSearches.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => setSearch(item)}
-                    className="rounded-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#C19A6B] hover:bg-[#C19A6B] hover:text-white"
-                  >
-                    {item}
-                  </button>
-                ))}
+              <div className="flex items-center gap-1.5 text-xs text-white/40 transition group-hover:text-[#C19A6B]">
+                <span className="hidden sm:inline text-[11px]">
+                  Press Enter
+                </span>
+                <CornerDownLeft size={14} className="hidden sm:inline" />
+                <ArrowRight size={16} className="sm:hidden" />
               </div>
-            </div>
-          </div>
-        )}
-
-        {/* Search Results Placeholder */}
-        {search && (
-          <div className="flex min-h-[280px] items-center justify-center p-8">
-            <div className="text-center">
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#C19A6B]/10">
-                <Search size={36} className="text-[#C19A6B]" />
-              </div>
-
-              <h2 className="mt-5 text-2xl font-semibold text-gray-900">
-                Searching for
-              </h2>
-
-              <p className="mt-2 text-lg font-medium text-[#C19A6B]">
-                "{search}"
-              </p>
-
-              <p className="mt-3 text-gray-500">
-                Products will appear here once connected to the backend.
-              </p>
-            </div>
-          </div>
-        )}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

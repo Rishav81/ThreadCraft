@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+
 import {
   containerVariants,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
 
-const CollectionCategory = ({ product = [] }) => {
+const CollectionCategories = ({ product = [] }) => {
   const uniqueCategories = product
     .filter(
       (item, index, self) =>
@@ -15,9 +16,11 @@ const CollectionCategory = ({ product = [] }) => {
       ...gender,
       itemCount: product.filter((item) => item.gender === gender.gender).length,
     }));
+
   if (uniqueCategories === 0) {
     return null;
   }
+
   return (
     <motion.section
       variants={containerVariants}
@@ -27,132 +30,197 @@ const CollectionCategory = ({ product = [] }) => {
         once: true,
         amount: 0.2,
       }}
-      className="relative px-4 pt-10 sm:px-6 lg:px-8 lg:pt-14"
+      className="px-4 pt-8 sm:px-6 lg:px-8 lg:pt-14"
     >
       <div className="mx-auto max-w-7xl">
-        {/* Section Header */}
-        <motion.div variants={itemVariants} className="mb-7">
-          <p className="text-xs font-medium uppercase tracking-[0.35em] text-[#C19A6B]">
-            Explore
+        {/* ================= HEADER ================= */}
+
+        <motion.div variants={itemVariants} className="mb-6">
+          <p className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[#C19A6B]">
+            Curated Collections
           </p>
 
-          <h2 className="mt-2 text-2xl font-light uppercase tracking-wide text-white sm:text-3xl">
-            Shop by Collection
+          <h2 className="text-xl font-medium tracking-tight text-white sm:text-2xl md:text-3xl">
+            Explore <span className="text-[#C19A6B]">Our Collections</span>
           </h2>
-
-          <p className="mt-2 max-w-xl text-sm leading-6 text-gray-500">
-            Discover thoughtfully selected pieces for every style and occasion.
-          </p>
         </motion.div>
 
-        {/* Categories */}
+        {/* ================= COLLECTIONS ================= */}
+
         <motion.div
-          variants={itemVariants}
+          variants={containerVariants}
           className="
             flex
             gap-4
             overflow-x-auto
-            pb-3
+            overscroll-x-contain
+            pb-4
             scrollbar-hide
+            [-webkit-overflow-scrolling:touch]
             sm:gap-5
-            lg:grid
-            lg:grid-cols-3
-            lg:overflow-visible
+           
           "
         >
-          {uniqueCategories.map((category) => {
-            const gender = category.gender?.toLowerCase();
-
-            if (!gender) return null;
-
-            return (
+          {uniqueCategories.map((gender) => (
+            <motion.div
+              key={gender._id}
+              variants={itemVariants}
+              className="
+                w-[72vw]
+                max-w-[300px]
+                shrink-0
+                sm:w-[42vw]
+                sm:max-w-[320px]
+               
+              "
+            >
               <Link
-                key={category._id}
-                to={`/${gender}`}
-                aria-label={`Explore ${category.gender} collection`}
+                to={`/${gender.gender.toLowerCase()}`}
                 className="
                   group
                   relative
                   block
-                  min-w-[260px]
+                  aspect-[4/5]
                   overflow-hidden
-                  rounded-[28px]
-                  sm:min-w-[280px]
-                  lg:min-w-0
+                  rounded-2xl
+                  bg-[#181818]
                 "
               >
-                {/* Image */}
-                <div className="relative h-[360px] overflow-hidden ">
-                  <img
-                    src={category.images?.[0]?.url}
-                    alt={`${category.gender} collection`}
-                    loading="lazy"
-                    decoding="async"
-                    className="
-                      absolute
-                      inset-0
-                      lg:h-fit h-full
-                      w-full
-                      object-cover
-                      transition-transform
-                      duration-700
-                      ease-out
-                      group-hover:scale-[1.05]
-                    "
-                  />
+                {/* ================= IMAGE ================= */}
 
-                  {/* Gradient Overlay */}
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      bg-gradient-to-t
-                      from-black/85
-                      via-black/20
-                      to-transparent
-                    "
-                  />
+                <motion.img
+                  src={gender.images?.[0]?.url}
+                  alt={`${gender.gender} collection`}
+                  loading="lazy"
+                  decoding="async"
+                  whileHover={{ scale: 1.045 }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="
+                    absolute
+                    inset-0
+                    h-full
+                    w-full
+                    object-cover
+                    will-change-transform
+                  "
+                />
 
-                  {/* Content */}
-                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                    <h3
-                      className="
-                        text-2xl
-                        font-semibold
-                        uppercase
-                        tracking-wide
-                        text-white
-                        transition-colors
-                        duration-300
-                        group-hover:text-[#C19A6B]
-                      "
-                    >
-                      {category.gender}
-                    </h3>
+                {/* ================= OVERLAY ================= */}
+
+                <div
+                  className="
+                    pointer-events-none
+                    absolute
+                    inset-0
+                    bg-gradient-to-t
+                    from-black/75
+                    via-black/15
+                    to-transparent
+                  "
+                />
+
+                {/* Hover Overlay */}
+
+                <div
+                  className="
+                    pointer-events-none
+                    absolute
+                    inset-0
+                    bg-black/0
+                    transition-colors
+                    duration-500
+                    group-hover:bg-black/10
+                  "
+                />
+
+                {/* ================= CONTENT ================= */}
+
+                <div
+                  className="
+                    absolute
+                    bottom-0
+                    left-0
+                    right-0
+                    p-5
+                    sm:p-6
+                    lg:p-7
+                  "
+                >
+                  <div className="flex items-end justify-between gap-4">
+                    <div>
+                      <p
+                        className="
+                          mb-2
+                          text-[8px]
+                          uppercase
+                          tracking-[0.25em]
+                          text-white/50
+                          sm:text-[9px]
+                        "
+                      >
+                        Collection
+                      </p>
+
+                      <h3
+                        className="
+                          text-2xl
+                          font-medium
+                          capitalize
+                          tracking-tight
+                          text-white
+                          transition-transform
+                          duration-500
+                          ease-out
+                         
+                          sm:text-3xl
+                          lg:text-4xl
+                        "
+                      >
+                        {gender.gender}
+                      </h3>
+
+                      <p
+                        className="
+                          mt-1
+                          text-[10px]
+                          text-white/45
+                          sm:text-xs
+                        "
+                      >
+                        {gender.itemCount}{" "}
+                        {gender.itemCount === 1 ? "piece" : "pieces"}
+                      </p>
+                    </div>
+
+                    {/* ================= ARROW ================= */}
 
                     <div
                       className="
-                        mt-2
                         flex
+                        h-9
+                        w-9
+                        shrink-0
                         items-center
-                        gap-2
-                        text-xs
-                        font-medium
-                        uppercase
-                        tracking-[0.2em]
-                        text-white/70
-                        transition-colors
-                        duration-300
-                        group-hover:text-[#C19A6B]
+                        justify-center
+                        rounded-full
+                        border
+                        border-white/20
+                        text-white
+                        transition-all
+                        duration-500
+                       
+                       
                       "
                     >
-                      <span>Shop Collection</span>
-
                       <span
                         className="
+                          text-sm
                           transition-transform
-                          duration-300
-                          group-hover:translate-x-1
+                          duration-500
+                          
                         "
                       >
                         →
@@ -161,12 +229,12 @@ const CollectionCategory = ({ product = [] }) => {
                   </div>
                 </div>
               </Link>
-            );
-          })}
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </motion.section>
   );
 };
 
-export default CollectionCategory;
+export default CollectionCategories;

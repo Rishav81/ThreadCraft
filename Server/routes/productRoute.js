@@ -4,6 +4,7 @@ import {
   deleteProduct,
   getAllProduct,
   getMyProducts,
+  searchProducts,
   singleProduct,
   updateProduct,
 } from "../controllers/productController.js";
@@ -21,6 +22,7 @@ productRouter.post(
 );
 productRouter.get("/", getAllProduct);
 productRouter.get("/my-products", protect, getMyProducts);
+productRouter.get("/search", searchProducts);
 productRouter.get("/:id", protect, singleProduct);
 productRouter.put("/:id", protect, upload.array("images", 5), updateProduct);
 productRouter.delete("/:id", protect, deleteProduct);

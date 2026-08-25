@@ -393,3 +393,66 @@ export const deleteProduct = async (req, res) => {
     });
   }
 };
+
+export const searchProducts = async (req, res) => {
+  try {
+    const { q = "", page = 1, limit = 30 } = req.query;
+
+    const searchQuery = q.trim();
+
+    if (!searchQuery) {
+      return res.status(200).json({
+        success: true,
+        products: [],
+        totalProducts: 0,
+        currentPage: Number(page),
+        totalPages: 0,
+      });
+    }
+
+    const currentPage = Math.max(Number(page), 1);
+    const productsPerPage = Math.min(Math.max(Number(limit), 1), 50);
+
+    const skip = (currentPage - 1) * productsPerPage;
+
+    const filter = {
+      status: "published",
+      $or: [
+        { name: { $regex: searchQuery, $options: "i" } },
+        { brand: { $regex: searchQuery, $options: "i" } },
+        { category: { $regex: searchQuery, $options: "i" } },
+        { style: { $regex: searchQuery, $options: "i" } },
+        { gender: { $regex: searchQuery, $options: "i" } },
+        { tags: { $regex: searchQuery, $options: "i" } },
+      ],
+    };
+
+    const [products, totalProducts] = await Promise.all([
+      Product.find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(productsPerPage),
+
+      Product.countDocuments(filter),
+    ]);
+
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+    return res.status(200).json({
+      success: true,
+      products,
+      totalProducts,
+      currentPage,
+      totalPages,
+      hasNextPage: currentPage < totalPages,
+      hasPreviousPage: currentPage > 1,
+    });
+  } catch (error) {
+    console.error("SEARCH PRODUCTS ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

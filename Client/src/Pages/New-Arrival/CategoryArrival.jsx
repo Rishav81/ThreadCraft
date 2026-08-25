@@ -65,10 +65,7 @@ const CategoryArrival = ({ products = {} }) => {
         {/* Category Filter */}
 
         {/* Products Grid */}
-        <motion.div
-          variants={itemVariants}
-          className="overflow-x-auto scrollbar-hide mt-5"
-        >
+        <motion.div variants={itemVariants} className=" mt-5">
           {currentProducts.length === 0 ? (
             <div className="py-16 text-center">
               <h3 className="text-lg md:text-xl text-gray-300 font-medium">
@@ -80,7 +77,7 @@ const CategoryArrival = ({ products = {} }) => {
               </p>
             </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3  lg:grid-cols-5 xl:grid-cols-6  gap-2">
               {currentProducts.map((product) => (
                 <div
                   key={product._id}

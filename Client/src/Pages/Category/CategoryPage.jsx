@@ -87,10 +87,10 @@ const CategoryPage = () => {
         min-h-screen
         px-4
         pb-20
-        pt-24
+        pt-20
         sm:px-6
         lg:px-8
-        lg:pt-28
+        
       "
     >
       <div className="mx-auto max-w-7xl">
@@ -102,7 +102,7 @@ const CategoryPage = () => {
           variants={itemVariants}
           aria-label="Breadcrumb"
           className="
-            mb-8
+            mb-4 md:mb-6
             flex
             items-center
             gap-2
@@ -127,7 +127,7 @@ const CategoryPage = () => {
           <FiChevronRight size={13} className="text-gray-700" />
 
           <Link
-            to="/shop"
+            to="/collections"
             className="
               text-gray-500
               transition-colors
@@ -150,19 +150,18 @@ const CategoryPage = () => {
         <motion.header
           variants={itemVariants}
           className="
-            mb-10
+            mb-4 md:mb-6
             border-b
             border-white/[0.08]
             pb-8
-            sm:mb-12
-            sm:pb-10
+           
           "
         >
           <div
             className="
               flex
               flex-col
-              gap-5
+              gap-2 sm:mt-4
               sm:flex-row
               sm:items-end
               sm:justify-between
@@ -171,7 +170,7 @@ const CategoryPage = () => {
             <div>
               <p
                 className="
-                  mb-3
+                  mb-2
                   text-[9px]
                   font-semibold
                   uppercase
@@ -200,7 +199,7 @@ const CategoryPage = () => {
 
               <p
                 className="
-                  mt-3
+                  mt-0.5 md:mt-1
                   max-w-xl
                   text-xs
                   leading-relaxed
@@ -208,8 +207,8 @@ const CategoryPage = () => {
                   sm:text-sm
                 "
               >
-                Discover thoughtfully designed pieces made for your everyday
-                style.
+                (Discover thoughtfully designed pieces made for your everyday
+                style.)
               </p>
             </div>
 
@@ -217,7 +216,6 @@ const CategoryPage = () => {
 
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span className="text-[#C19A6B]">{categoryProducts.length}</span>
-
               {categoryProducts.length === 1 ? "Product" : "Products"}
             </div>
           </div>

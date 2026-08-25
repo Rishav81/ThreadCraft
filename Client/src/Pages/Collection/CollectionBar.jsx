@@ -101,7 +101,7 @@ const CollectionBar = () => {
 
           <motion.div
             variants={itemVariants}
-            className="overflow-y-auto scrollbar-hide h-[90vh] mt-5"
+            className="overflow-y-auto scrollbar-hide  mt-5"
           >
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
               {filteredProducts.map((product) => (
