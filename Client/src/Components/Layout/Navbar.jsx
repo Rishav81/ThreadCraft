@@ -128,11 +128,11 @@ const Navbar = () => {
 
           <div className="flex items-center gap-5">
             {/* Search */}
-            <div>
+            <div className="flex items-center">
               <button
                 type="button"
                 onClick={() => setShowSearch(true)}
-                className="cursor-pointer text-white transition hover:text-[#C19A6B]"
+                className="flex items-center justify-center cursor-pointer text-white transition hover:text-[#C19A6B]"
                 aria-label="Search"
               >
                 <FiSearch size={22} />
@@ -142,11 +142,11 @@ const Navbar = () => {
             </div>
 
             {/* Profile */}
-            <div ref={profileRef} className="relative">
+            <div ref={profileRef} className="relative flex items-center">
               <button
                 type="button"
                 onClick={() => setShowProfile((prev) => !prev)}
-                className="cursor-pointer text-white transition hover:text-[#C19A6B]"
+                className="flex items-center justify-center cursor-pointer text-white transition hover:text-[#C19A6B]"
                 aria-label="Profile"
               >
                 <FiUser size={22} />
@@ -159,7 +159,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={handleCartClick}
-              className="relative cursor-pointer text-white transition hover:text-[#C19A6B]"
+              className="relative flex items-center justify-center cursor-pointer text-white transition hover:text-[#C19A6B]"
               aria-label="Shopping cart"
             >
               <FiShoppingBag size={22} />
@@ -167,20 +167,20 @@ const Navbar = () => {
               {cartCount > 0 && (
                 <span
                   className="
-                    absolute
-                    -right-2
-                    -top-0
-                    flex
-                    h-5
-                    w-5
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-[#C19A6B]
-                    text-xs
-                    font-bold
-                    text-black
-                  "
+          absolute
+          -right-2
+          -top-2
+          flex
+          h-5
+          w-5
+          items-center
+          justify-center
+          rounded-full
+          bg-[#C19A6B]
+          text-xs
+          font-bold
+          text-black
+        "
                 >
                   {cartCount}
                 </span>

@@ -1,136 +1,77 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+
 import {
   containerVariants,
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
+import CategoryCard from "../../Components/Category/CategoryCrad";
 
 const MensCategories = ({ product = [] }) => {
-  const uniqueCategories = product
-    .filter(
-      (item, index, self) =>
-        index === self.findIndex((p) => p.category === item.category),
-    )
-    .map((category) => ({
-      ...category,
-      itemCount: product.filter((item) => item.category === category.category)
-        .length,
-    }));
+  const categoryMap = new Map();
 
-  if (uniqueCategories.length === 0) {
-    return null;
-  }
+  product.forEach((item) => {
+    if (!item.category) return;
+
+    if (!categoryMap.has(item.category)) {
+      categoryMap.set(item.category, {
+        ...item,
+        itemCount: 1,
+      });
+    } else {
+      categoryMap.get(item.category).itemCount += 1;
+    }
+  });
+
+  const uniqueCategories = Array.from(categoryMap.values());
+
+  if (!uniqueCategories.length) return null;
+
   return (
     <motion.section
       variants={containerVariants}
-      className=" pt-6 px-4 sm:px-6 lg:px-8 "
+      initial="hidden"
+      whileInView="visible"
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      className="px-4 pt-8 sm:px-6 lg:px-8 lg:pt-14"
     >
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{
-          once: true,
-          amount: 0.3,
-        }}
-        className=" max-w-7xl mx-auto "
-      >
-        {/* Categories Content */}
-        <motion.div variants={itemVariants} className="mb-4">
-          <h2 className="mt-3 uppercase tracking-[0.4em] text-[#C19A6B] text-xs md:text-lg font-semibold  ">
-            Find Your
-            <span className="text-[#C19A6B]"> Signature Style</span>
+      <div className="mx-auto max-w-7xl">
+        <motion.div variants={itemVariants} className="mb-6">
+          <p className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[#C19A6B]">
+            Explore the collection
+          </p>
+
+          <h2 className="text-xl font-medium tracking-tight text-white sm:text-2xl md:text-3xl">
+            Find Your <span className="text-[#C19A6B]">Signature Style</span>
           </h2>
         </motion.div>
 
-        {/* Cards */}
         <motion.div
-          variants={itemVariants}
+          variants={containerVariants}
           className="
             flex
-            gap-6
+            gap-4
             overflow-x-auto
-           
+            pb-4
             scrollbar-hide
-            
+            sm:gap-5
+            lg:grid
+            lg:grid-cols-4
+            lg:overflow-visible
           "
         >
           {uniqueCategories.map((category) => (
-            <Link
-              key={category._id}
-              to={`/category/${category.category.toLowerCase()}`}
-              className="
-                relative
-                min-w-[250px]
-                h-[350px]
-               
-                rounded-[32px]
-                overflow-hidden
-                group
-                cursor-pointer
-                
-                
-                transition-all
-                duration-500
-              "
-            >
-              {/* Image */}
-              <motion.img
-                src={category.images?.[0]?.url}
-                alt={category.name}
-                loading="lazy"
-                className="
-                  absolute
-                  inset-0
-                  w-full
-                  h-full
-                  object-cover
-                  duration-700
-                  ease-out
-                  group-hover:scale-105
-                "
+            <motion.div key={category.category} variants={itemVariants}>
+              <CategoryCard
+                category={category}
+                itemCount={category.itemCount}
               />
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/30 to-transparent" />
-
-              {/* Content */}
-              <div
-                className="
-                  absolute
-                  bottom-8
-                  left-8
-                  right-8
-                  transition-all
-                  duration-500
-                  group-hover:scale-102
-                "
-              >
-                <motion.p
-                  variants={itemVariants}
-                  className="uppercase text-sm tracking-tight text-white/70"
-                >
-                  Premium Collection
-                </motion.p>
-
-                <motion.h3
-                  variants={itemVariants}
-                  className=" text-2xl font-bold text-white line-clamp-1"
-                >
-                  {category.category}{" "}
-                </motion.h3>
-                <motion.span
-                  variants={itemVariants}
-                  className=" text-sm tracking-tight text-white/70"
-                >
-                  {" "}
-                  ({category.itemCount} Items)
-                </motion.span>
-              </div>
-            </Link>
+            </motion.div>
           ))}
         </motion.div>
-      </motion.div>
+      </div>
     </motion.section>
   );
 };

@@ -27,31 +27,42 @@ const CategoryArrival = ({ products = {} }) => {
         className="max-w-7xl mx-auto"
       >
         {/* Section Header */}
-        <div className="mb-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 mb-6 border-b border-white/10 pb-3">
           <motion.h2
             variants={itemVariants}
-            className="mt-3 uppercase tracking-[0.4em] text-[#C19A6B] text-xs md:text-lg font-semibold"
+            className="uppercase tracking-[0.3em] text-[#C19A6B] text-xs sm:text-sm md:text-base font-semibold whitespace-nowrap"
           >
             {selectedCategory} New Collection
           </motion.h2>
+
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-5 sm:gap-7"
+          >
+            {["men", "women", "kids"].map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`relative  uppercase text-[10px] sm:text-xs md:text-sm tracking-[0.15em] cursor-pointer transition-colors duration-300 ${
+                  selectedCategory === category
+                    ? "text-[#C19A6B]"
+                    : "text-gray-400 hover:text-[#C19A6B]"
+                }`}
+              >
+                {category}
+
+                {selectedCategory === category && (
+                  <motion.span
+                    layoutId="category-active"
+                    className="absolute left-0 right-0 -bottom-[2px] h-px bg-[#C19A6B]"
+                  />
+                )}
+              </button>
+            ))}
+          </motion.div>
         </div>
 
         {/* Category Filter */}
-        <motion.div variants={itemVariants} className="flex gap-6 mb-5">
-          {["men", "women", "kids"].map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`uppercase text-xs md:text-sm tracking-widest hover:text-[#C19A6B]  cursor-pointer duration-300  ${
-                selectedCategory === category
-                  ? "text-[#C19A6B] border-b border-[#C19A6B]"
-                  : "text-gray-400"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </motion.div>
 
         {/* Products Grid */}
         <motion.div

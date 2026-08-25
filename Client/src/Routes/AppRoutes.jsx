@@ -29,6 +29,7 @@ const Wishlists = lazy(() => import("../Pages/Wishlist/Wishlists"));
 const UserProfile = lazy(() => import("../Pages/Profile/UserProfile"));
 const MyListedItems = lazy(() => import("../Pages/Profile/MyListedItems"));
 const EditProduct = lazy(() => import("../Pages/Products/EditProduct"));
+const CategoryPage = lazy(() => import("../Pages/Category/CategoryPage"));
 
 const PageNotFound = lazy(() => import("../Pages/PageNotFound"));
 
@@ -57,6 +58,10 @@ const AppRoutes = () => {
               <Route path="/wishlist" element={<Wishlists />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/my-products" element={<MyListedItems />} />
+              <Route
+                path="/category/:categoryName"
+                element={<CategoryPage />}
+              />
             </Route>
 
             <Route
