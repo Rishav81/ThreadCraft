@@ -49,7 +49,7 @@ const SearchPage = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="min-h-screen px-4 pb-20 pt-20 sm:px-6 lg:px-8 "
+      className="min-h-screen px-4 pb-20 pt-20 sm:mt-24 lg:mt-28 sm:px-6 lg:px-8 "
     >
       <div className="mx-auto max-w-7xl">
         {/* ====================================================== */}

@@ -90,7 +90,7 @@ const CategoryPage = () => {
         pt-20
         sm:px-6
         lg:px-8
-        
+        sm:mt-24 lg:mt-28
       "
     >
       <div className="mx-auto max-w-7xl">
