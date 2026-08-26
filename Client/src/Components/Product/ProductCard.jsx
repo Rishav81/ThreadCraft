@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
           transition-all
           duration-300
           
-          hover:border-[#C19A6B]/20
+         
         "
       >
         {/* ================= IMAGE ================= */}
