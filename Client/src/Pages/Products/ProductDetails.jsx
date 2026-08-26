@@ -107,6 +107,74 @@ const ProductDetails = () => {
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: images.map((image) => image.url),
+    sku: product.sku || product._id,
+    brand: {
+      "@type": "Brand",
+      name: product.brand || "ThreadCraft",
+    },
+    category: `${product.gender || ""} ${product.category || ""}`.trim(),
+
+    offers: {
+      "@type": "Offer",
+      url: `https://thread-craft-mu.vercel.app/products/${product._id}`,
+      priceCurrency: "INR",
+      price: product.price,
+      availability:
+        product.stock > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+
+    ...(product.rating > 0 &&
+      product.reviews > 0 && {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: product.rating,
+          reviewCount: product.reviews,
+        },
+      }),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://thread-craft-mu.vercel.app/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: product.gender,
+        item: `https://thread-craft-mu.vercel.app/${product.gender?.toLowerCase()}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.category,
+        item: `https://thread-craft-mu.vercel.app/category/${product.category
+          ?.toLowerCase()
+          .replace(/\s+/g, "-")}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: product.name,
+        item: `https://thread-craft-mu.vercel.app/products/${product._id}`,
+      },
+    ],
+  };
+
   // =========================
   // QUANTITY
   // =========================
@@ -180,10 +248,19 @@ const ProductDetails = () => {
   return (
     <>
       <Seo
-        title={`${product.name} | ThreadCraft`}
-        description={product.description}
+        title={`${product.name} | ${product.brand || "ThreadCraft"}`}
+        description={`Shop ${product.name} for ${product.gender || "everyone"} at ThreadCraft. ${
+          product.description
+        } Available in ${product.sizes?.join(", ") || "multiple sizes"} at ₹${product.price?.toLocaleString("en-IN")}.`}
         canonical={`https://thread-craft-mu.vercel.app/products/${product._id}`}
       />
+      <script type="application/ld+json">
+        {JSON.stringify(productSchema)}
+      </script>
+
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
+      </script>
       <main className="mt-20 px-4 text-white lg:mt-28 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl">
           {/* ================= BREADCRUMB ================= */}
@@ -195,13 +272,19 @@ const ProductDetails = () => {
 
             <span>/</span>
 
-            <Link to="/men" className="shrink-0 hover:text-[#C19A6B]">
+            <Link
+              to={`/${product.gender?.toLowerCase()}`}
+              className="shrink-0 hover:text-[#C19A6B]"
+            >
               {product.gender}
             </Link>
 
             <span>/</span>
 
-            <Link to="/collections" className="shrink-0 hover:text-[#C19A6B]">
+            <Link
+              to={`/category/${product.category?.toLowerCase().replace(/\s+/g, "-")}`}
+              className="shrink-0 hover:text-[#C19A6B]"
+            >
               {product.category}
             </Link>
 
@@ -229,9 +312,12 @@ const ProductDetails = () => {
                     }`}
                   >
                     <img
-                      src={image?.url}
-                      alt={`${product.name} ${index + 1}`}
-                      className="h-full w-full object-cover"
+                      src={images[selectedImage]?.url}
+                      alt={`${product.name} - ThreadCraft`}
+                      loading="lazy"
+                      fetchPriority="high"
+                      decoding="async"
+                      className="aspect-[4/5] w-full rounded-2xl object-cover"
                     />
                   </button>
                 ))}

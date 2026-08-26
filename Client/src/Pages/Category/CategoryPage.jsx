@@ -75,6 +75,36 @@ const CategoryPage = () => {
     });
   };
 
+  const categoryGender = categoryProducts[0]?.gender;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://thread-craft-mu.vercel.app/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: categoryGender || "Shop",
+        item: categoryGender
+          ? `https://thread-craft-mu.vercel.app/${categoryGender
+              .toLowerCase()
+              .replace(/\s+/g, "-")}`
+          : "https://thread-craft-mu.vercel.app/collections",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: formattedCategory,
+        item: `https://thread-craft-mu.vercel.app/category/${categoryName}`,
+      },
+    ],
+  };
   // ============================================================
   // RENDER
   // ============================================================
@@ -86,7 +116,9 @@ const CategoryPage = () => {
         description={`Explore stylish ${formattedCategory.toLowerCase()} at ThreadCraft. Discover comfortable and versatile designs for everyday wear.`}
         canonical={`https://thread-craft-mu.vercel.app/category/${categoryName}`}
       />
-
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
+      </script>
       <motion.main
         variants={containerVariants}
         initial="hidden"
@@ -136,7 +168,7 @@ const CategoryPage = () => {
             <FiChevronRight size={13} className="text-gray-700" />
 
             <Link
-              to="/collections"
+              to={`/${categoryGender?.toLowerCase()}`}
               className="
               text-gray-500
               transition-colors
@@ -144,7 +176,7 @@ const CategoryPage = () => {
               hover:text-[#C19A6B]
             "
             >
-              Shop
+              {categoryGender}
             </Link>
 
             <FiChevronRight size={13} className="text-gray-700" />
