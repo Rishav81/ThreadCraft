@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSingleProduct } from "../../Data/API/productApi";
 import ProductForm from "./ProductForm";
+import Seo from "../../Components/SEO/Seo";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -109,7 +110,16 @@ const EditProduct = () => {
   // FORM
   // =========================================================
 
-  return <ProductForm mode="edit" product={product} />;
+  return (
+    <>
+      <Seo
+        title="Edit Product | ThreadCraft"
+        description="Edit your ThreadCraft product."
+        noindex={true}
+      />
+      <ProductForm mode="edit" product={product} />;
+    </>
+  );
 };
 
 // =========================================================

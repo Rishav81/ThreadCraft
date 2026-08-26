@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 
 import { lazy, Suspense } from "react";
 import { useProducts } from "../../Context/ProductContext";
+import Seo from "../../Components/SEO/Seo";
 const WomenCategories = lazy(() => import("./WomenCategories"));
 const Trending = lazy(() => import("./Trending"));
 const BestSeller = lazy(() => import("./BestSeller"));
@@ -43,6 +44,11 @@ const WomenHero = () => {
 
   return (
     <>
+      <Seo
+        title="Women's Fashion & Clothing | ThreadCraft"
+        description="Explore women's fashion at ThreadCraft. Shop stylish dresses, tops, shirts, jeans and more for everyday wear and every occasion."
+        canonical="https://thread-craft-mu.vercel.app/women"
+      />
       <section className="relative h-[78vh] min-h-[620px] w-full overflow-hidden lg:h-screen ">
         {/* Background */}
         <motion.img

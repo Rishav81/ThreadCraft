@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 
 import { lazy, Suspense } from "react";
 import { useProducts } from "../../Context/ProductContext";
+import Seo from "../../Components/SEO/Seo";
 
 const Landing = () => {
   const { products } = useProducts();
@@ -41,6 +42,11 @@ const Landing = () => {
 
   return (
     <>
+      <Seo
+        title="Men's Fashion & Clothing | ThreadCraft"
+        description="Explore men's fashion at ThreadCraft. Shop stylish shirts, t-shirts, jeans, jackets and more for everyday wear and every occasion."
+        canonical="https://thread-craft-mu.vercel.app/men"
+      />
       <section className="relative h-[78vh] min-h-[620px] w-full overflow-hidden lg:h-screen ">
         {/* Background */}
         <motion.img

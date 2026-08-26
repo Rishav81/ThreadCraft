@@ -6,6 +6,7 @@ import {
 import { useProducts } from "../../Context/ProductContext";
 import { lazy, Suspense, useMemo } from "react";
 import LazySection from "../../Components/Ui/LazySection";
+import Seo from "../../Components/SEO/Seo";
 const CollectionCategory = lazy(() => import("./CollectionCategory"));
 const CollectionBar = lazy(() => import("./CollectionBar"));
 const Banner = lazy(() => import("./Banner"));
@@ -19,6 +20,11 @@ const CollectionHero = () => {
 
   return (
     <>
+      <Seo
+        title="Fashion Collections | ThreadCraft"
+        description="Explore curated fashion collections at ThreadCraft. Discover thoughtfully selected styles for men, women and kids."
+        canonical="https://thread-craft-mu.vercel.app/collections"
+      />
       <section className="relative h-[75vh] min-h-[600px] w-full overflow-hidden lg:h-screen">
         {/* Background Image */}
         <motion.img

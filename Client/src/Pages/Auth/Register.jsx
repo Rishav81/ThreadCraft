@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, LoaderCircle, Camera, X } from "lucide-react";
 import { registerAccount } from "../../Data/API/authApi";
+import Seo from "../../Components/SEO/Seo";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -135,31 +136,37 @@ const Register = () => {
   };
 
   return (
-    <section className="flex min-h-screen items-center justify-center bg-[#111111] px-4 py-10">
-      <div className="w-full max-w-md rounded-2xl bg-[#181818] p-8 shadow-xl">
-        {/* =====================================================
+    <>
+      <Seo
+        title="Create Your Account | ThreadCraft"
+        description="Create your ThreadCraft account to shop men's, women's and kids' fashion, manage your orders, and enjoy a personalized shopping experience."
+        noindex={true}
+      />
+      <section className="flex min-h-screen items-center justify-center bg-[#111111] px-4 py-10">
+        <div className="w-full max-w-md rounded-2xl bg-[#181818] p-8 shadow-xl">
+          {/* =====================================================
             HEADER
         ====================================================== */}
 
-        <h1 className="mb-2 text-center text-3xl font-bold text-[#C19A6B]">
-          ThreadCraft
-        </h1>
+          <h1 className="mb-2 text-center text-3xl font-bold text-[#C19A6B]">
+            ThreadCraft
+          </h1>
 
-        <p className="mb-8 text-center text-gray-400">
-          Create your account and start shopping.
-        </p>
+          <p className="mb-8 text-center text-gray-400">
+            Create your account and start shopping.
+          </p>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* =====================================================
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* =====================================================
               PROFILE IMAGE
           ====================================================== */}
 
-          <div className="flex flex-col items-center">
-            <div className="relative">
-              {/* Image Preview */}
+            <div className="flex flex-col items-center">
+              <div className="relative">
+                {/* Image Preview */}
 
-              <div
-                className="
+                <div
+                  className="
                   flex h-28 w-28
                   items-center justify-center
                   overflow-hidden
@@ -167,23 +174,23 @@ const Register = () => {
                   border-2 border-[#C19A6B]/40
                   bg-[#222]
                 "
-              >
-                {previewImage ? (
-                  <img
-                    src={previewImage}
-                    alt="Profile preview"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <Camera size={32} className="text-[#C19A6B]" />
-                )}
-              </div>
+                >
+                  {previewImage ? (
+                    <img
+                      src={previewImage}
+                      alt="Profile preview"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <Camera size={32} className="text-[#C19A6B]" />
+                  )}
+                </div>
 
-              {/* Upload Button */}
+                {/* Upload Button */}
 
-              <label
-                htmlFor="profile-image"
-                className="
+                <label
+                  htmlFor="profile-image"
+                  className="
                   absolute
                   bottom-0
                   right-0
@@ -199,25 +206,25 @@ const Register = () => {
                   transition
                   hover:bg-[#d0aa7b]
                 "
-              >
-                <Camera size={17} />
+                >
+                  <Camera size={17} />
 
-                <input
-                  id="profile-image"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
-              </label>
+                  <input
+                    id="profile-image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                  />
+                </label>
 
-              {/* Remove Image */}
+                {/* Remove Image */}
 
-              {previewImage && (
-                <button
-                  type="button"
-                  onClick={removeProfileImage}
-                  className="
+                {previewImage && (
+                  <button
+                    type="button"
+                    onClick={removeProfileImage}
+                    className="
                     absolute
                     right-0
                     top-0
@@ -234,32 +241,32 @@ const Register = () => {
                     transition
                     hover:text-red-400
                   "
-                >
-                  <X size={14} />
-                </button>
-              )}
+                  >
+                    <X size={14} />
+                  </button>
+                )}
+              </div>
+
+              <p className="mt-3 text-xs text-gray-500">
+                Profile image · Optional · Max 5MB
+              </p>
             </div>
 
-            <p className="mt-3 text-xs text-gray-500">
-              Profile image · Optional · Max 5MB
-            </p>
-          </div>
-
-          {/* =====================================================
+            {/* =====================================================
               FULL NAME
           ====================================================== */}
 
-          <div>
-            <label className="text-sm text-gray-300">Full Name</label>
+            <div>
+              <label className="text-sm text-gray-300">Full Name</label>
 
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              placeholder="Enter your name"
-              required
-              className="
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                placeholder="Enter your name"
+                required
+                className="
                 mt-2
                 w-full
                 rounded-lg
@@ -271,24 +278,24 @@ const Register = () => {
                 focus:ring-2
                 focus:ring-[#C19A6B]
               "
-            />
-          </div>
+              />
+            </div>
 
-          {/* =====================================================
+            {/* =====================================================
               EMAIL
           ====================================================== */}
 
-          <div>
-            <label className="text-sm text-gray-300">Email</label>
+            <div>
+              <label className="text-sm text-gray-300">Email</label>
 
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-              className="
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+                className="
                 mt-2
                 w-full
                 rounded-lg
@@ -300,25 +307,25 @@ const Register = () => {
                 focus:ring-2
                 focus:ring-[#C19A6B]
               "
-            />
-          </div>
+              />
+            </div>
 
-          {/* =====================================================
+            {/* =====================================================
               PASSWORD
           ====================================================== */}
 
-          <div>
-            <label className="text-sm text-gray-300">Password</label>
+            <div>
+              <label className="text-sm text-gray-300">Password</label>
 
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Create password"
-                required
-                className="
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Create password"
+                  required
+                  className="
                   mt-2
                   w-full
                   rounded-lg
@@ -331,46 +338,46 @@ const Register = () => {
                   focus:ring-2
                   focus:ring-[#C19A6B]
                 "
-              />
+                />
 
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="
                   absolute
                   right-4
                   top-5
                   text-gray-400
                   hover:text-[#C19A6B]
                 "
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+
+              {formData.password.length > 0 && formData.password.length < 8 && (
+                <p className="mt-2 text-sm text-red-500">
+                  Password must contain at least 8 characters
+                </p>
+              )}
             </div>
 
-            {formData.password.length > 0 && formData.password.length < 8 && (
-              <p className="mt-2 text-sm text-red-500">
-                Password must contain at least 8 characters
-              </p>
-            )}
-          </div>
-
-          {/* =====================================================
+            {/* =====================================================
               CONFIRM PASSWORD
           ====================================================== */}
 
-          <div>
-            <label className="text-sm text-gray-300">Confirm Password</label>
+            <div>
+              <label className="text-sm text-gray-300">Confirm Password</label>
 
-            <div className="relative">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm password"
-                required
-                className="
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Confirm password"
+                  required
+                  className="
                   mt-2
                   w-full
                   rounded-lg
@@ -383,38 +390,44 @@ const Register = () => {
                   focus:ring-2
                   focus:ring-[#C19A6B]
                 "
-              />
+                />
 
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="
                   absolute
                   right-4
                   top-5
                   text-gray-400
                   hover:text-[#C19A6B]
                 "
-              >
-                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* =====================================================
+            {/* =====================================================
               ERROR
           ====================================================== */}
 
-          {error && <p className="text-center text-sm text-red-500">{error}</p>}
+            {error && (
+              <p className="text-center text-sm text-red-500">{error}</p>
+            )}
 
-          {/* =====================================================
+            {/* =====================================================
               SUBMIT
           ====================================================== */}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="
+            <button
+              type="submit"
+              disabled={loading}
+              className="
               flex
               w-full
               items-center
@@ -434,30 +447,31 @@ const Register = () => {
               disabled:cursor-not-allowed
               disabled:opacity-50
             "
-          >
-            {loading ? (
-              <>
-                <LoaderCircle size={20} className="animate-spin" />
-                Creating...
-              </>
-            ) : (
-              "Create Account"
-            )}
-          </button>
-        </form>
+            >
+              {loading ? (
+                <>
+                  <LoaderCircle size={20} className="animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                "Create Account"
+              )}
+            </button>
+          </form>
 
-        {/* =====================================================
+          {/* =====================================================
             LOGIN
         ====================================================== */}
 
-        <p className="mt-6 text-center text-gray-400">
-          Already have an account?
-          <Link to="/login" className="ml-2 text-[#C19A6B] hover:underline">
-            Login
-          </Link>
-        </p>
-      </div>
-    </section>
+          <p className="mt-6 text-center text-gray-400">
+            Already have an account?
+            <Link to="/login" className="ml-2 text-[#C19A6B] hover:underline">
+              Login
+            </Link>
+          </p>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   itemVariants,
 } from "../../Components/Ui/HeroAnimation";
 import { useProducts } from "../../Context/ProductContext";
+import Seo from "../../Components/SEO/Seo";
 
 const PRODUCTS_PER_PAGE = 30;
 
@@ -79,11 +80,18 @@ const CategoryPage = () => {
   // ============================================================
 
   return (
-    <motion.main
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="
+    <>
+      <Seo
+        title={`${formattedCategory} | ThreadCraft`}
+        description={`Explore stylish ${formattedCategory.toLowerCase()} at ThreadCraft. Discover comfortable and versatile designs for everyday wear.`}
+        canonical={`https://thread-craft-mu.vercel.app/category/${categoryName}`}
+      />
+
+      <motion.main
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="
         min-h-screen
         px-4
         pb-20
@@ -93,16 +101,16 @@ const CategoryPage = () => {
         lg:px-8
         
       "
-    >
-      <div className="mx-auto max-w-7xl">
-        {/* ====================================================== */}
-        {/* BREADCRUMB */}
-        {/* ====================================================== */}
+      >
+        <div className="mx-auto max-w-7xl">
+          {/* ====================================================== */}
+          {/* BREADCRUMB */}
+          {/* ====================================================== */}
 
-        <motion.nav
-          variants={itemVariants}
-          aria-label="Breadcrumb"
-          className="
+          <motion.nav
+            variants={itemVariants}
+            aria-label="Breadcrumb"
+            className="
             mb-4 md:mb-6
             flex
             items-center
@@ -112,54 +120,54 @@ const CategoryPage = () => {
             tracking-[0.15em]
             sm:text-xs
           "
-        >
-          <Link
-            to="/"
-            className="
+          >
+            <Link
+              to="/"
+              className="
               text-gray-500
               transition-colors
               duration-300
               hover:text-[#C19A6B]
             "
-          >
-            Home
-          </Link>
+            >
+              Home
+            </Link>
 
-          <FiChevronRight size={13} className="text-gray-700" />
+            <FiChevronRight size={13} className="text-gray-700" />
 
-          <Link
-            to="/collections"
-            className="
+            <Link
+              to="/collections"
+              className="
               text-gray-500
               transition-colors
               duration-300
               hover:text-[#C19A6B]
             "
-          >
-            Shop
-          </Link>
+            >
+              Shop
+            </Link>
 
-          <FiChevronRight size={13} className="text-gray-700" />
+            <FiChevronRight size={13} className="text-gray-700" />
 
-          <span className="text-[#C19A6B]">{formattedCategory}</span>
-        </motion.nav>
+            <span className="text-[#C19A6B]">{formattedCategory}</span>
+          </motion.nav>
 
-        {/* ====================================================== */}
-        {/* CATEGORY HERO */}
-        {/* ====================================================== */}
+          {/* ====================================================== */}
+          {/* CATEGORY HERO */}
+          {/* ====================================================== */}
 
-        <motion.header
-          variants={itemVariants}
-          className="
+          <motion.header
+            variants={itemVariants}
+            className="
             mb-4 md:mb-6
             border-b
             border-white/[0.08]
             pb-8
            
           "
-        >
-          <div
-            className="
+          >
+            <div
+              className="
               flex
               flex-col
               gap-2 sm:mt-4
@@ -167,10 +175,10 @@ const CategoryPage = () => {
               sm:items-end
               sm:justify-between
             "
-          >
-            <div>
-              <p
-                className="
+            >
+              <div>
+                <p
+                  className="
                   mb-2
                   text-[9px]
                   font-semibold
@@ -179,12 +187,12 @@ const CategoryPage = () => {
                   text-[#C19A6B]
                   sm:text-[10px]
                 "
-              >
-                ThreadCraft Collection
-              </p>
+                >
+                  ThreadCraft Collection
+                </p>
 
-              <h1
-                className="
+                <h1
+                  className="
                   text-3xl
                   font-medium
                   capitalize
@@ -194,12 +202,12 @@ const CategoryPage = () => {
                   md:text-5xl
                   lg:text-6xl
                 "
-              >
-                {formattedCategory}
-              </h1>
+                >
+                  {formattedCategory}
+                </h1>
 
-              <p
-                className="
+                <p
+                  className="
                   mt-0.5 md:mt-1
                   max-w-xl
                   text-xs
@@ -207,29 +215,31 @@ const CategoryPage = () => {
                   text-gray-500
                   sm:text-sm
                 "
-              >
-                (Discover thoughtfully designed pieces made for your everyday
-                style.)
-              </p>
+                >
+                  (Discover thoughtfully designed pieces made for your everyday
+                  style.)
+                </p>
+              </div>
+
+              {/* Product Count */}
+
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <span className="text-[#C19A6B]">
+                  {categoryProducts.length}
+                </span>
+                {categoryProducts.length === 1 ? "Product" : "Products"}
+              </div>
             </div>
+          </motion.header>
 
-            {/* Product Count */}
+          {/* ====================================================== */}
+          {/* TOOLBAR */}
+          {/* ====================================================== */}
 
-            <div className="flex items-center gap-2 text-xs text-gray-500">
-              <span className="text-[#C19A6B]">{categoryProducts.length}</span>
-              {categoryProducts.length === 1 ? "Product" : "Products"}
-            </div>
-          </div>
-        </motion.header>
-
-        {/* ====================================================== */}
-        {/* TOOLBAR */}
-        {/* ====================================================== */}
-
-        {categoryProducts.length > 0 && (
-          <motion.div
-            variants={itemVariants}
-            className="
+          {categoryProducts.length > 0 && (
+            <motion.div
+              variants={itemVariants}
+              className="
               mb-7
               flex
               items-center
@@ -238,39 +248,39 @@ const CategoryPage = () => {
               border-white/[0.06]
               pb-4
             "
-          >
-            <p
-              className="
+            >
+              <p
+                className="
                 text-[10px]
                 uppercase
                 tracking-[0.2em]
                 text-gray-500
               "
-            >
-              {formattedCategory} Collection
-            </p>
+              >
+                {formattedCategory} Collection
+              </p>
 
-            <p
-              className="
+              <p
+                className="
                 text-[10px]
                 uppercase
                 tracking-[0.15em]
                 text-gray-600
               "
-            >
-              Page {currentPage} of {totalPages}
-            </p>
-          </motion.div>
-        )}
+              >
+                Page {currentPage} of {totalPages}
+              </p>
+            </motion.div>
+          )}
 
-        {/* ====================================================== */}
-        {/* PRODUCTS */}
-        {/* ====================================================== */}
+          {/* ====================================================== */}
+          {/* PRODUCTS */}
+          {/* ====================================================== */}
 
-        {categoryProducts.length === 0 ? (
-          <motion.div
-            variants={itemVariants}
-            className="
+          {categoryProducts.length === 0 ? (
+            <motion.div
+              variants={itemVariants}
+              className="
               flex
               min-h-[360px]
               items-center
@@ -282,47 +292,47 @@ const CategoryPage = () => {
               px-6
               text-center
             "
-          >
-            <div className="max-w-sm">
-              <p
-                className="
+            >
+              <div className="max-w-sm">
+                <p
+                  className="
                   text-[9px]
                   font-semibold
                   uppercase
                   tracking-[0.3em]
                   text-[#C19A6B]
                 "
-              >
-                Coming Soon
-              </p>
+                >
+                  Coming Soon
+                </p>
 
-              <h2
-                className="
+                <h2
+                  className="
                   mt-3
                   text-xl
                   font-medium
                   text-gray-200
                 "
-              >
-                Nothing here yet
-              </h2>
+                >
+                  Nothing here yet
+                </h2>
 
-              <p
-                className="
+                <p
+                  className="
                   mt-2
                   text-xs
                   leading-relaxed
                   text-gray-500
                   sm:text-sm
                 "
-              >
-                We don't have any products in this collection yet. Explore our
-                other collections instead.
-              </p>
+                >
+                  We don't have any products in this collection yet. Explore our
+                  other collections instead.
+                </p>
 
-              <Link
-                to="/shop"
-                className="
+                <Link
+                  to="/shop"
+                  className="
                   mt-6
                   inline-flex
                   border-b
@@ -336,20 +346,20 @@ const CategoryPage = () => {
                   duration-300
                   hover:opacity-70
                 "
-              >
-                Explore Shop
-              </Link>
-            </div>
-          </motion.div>
-        ) : (
-          <>
-            {/* ================================================== */}
-            {/* PRODUCT GRID */}
-            {/* ================================================== */}
+                >
+                  Explore Shop
+                </Link>
+              </div>
+            </motion.div>
+          ) : (
+            <>
+              {/* ================================================== */}
+              {/* PRODUCT GRID */}
+              {/* ================================================== */}
 
-            <motion.div
-              variants={containerVariants}
-              className="
+              <motion.div
+                variants={containerVariants}
+                className="
                 grid
                 grid-cols-2
                 gap-x-3
@@ -362,26 +372,26 @@ const CategoryPage = () => {
                 lg:gap-y-14
                 xl:grid-cols-5
               "
-            >
-              {paginatedProducts.map((product) => (
+              >
+                {paginatedProducts.map((product) => (
+                  <motion.div
+                    key={product._id}
+                    variants={itemVariants}
+                    className="min-w-0"
+                  >
+                    <ProductCard product={product} />
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* ================================================== */}
+              {/* PAGINATION */}
+              {/* ================================================== */}
+
+              {totalPages > 1 && (
                 <motion.div
-                  key={product._id}
                   variants={itemVariants}
-                  className="min-w-0"
-                >
-                  <ProductCard product={product} />
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* ================================================== */}
-            {/* PAGINATION */}
-            {/* ================================================== */}
-
-            {totalPages > 1 && (
-              <motion.div
-                variants={itemVariants}
-                className="
+                  className="
                   mt-16
                   flex
                   items-center
@@ -389,14 +399,14 @@ const CategoryPage = () => {
                   gap-2
                   sm:mt-20
                 "
-              >
-                {/* PREVIOUS */}
+                >
+                  {/* PREVIOUS */}
 
-                <button
-                  type="button"
-                  disabled={currentPage === 1}
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  className="
+                  <button
+                    type="button"
+                    disabled={currentPage === 1}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    className="
                     px-3
                     py-2
                     text-[9px]
@@ -411,22 +421,22 @@ const CategoryPage = () => {
                     sm:px-4
                     sm:text-[10px]
                   "
-                >
-                  Previous
-                </button>
+                  >
+                    Previous
+                  </button>
 
-                {/* PAGE NUMBERS */}
+                  {/* PAGE NUMBERS */}
 
-                <div className="flex items-center gap-1">
-                  {Array.from(
-                    { length: totalPages },
-                    (_, index) => index + 1,
-                  ).map((page) => (
-                    <button
-                      key={page}
-                      type="button"
-                      onClick={() => handlePageChange(page)}
-                      className={`
+                  <div className="flex items-center gap-1">
+                    {Array.from(
+                      { length: totalPages },
+                      (_, index) => index + 1,
+                    ).map((page) => (
+                      <button
+                        key={page}
+                        type="button"
+                        onClick={() => handlePageChange(page)}
+                        className={`
                         flex
                         h-8
                         min-w-8
@@ -445,19 +455,19 @@ const CategoryPage = () => {
                             : "text-gray-500 hover:bg-white/5 hover:text-white"
                         }
                       `}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                </div>
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
 
-                {/* NEXT */}
+                  {/* NEXT */}
 
-                <button
-                  type="button"
-                  disabled={currentPage === totalPages}
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  className="
+                  <button
+                    type="button"
+                    disabled={currentPage === totalPages}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    className="
                     px-3
                     py-2
                     text-[9px]
@@ -472,19 +482,19 @@ const CategoryPage = () => {
                     sm:px-4
                     sm:text-[10px]
                   "
-                >
-                  Next
-                </button>
-              </motion.div>
-            )}
+                  >
+                    Next
+                  </button>
+                </motion.div>
+              )}
 
-            {/* ================================================== */}
-            {/* PAGINATION INFO */}
-            {/* ================================================== */}
+              {/* ================================================== */}
+              {/* PAGINATION INFO */}
+              {/* ================================================== */}
 
-            {totalPages > 1 && (
-              <p
-                className="
+              {totalPages > 1 && (
+                <p
+                  className="
                   mt-4
                   text-center
                   text-[9px]
@@ -492,20 +502,21 @@ const CategoryPage = () => {
                   tracking-[0.15em]
                   text-gray-600
                 "
-              >
-                Showing {(currentPage - 1) * PRODUCTS_PER_PAGE + 1}
-                {" – "}
-                {Math.min(
-                  currentPage * PRODUCTS_PER_PAGE,
-                  categoryProducts.length,
-                )}{" "}
-                of {categoryProducts.length} products
-              </p>
-            )}
-          </>
-        )}
-      </div>
-    </motion.main>
+                >
+                  Showing {(currentPage - 1) * PRODUCTS_PER_PAGE + 1}
+                  {" – "}
+                  {Math.min(
+                    currentPage * PRODUCTS_PER_PAGE,
+                    categoryProducts.length,
+                  )}{" "}
+                  of {categoryProducts.length} products
+                </p>
+              )}
+            </>
+          )}
+        </div>
+      </motion.main>
+    </>
   );
 };
 

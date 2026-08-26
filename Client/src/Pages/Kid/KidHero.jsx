@@ -9,6 +9,7 @@ import {
 } from "../../Components/Ui/HeroAnimation";
 import { Link } from "react-router-dom";
 import { useProducts } from "../../Context/ProductContext";
+import Seo from "../../Components/SEO/Seo";
 
 const KidsCategories = lazy(() => import("./KidsCategories"));
 const NewArrival = lazy(() => import("./NewArrival"));
@@ -42,6 +43,11 @@ const KidHero = () => {
 
   return (
     <>
+      <Seo
+        title="Kids' Clothing & Fashion | ThreadCraft"
+        description="Discover stylish kids' clothing at ThreadCraft. Explore comfortable and fashionable outfits for everyday wear and special occasions."
+        canonical="https://thread-craft-mu.vercel.app/kids"
+      />
       <section className="relative h-[78vh] min-h-[620px] w-full overflow-hidden lg:h-screen ">
         {/* Background */}
         <motion.img

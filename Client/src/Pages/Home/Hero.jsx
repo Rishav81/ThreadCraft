@@ -11,6 +11,7 @@ import {
 } from "../../Components/Ui/HeroAnimation";
 import { Link } from "react-router-dom";
 import { useProducts } from "../../Context/ProductContext";
+import Seo from "../../Components/SEO/Seo";
 const WhyChoose = lazy(() => import("./WhyChoose"));
 const BrandBanner = lazy(() => import("./BrandBanner"));
 const FeaturedCollection = lazy(() => import("./FeaturedCollection"));
@@ -36,6 +37,12 @@ const Hero = () => {
   }, [products]);
   return (
     <>
+      <Seo
+        title="ThreadCraft | Modern Fashion & Clothing"
+        description="Discover modern men's, women's and kids' fashion at ThreadCraft. Explore stylish clothing and new collections for every occasion."
+        canonical="https://thread-craft-mu.vercel.app/"
+      />
+
       <section className="relative h-[85vh] min-h-[500px] w-full overflow-hidden md:h-screen  ">
         {/* Background Image */}
         <motion.img

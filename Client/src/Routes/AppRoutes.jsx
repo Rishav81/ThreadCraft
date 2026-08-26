@@ -23,7 +23,7 @@ const Login = lazy(() => import("../Pages/Auth/Login"));
 const Register = lazy(() => import("../Pages/Auth/Register"));
 const Cart = lazy(() => import("../Pages/Cart/Cart"));
 const CheckOut = lazy(() => import("../Pages/Cart/CheckOut"));
-const OrderConfirmed = lazy(() => import("../Pages/Order/OrderConfiirmed"));
+// const OrderConfirmed = lazy(() => import("../Pages/Order/OrderConfiirmed"));
 const Orders = lazy(() => import("../Pages/Order/Orders"));
 const Wishlists = lazy(() => import("../Pages/Wishlist/Wishlists"));
 const UserProfile = lazy(() => import("../Pages/Profile/UserProfile"));
@@ -31,6 +31,8 @@ const MyListedItems = lazy(() => import("../Pages/Profile/MyListedItems"));
 const EditProduct = lazy(() => import("../Pages/Products/EditProduct"));
 const CategoryPage = lazy(() => import("../Pages/Category/CategoryPage"));
 const SearchPage = lazy(() => import("../Pages/Category/SearchPage"));
+const CustomerSupport = lazy(() => import("../Pages/Support/CustomerSupport"));
+const Company = lazy(() => import("../Pages/Company/Company"));
 
 const PageNotFound = lazy(() => import("../Pages/PageNotFound"));
 
@@ -48,13 +50,13 @@ const AppRoutes = () => {
               <Route path="/men" element={<Landing />} />
               <Route path="/women" element={<WomenHero />} />
               <Route path="/kids" element={<KidHero />} />
-              <Route path="/new-Arrival" element={<NewArrivalHero />} />
+              <Route path="/new-arrival" element={<NewArrivalHero />} />
               <Route path="/add-product" element={<AddProduct />} />
               <Route path="/edit-product/:id" element={<EditProduct />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<CheckOut />} />
-              <Route path="/order-confirmed" element={<OrderConfirmed />} />
+              {/* <Route path="/order-confirmed" element={<OrderConfirmed />} /> */}
               <Route path="/orders" element={<Orders />} />
               <Route path="/wishlist" element={<Wishlists />} />
               <Route path="/profile" element={<UserProfile />} />
@@ -64,6 +66,8 @@ const AppRoutes = () => {
                 element={<CategoryPage />}
               />
               <Route path="/search" element={<SearchPage />} />
+              <Route path="/customer-support" element={<CustomerSupport />} />
+              <Route path="/company" element={<Company />} />
             </Route>
 
             <Route

@@ -7,6 +7,7 @@ import {
 import { lazy, Suspense, useMemo } from "react";
 import LazySection from "../../Components/Ui/LazySection";
 import { useProducts } from "../../Context/ProductContext";
+import Seo from "../../Components/SEO/Seo";
 const ArrivalBanner = lazy(() => import("./ArrivanBanner"));
 
 const NewArrival = lazy(() => import("./NewArrival"));
@@ -36,6 +37,11 @@ const NewArrivalHero = () => {
 
   return (
     <>
+      <Seo
+        title="New Arrivals | Latest Fashion & Clothing | ThreadCraft"
+        description="Discover the latest fashion at ThreadCraft. Explore our new arrivals and find fresh styles across men's, women's and kids' clothing."
+        canonical="https://thread-craft-mu.vercel.app/new-Arrival"
+      />
       <section className="relative h-[75vh] min-h-[600px] w-full overflow-hidden lg:h-screen">
         {/* Background Image */}
         <motion.img

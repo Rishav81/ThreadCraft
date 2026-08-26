@@ -5,6 +5,7 @@ import { FiArrowLeft, FiLock, FiShield } from "react-icons/fi";
 import { useCart } from "../../Context/CartContext";
 import { createOrder } from "../../Data/API/orderApi";
 import { createPaymentOrder, verifyPayment } from "../../Data/API/paymentApi";
+import Seo from "../../Components/SEO/Seo";
 
 const CheckOut = () => {
   const navigate = useNavigate();
@@ -734,199 +735,205 @@ const CheckOut = () => {
   // =========================================================
 
   return (
-    <main className="min-h-screen px-4 pb-20 pt-20 text-white sm:px-6 md:pt-24 lg:px-10 lg:pt-32">
-      <div className="mx-auto max-w-7xl">
-        {/* =================================================
+    <>
+      <Seo
+        title="Checkout | ThreadCraft"
+        description="Checkout your selected items and proceed to buy at ThreadCraft."
+        noindex={true}
+      />
+      <main className="min-h-screen px-4 pb-20 pt-20 text-white sm:px-6 md:pt-24 lg:px-10 lg:pt-32">
+        <div className="mx-auto max-w-7xl">
+          {/* =================================================
             HEADER
         ================================================= */}
 
-        <div className="mb-10 md:mb-12">
-          <Link
-            to="/cart"
-            className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white/40 transition hover:text-[#C19A6B]"
-          >
-            <FiArrowLeft size={14} />
-            Back to Cart
-          </Link>
+          <div className="mb-10 md:mb-12">
+            <Link
+              to="/cart"
+              className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white/40 transition hover:text-[#C19A6B]"
+            >
+              <FiArrowLeft size={14} />
+              Back to Cart
+            </Link>
 
-          <p className="text-xs uppercase tracking-[0.3em] text-[#C19A6B]">
-            Secure Checkout
-          </p>
+            <p className="text-xs uppercase tracking-[0.3em] text-[#C19A6B]">
+              Secure Checkout
+            </p>
 
-          <h1 className="mt-3 text-4xl font-light tracking-wide sm:text-5xl">
-            Complete Your Order
-          </h1>
+            <h1 className="mt-3 text-4xl font-light tracking-wide sm:text-5xl">
+              Complete Your Order
+            </h1>
 
-          <p className="mt-3 text-sm text-white/40">
-            {isBuyNow
-              ? "You're purchasing this product directly."
-              : `You're purchasing ${checkoutItems.length} ${
-                  checkoutItems.length === 1
-                    ? "selected item"
-                    : "selected items"
-                }.`}
-          </p>
-        </div>
+            <p className="mt-3 text-sm text-white/40">
+              {isBuyNow
+                ? "You're purchasing this product directly."
+                : `You're purchasing ${checkoutItems.length} ${
+                    checkoutItems.length === 1
+                      ? "selected item"
+                      : "selected items"
+                  }.`}
+            </p>
+          </div>
 
-        {/* =================================================
+          {/* =================================================
             FORM
         ================================================= */}
 
-        <form
-          onSubmit={handlePayment}
-          noValidate
-          className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_400px]"
-        >
-          {/* =================================================
+          <form
+            onSubmit={handlePayment}
+            noValidate
+            className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_400px]"
+          >
+            {/* =================================================
               LEFT
           ================================================= */}
 
-          <div className="space-y-6">
-            {/* =================================================
+            <div className="space-y-6">
+              {/* =================================================
                 CONTACT INFORMATION
             ================================================= */}
 
-            <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
-              <div className="mb-7">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-[#C19A6B]">
-                  01
-                </p>
+              <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
+                <div className="mb-7">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[#C19A6B]">
+                    01
+                  </p>
 
-                <h2 className="mt-2 text-xl font-medium">
-                  Contact Information
-                </h2>
+                  <h2 className="mt-2 text-xl font-medium">
+                    Contact Information
+                  </h2>
 
-                <p className="mt-2 text-sm text-white/40">
-                  We'll use these details to contact you about your order.
-                </p>
-              </div>
-
-              <div className="grid gap-5">
-                {/* NAME */}
-
-                <div>
-                  <label
-                    htmlFor="fullName"
-                    className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
-                  >
-                    Full Name
-                  </label>
-
-                  <input
-                    id="fullName"
-                    name="fullName"
-                    type="text"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="Enter your full name"
-                    className={inputClass("fullName")}
-                  />
-
-                  {errors.fullName && (
-                    <p className="mt-2 text-xs text-red-400">
-                      {errors.fullName}
-                    </p>
-                  )}
+                  <p className="mt-2 text-sm text-white/40">
+                    We'll use these details to contact you about your order.
+                  </p>
                 </div>
 
-                {/* EMAIL + PHONE */}
-
-                <div className="grid gap-5 md:grid-cols-2">
-                  {/* EMAIL */}
+                <div className="grid gap-5">
+                  {/* NAME */}
 
                   <div>
                     <label
-                      htmlFor="email"
+                      htmlFor="fullName"
                       className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
                     >
-                      Email Address
+                      Full Name
                     </label>
 
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
+                      id="fullName"
+                      name="fullName"
+                      type="text"
+                      value={formData.fullName}
                       onChange={handleChange}
-                      placeholder="you@example.com"
-                      className={inputClass("email")}
+                      placeholder="Enter your full name"
+                      className={inputClass("fullName")}
                     />
 
-                    {errors.email && (
+                    {errors.fullName && (
                       <p className="mt-2 text-xs text-red-400">
-                        {errors.email}
+                        {errors.fullName}
                       </p>
                     )}
                   </div>
 
-                  {/* PHONE */}
+                  {/* EMAIL + PHONE */}
 
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
-                    >
-                      Phone Number
-                    </label>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    {/* EMAIL */}
 
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      inputMode="numeric"
-                      maxLength={10}
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="9876543210"
-                      className={inputClass("phone")}
-                    />
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
+                      >
+                        Email Address
+                      </label>
 
-                    {errors.phone && (
-                      <p className="mt-2 text-xs text-red-400">
-                        {errors.phone}
-                      </p>
-                    )}
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="you@example.com"
+                        className={inputClass("email")}
+                      />
+
+                      {errors.email && (
+                        <p className="mt-2 text-xs text-red-400">
+                          {errors.email}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* PHONE */}
+
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
+                      >
+                        Phone Number
+                      </label>
+
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        inputMode="numeric"
+                        maxLength={10}
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="9876543210"
+                        className={inputClass("phone")}
+                      />
+
+                      {errors.phone && (
+                        <p className="mt-2 text-xs text-red-400">
+                          {errors.phone}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* =================================================
+              {/* =================================================
                 SHIPPING ADDRESS
             ================================================= */}
 
-            <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
-              <div className="mb-7">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-[#C19A6B]">
-                  02
-                </p>
+              <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
+                <div className="mb-7">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[#C19A6B]">
+                    02
+                  </p>
 
-                <h2 className="mt-2 text-xl font-medium">Shipping Address</h2>
+                  <h2 className="mt-2 text-xl font-medium">Shipping Address</h2>
 
-                <p className="mt-2 text-sm text-white/40">
-                  Where should we deliver your ThreadCraft order?
-                </p>
-              </div>
+                  <p className="mt-2 text-sm text-white/40">
+                    Where should we deliver your ThreadCraft order?
+                  </p>
+                </div>
 
-              <div className="space-y-5">
-                {/* ADDRESS */}
+                <div className="space-y-5">
+                  {/* ADDRESS */}
 
-                <div>
-                  <label
-                    htmlFor="address"
-                    className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
-                  >
-                    Address
-                  </label>
+                  <div>
+                    <label
+                      htmlFor="address"
+                      className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
+                    >
+                      Address
+                    </label>
 
-                  <textarea
-                    id="address"
-                    name="address"
-                    rows={4}
-                    value={formData.address}
-                    onChange={handleChange}
-                    placeholder="House / Flat No., Street, Area"
-                    className={`
+                    <textarea
+                      id="address"
+                      name="address"
+                      rows={4}
+                      value={formData.address}
+                      onChange={handleChange}
+                      placeholder="House / Flat No., Street, Area"
+                      className={`
                       w-full
                       resize-none
                       rounded-sm
@@ -945,258 +952,260 @@ const CheckOut = () => {
                       transition
                       placeholder:text-white/20
                     `}
-                  />
-
-                  {errors.address && (
-                    <p className="mt-2 text-xs text-red-400">
-                      {errors.address}
-                    </p>
-                  )}
-                </div>
-
-                {/* CITY + STATE */}
-
-                <div className="grid gap-5 md:grid-cols-2">
-                  {/* CITY */}
-
-                  <div>
-                    <label
-                      htmlFor="city"
-                      className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
-                    >
-                      City
-                    </label>
-
-                    <input
-                      id="city"
-                      name="city"
-                      type="text"
-                      value={formData.city}
-                      onChange={handleChange}
-                      placeholder="Delhi"
-                      className={inputClass("city")}
                     />
 
-                    {errors.city && (
-                      <p className="mt-2 text-xs text-red-400">{errors.city}</p>
+                    {errors.address && (
+                      <p className="mt-2 text-xs text-red-400">
+                        {errors.address}
+                      </p>
                     )}
                   </div>
 
-                  {/* STATE */}
+                  {/* CITY + STATE */}
 
-                  <div>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    {/* CITY */}
+
+                    <div>
+                      <label
+                        htmlFor="city"
+                        className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
+                      >
+                        City
+                      </label>
+
+                      <input
+                        id="city"
+                        name="city"
+                        type="text"
+                        value={formData.city}
+                        onChange={handleChange}
+                        placeholder="Delhi"
+                        className={inputClass("city")}
+                      />
+
+                      {errors.city && (
+                        <p className="mt-2 text-xs text-red-400">
+                          {errors.city}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* STATE */}
+
+                    <div>
+                      <label
+                        htmlFor="state"
+                        className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
+                      >
+                        State
+                      </label>
+
+                      <input
+                        id="state"
+                        name="state"
+                        type="text"
+                        value={formData.state}
+                        onChange={handleChange}
+                        placeholder="Delhi"
+                        className={inputClass("state")}
+                      />
+
+                      {errors.state && (
+                        <p className="mt-2 text-xs text-red-400">
+                          {errors.state}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* PINCODE */}
+
+                  <div className="md:w-1/2">
                     <label
-                      htmlFor="state"
+                      htmlFor="pincode"
                       className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
                     >
-                      State
+                      Pincode
                     </label>
 
                     <input
-                      id="state"
-                      name="state"
+                      id="pincode"
+                      name="pincode"
                       type="text"
-                      value={formData.state}
+                      inputMode="numeric"
+                      maxLength={6}
+                      value={formData.pincode}
                       onChange={handleChange}
-                      placeholder="Delhi"
-                      className={inputClass("state")}
+                      placeholder="110001"
+                      className={inputClass("pincode")}
                     />
 
-                    {errors.state && (
+                    {errors.pincode && (
                       <p className="mt-2 text-xs text-red-400">
-                        {errors.state}
+                        {errors.pincode}
                       </p>
                     )}
                   </div>
                 </div>
+              </section>
 
-                {/* PINCODE */}
-
-                <div className="md:w-1/2">
-                  <label
-                    htmlFor="pincode"
-                    className="mb-2 block text-xs uppercase tracking-[0.12em] text-white/50"
-                  >
-                    Pincode
-                  </label>
-
-                  <input
-                    id="pincode"
-                    name="pincode"
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={6}
-                    value={formData.pincode}
-                    onChange={handleChange}
-                    placeholder="110001"
-                    className={inputClass("pincode")}
-                  />
-
-                  {errors.pincode && (
-                    <p className="mt-2 text-xs text-red-400">
-                      {errors.pincode}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </section>
-
-            {/* =================================================
+              {/* =================================================
                 PAYMENT
             ================================================= */}
 
-            <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
-              <div className="mb-7">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-[#C19A6B]">
-                  03
-                </p>
-
-                <h2 className="mt-2 text-xl font-medium">Payment Method</h2>
-              </div>
-
-              <label className="flex cursor-pointer items-center gap-4 rounded-lg border border-[#C19A6B]/50 bg-[#C19A6B]/5 p-5">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="razorpay"
-                  checked={formData.paymentMethod === "razorpay"}
-                  onChange={handleChange}
-                  className="accent-[#C19A6B]"
-                />
-
-                <div className="flex-1">
-                  <p className="text-sm font-medium">Online Payment</p>
-
-                  <p className="mt-1 text-xs text-white/40">
-                    Secure payment powered by Razorpay
+              <section className="rounded-xl border border-white/10 bg-[#111111] p-6 sm:p-8">
+                <div className="mb-7">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[#C19A6B]">
+                    03
                   </p>
+
+                  <h2 className="mt-2 text-xl font-medium">Payment Method</h2>
                 </div>
 
-                <FiLock className="text-[#C19A6B]" size={18} />
-              </label>
-            </section>
-          </div>
+                <label className="flex cursor-pointer items-center gap-4 rounded-lg border border-[#C19A6B]/50 bg-[#C19A6B]/5 p-5">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="razorpay"
+                    checked={formData.paymentMethod === "razorpay"}
+                    onChange={handleChange}
+                    className="accent-[#C19A6B]"
+                  />
 
-          {/* =================================================
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Online Payment</p>
+
+                    <p className="mt-1 text-xs text-white/40">
+                      Secure payment powered by Razorpay
+                    </p>
+                  </div>
+
+                  <FiLock className="text-[#C19A6B]" size={18} />
+                </label>
+              </section>
+            </div>
+
+            {/* =================================================
               RIGHT — ORDER SUMMARY
           ================================================= */}
 
-          <aside className="h-fit lg:sticky lg:top-28">
-            <div className="rounded-xl border border-white/10 bg-[#111111] p-6">
-              {/* SUMMARY HEADER */}
+            <aside className="h-fit lg:sticky lg:top-28">
+              <div className="rounded-xl border border-white/10 bg-[#111111] p-6">
+                {/* SUMMARY HEADER */}
 
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-medium">Order Summary</h2>
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-medium">Order Summary</h2>
 
-                <span className="text-xs text-white/30">
-                  {checkoutItems.length}{" "}
-                  {checkoutItems.length === 1 ? "item" : "items"}
-                </span>
-              </div>
+                  <span className="text-xs text-white/30">
+                    {checkoutItems.length}{" "}
+                    {checkoutItems.length === 1 ? "item" : "items"}
+                  </span>
+                </div>
 
-              {/* PRODUCTS */}
+                {/* PRODUCTS */}
 
-              <div className="mt-6 space-y-5">
-                {checkoutItems.map((item, index) => {
-                  const itemTotal =
-                    Number(item.price || 0) * Number(item.quantity || 0);
+                <div className="mt-6 space-y-5">
+                  {checkoutItems.map((item, index) => {
+                    const itemTotal =
+                      Number(item.price || 0) * Number(item.quantity || 0);
 
-                  return (
-                    <div
-                      key={
-                        item.cartItemId ||
-                        `${item.productId}-${item.size}-${index}`
-                      }
-                      className="flex gap-4"
-                    >
-                      {/* IMAGE */}
-
-                      <Link
-                        to={`/products/${item.productId}`}
-                        className="h-24 w-20 shrink-0 overflow-hidden rounded"
+                    return (
+                      <div
+                        key={
+                          item.cartItemId ||
+                          `${item.productId}-${item.size}-${index}`
+                        }
+                        className="flex gap-4"
                       >
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="h-full w-full object-cover"
-                        />
-                      </Link>
+                        {/* IMAGE */}
 
-                      {/* DETAILS */}
-
-                      <div className="min-w-0 flex-1">
                         <Link
                           to={`/products/${item.productId}`}
-                          className="line-clamp-2 text-sm font-medium transition hover:text-[#C19A6B]"
+                          className="h-24 w-20 shrink-0 overflow-hidden rounded"
                         >
-                          {item.name}
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="h-full w-full object-cover"
+                          />
                         </Link>
 
-                        <div className="mt-2 space-y-1 text-xs text-white/40">
-                          <p>
-                            Size:{" "}
-                            <span className="text-white/70">
-                              {item.size || "Not selected"}
-                            </span>
-                          </p>
+                        {/* DETAILS */}
 
-                          <p>
-                            Quantity:{" "}
-                            <span className="text-white/70">
-                              {item.quantity}
-                            </span>
-                          </p>
+                        <div className="min-w-0 flex-1">
+                          <Link
+                            to={`/products/${item.productId}`}
+                            className="line-clamp-2 text-sm font-medium transition hover:text-[#C19A6B]"
+                          >
+                            {item.name}
+                          </Link>
+
+                          <div className="mt-2 space-y-1 text-xs text-white/40">
+                            <p>
+                              Size:{" "}
+                              <span className="text-white/70">
+                                {item.size || "Not selected"}
+                              </span>
+                            </p>
+
+                            <p>
+                              Quantity:{" "}
+                              <span className="text-white/70">
+                                {item.quantity}
+                              </span>
+                            </p>
+                          </div>
                         </div>
+
+                        {/* PRICE */}
+
+                        <p className="shrink-0 text-sm text-[#C19A6B]">
+                          ₹{itemTotal.toLocaleString("en-IN")}
+                        </p>
                       </div>
-
-                      {/* PRICE */}
-
-                      <p className="shrink-0 text-sm text-[#C19A6B]">
-                        ₹{itemTotal.toLocaleString("en-IN")}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="my-6 h-px bg-white/10" />
-
-              {/* PRICE */}
-
-              <div className="space-y-4 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-white/40">Subtotal</span>
-
-                  <span>₹{subtotal.toLocaleString("en-IN")}</span>
+                    );
+                  })}
                 </div>
 
-                <div className="flex justify-between">
-                  <span className="text-white/40">Shipping</span>
+                <div className="my-6 h-px bg-white/10" />
 
-                  {shipping === 0 ? (
-                    <span className="text-[#C19A6B]">FREE</span>
-                  ) : (
-                    <span>₹{shipping.toLocaleString("en-IN")}</span>
-                  )}
+                {/* PRICE */}
+
+                <div className="space-y-4 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-white/40">Subtotal</span>
+
+                    <span>₹{subtotal.toLocaleString("en-IN")}</span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="text-white/40">Shipping</span>
+
+                    {shipping === 0 ? (
+                      <span className="text-[#C19A6B]">FREE</span>
+                    ) : (
+                      <span>₹{shipping.toLocaleString("en-IN")}</span>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* TOTAL */}
+                {/* TOTAL */}
 
-              <div className="mt-6 flex justify-between border-t border-white/10 pt-5">
-                <span className="text-base">Total</span>
+                <div className="mt-6 flex justify-between border-t border-white/10 pt-5">
+                  <span className="text-base">Total</span>
 
-                <span className="text-xl text-[#C19A6B]">
-                  ₹{total.toLocaleString("en-IN")}
-                </span>
-              </div>
+                  <span className="text-xl text-[#C19A6B]">
+                    ₹{total.toLocaleString("en-IN")}
+                  </span>
+                </div>
 
-              {/* PLACE ORDER */}
+                {/* PLACE ORDER */}
 
-              <button
-                type="submit"
-                disabled={isProcessing}
-                className="
+                <button
+                  type="submit"
+                  disabled={isProcessing}
+                  className="
                   mt-7
                   flex
                   h-14
@@ -1217,23 +1226,24 @@ const CheckOut = () => {
                   disabled:cursor-not-allowed
                   disabled:opacity-50
                 "
-              >
-                <FiLock size={15} />
+                >
+                  <FiLock size={15} />
 
-                {isProcessing ? "Processing..." : "Place Order"}
-              </button>
+                  {isProcessing ? "Processing..." : "Place Order"}
+                </button>
 
-              {/* SECURITY */}
+                {/* SECURITY */}
 
-              <div className="mt-5 flex items-center justify-center gap-2 text-center text-[10px] uppercase tracking-[0.1em] text-white/25">
-                <FiShield size={13} />
-                Secure checkout
+                <div className="mt-5 flex items-center justify-center gap-2 text-center text-[10px] uppercase tracking-[0.1em] text-white/25">
+                  <FiShield size={13} />
+                  Secure checkout
+                </div>
               </div>
-            </div>
-          </aside>
-        </form>
-      </div>
-    </main>
+            </aside>
+          </form>
+        </div>
+      </main>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginAccount } from "../../Data/API/authApi";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useAuth } from "../../Context/AuthContext";
+import Seo from "../../Components/SEO/Seo";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,31 +53,37 @@ const Login = () => {
   };
 
   return (
-    <section className="min-h-screen bg-[#111111] flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-[#181818] p-8 rounded-2xl shadow-xl">
-        {/* Brand */}
-        <h1 className="text-3xl font-bold text-center text-[#C19A6B] mb-2">
-          ThreadCraft
-        </h1>
+    <>
+      <Seo
+        title="Login to Your Account | ThreadCraft"
+        description="Log in to your ThreadCraft account to manage your profile, orders, wishlist, and shopping experience."
+        noindex={true}
+      />
+      <section className="min-h-screen bg-[#111111] flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-[#181818] p-8 rounded-2xl shadow-xl">
+          {/* Brand */}
+          <h1 className="text-3xl font-bold text-center text-[#C19A6B] mb-2">
+            ThreadCraft
+          </h1>
 
-        <p className="text-gray-400 text-center mb-8">
-          Welcome back! Login to continue shopping.
-        </p>
+          <p className="text-gray-400 text-center mb-8">
+            Welcome back! Login to continue shopping.
+          </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
-          <div>
-            <label className="text-sm text-gray-300">Email</label>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email */}
+            <div>
+              <label className="text-sm text-gray-300">Email</label>
 
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-              className="
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+                className="
                 w-full mt-2 px-4 py-3
                 bg-[#222]
                 text-white
@@ -85,22 +92,22 @@ const Login = () => {
                 focus:ring-2
                 focus:ring-[#C19A6B]
               "
-            />
-          </div>
+              />
+            </div>
 
-          {/* Password */}
-          <div>
-            <label className="text-sm text-gray-300">Password</label>
+            {/* Password */}
+            <div>
+              <label className="text-sm text-gray-300">Password</label>
 
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                required
-                className="
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  required
+                  className="
                   w-full mt-2 px-4 py-3 pr-12
                   bg-[#222]
                   text-white
@@ -109,32 +116,34 @@ const Login = () => {
                   focus:ring-2
                   focus:ring-[#C19A6B]
                 "
-              />
+                />
 
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="
                   absolute
                   right-4
                   top-5
                   text-gray-400
                   hover:text-[#C19A6B]
                 "
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Error */}
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+            {/* Error */}
+            {error && (
+              <p className="text-red-500 text-sm text-center">{error}</p>
+            )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="
               w-full py-3
               bg-gradient-to-r
               from-[#C19A6B]
@@ -153,34 +162,35 @@ const Login = () => {
               justify-center
               gap-2
             "
-          >
-            {loading ? (
-              <>
-                <LoaderCircle size={20} className="animate-spin" />
-                Logging in...
-              </>
-            ) : (
-              "Login Account"
-            )}
-          </button>
-        </form>
+            >
+              {loading ? (
+                <>
+                  <LoaderCircle size={20} className="animate-spin" />
+                  Logging in...
+                </>
+              ) : (
+                "Login Account"
+              )}
+            </button>
+          </form>
 
-        {/* Register Link */}
-        <p className="text-center text-gray-400 mt-6">
-          Don't have an account?
-          <Link
-            to="/register"
-            className="
+          {/* Register Link */}
+          <p className="text-center text-gray-400 mt-6">
+            Don't have an account?
+            <Link
+              to="/register"
+              className="
               text-[#C19A6B]
               ml-2
               hover:underline
             "
-          >
-            Register
-          </Link>
-        </p>
-      </div>
-    </section>
+            >
+              Register
+            </Link>
+          </p>
+        </div>
+      </section>
+    </>
   );
 };
 

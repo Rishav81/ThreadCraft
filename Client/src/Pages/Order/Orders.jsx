@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 
 import { getMyOrders } from "../../Data/API/orderApi";
+import Seo from "../../Components/SEO/Seo";
 
 const Orders = () => {
   // ============================================================
@@ -343,229 +344,236 @@ const Orders = () => {
   // ============================================================
 
   return (
-    <main className="min-h-screen px-4 pb-20 pt-20 text-white md:px-6 md:pt-24 lg:px-10 ">
-      <div className="mx-auto max-w-7xl">
-        {/* =====================================================
+    <>
+      <Seo
+        title="My Orders | ThreadCraft"
+        description="View and manage your ThreadCraft orders."
+        noindex={true}
+      />
+      <main className="min-h-screen px-4 pb-20 pt-20 text-white md:px-6 md:pt-24 lg:px-10 ">
+        <div className="mx-auto max-w-7xl">
+          {/* =====================================================
             HEADER
         ===================================================== */}
 
-        <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <h1 className="text-xl md:text-2xl lg:text-4xl font-light tracking-wide ">
-              My Orders{" "}
-              <span className="text-xs uppercase tracking-[0.15em] text-white/30">
-                ( {orders.length} {orders.length === 1 ? "Order" : "Orders"}
-                ){" "}
-              </span>
-            </h1>
+          <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <h1 className="text-xl md:text-2xl lg:text-4xl font-light tracking-wide ">
+                My Orders{" "}
+                <span className="text-xs uppercase tracking-[0.15em] text-white/30">
+                  ( {orders.length} {orders.length === 1 ? "Order" : "Orders"}
+                  ){" "}
+                </span>
+              </h1>
+            </div>
           </div>
-        </div>
 
-        {/* =====================================================
+          {/* =====================================================
             ORDERS
         ===================================================== */}
 
-        <div className="space-y-6">
-          {orders.map((order) => (
-            <article
-              key={order._id}
-              className="overflow-hidden rounded-xl border border-white/10 bg-[#111111]"
-            >
-              {/* =================================================
+          <div className="space-y-6">
+            {orders.map((order) => (
+              <article
+                key={order._id}
+                className="overflow-hidden rounded-xl border border-white/10 bg-[#111111]"
+              >
+                {/* =================================================
                   ORDER HEADER
               ================================================= */}
 
-              <div className="border-b border-white/10 p-5 md:p-6">
-                <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                  {/* ORDER INFO */}
+                <div className="border-b border-white/10 p-5 md:p-6">
+                  <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                    {/* ORDER INFO */}
 
-                  <div className="flex flex-wrap gap-x-8 gap-y-4">
-                    <div>
-                      <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
-                        Order
-                      </p>
+                    <div className="flex flex-wrap gap-x-8 gap-y-4">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
+                          Order
+                        </p>
 
-                      <p className="mt-1 text-sm font-medium text-[#C19A6B]">
-                        #{order.orderNumber || order._id}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
-                        Date
-                      </p>
-
-                      <p className="mt-1 flex items-center gap-2 text-sm text-white/70">
-                        <FiCalendar size={13} />
-                        {formatDate(order.createdAt)}
-                      </p>
-                    </div>
-
-                    <div className="hidden md:block">
-                      <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
-                        Total
-                      </p>
-
-                      <p className="mt-1 text-sm text-white/80">
-                        ₹{formatPrice(order.orderSummary?.total)}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* STATUS */}
-
-                  <div className="flex flex-wrap gap-2">
-                    <span
-                      className={`rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] ${getOrderStatusClass(
-                        order.orderStatus,
-                      )}`}
-                    >
-                      {formatStatus(order.orderStatus)}
-                    </span>
-
-                    <span
-                      className={`rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] ${getPaymentStatusClass(
-                        order.paymentStatus,
-                      )}`}
-                    >
-                      Payment {formatStatus(order.paymentStatus)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* =================================================
-                  ORDER ITEMS
-              ================================================= */}
-
-              <div className="p-5 md:p-6">
-                <div className="space-y-5">
-                  {order.items?.map((item, index) => {
-                    const image =
-                      item.image || item.product?.images?.[0]?.url || "";
-
-                    const itemTotal =
-                      Number(item.price || 0) * Number(item.quantity || 0);
-
-                    return (
-                      <div
-                        key={`${order._id}-${item.product?._id || index}`}
-                        className="flex gap-4"
-                      >
-                        {/* IMAGE */}
-
-                        <div className="h-28 w-20 shrink-0 overflow-hidden rounded-lg bg-white/[0.03] md:h-32 md:w-24">
-                          {image ? (
-                            <img
-                              src={image}
-                              alt={item.name}
-                              className="h-full w-full object-cover"
-                            />
-                          ) : (
-                            <div className="flex h-full w-full items-center justify-center text-white/20">
-                              <FiPackage size={20} />
-                            </div>
-                          )}
-                        </div>
-
-                        {/* DETAILS */}
-
-                        <div className="min-w-0 flex-1">
-                          <div className="flex  justify-between gap-2 flex-row">
-                            <div>
-                              <h3 className="line-clamp-2 text-sm font-medium md:text-base">
-                                {item.name}
-                              </h3>
-
-                              <div className="mt-2 space-y-1 text-xs text-white/40">
-                                <p>
-                                  Size:{" "}
-                                  <span className="text-white/70">
-                                    {item.size}
-                                  </span>
-                                </p>
-
-                                <p>
-                                  Quantity:{" "}
-                                  <span className="text-white/70">
-                                    {item.quantity}
-                                  </span>
-                                </p>
-                              </div>
-                            </div>
-
-                            <p className="shrink-0 text-sm text-[#C19A6B]">
-                              ₹{formatPrice(itemTotal)}
-                            </p>
-                          </div>
-                        </div>
+                        <p className="mt-1 text-sm font-medium text-[#C19A6B]">
+                          #{order.orderNumber || order._id}
+                        </p>
                       </div>
-                    );
-                  })}
+
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
+                          Date
+                        </p>
+
+                        <p className="mt-1 flex items-center gap-2 text-sm text-white/70">
+                          <FiCalendar size={13} />
+                          {formatDate(order.createdAt)}
+                        </p>
+                      </div>
+
+                      <div className="hidden md:block">
+                        <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
+                          Total
+                        </p>
+
+                        <p className="mt-1 text-sm text-white/80">
+                          ₹{formatPrice(order.orderSummary?.total)}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* STATUS */}
+
+                    <div className="flex flex-wrap gap-2">
+                      <span
+                        className={`rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] ${getOrderStatusClass(
+                          order.orderStatus,
+                        )}`}
+                      >
+                        {formatStatus(order.orderStatus)}
+                      </span>
+
+                      <span
+                        className={`rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] ${getPaymentStatusClass(
+                          order.paymentStatus,
+                        )}`}
+                      >
+                        Payment {formatStatus(order.paymentStatus)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* =================================================
+                  ORDER ITEMS
+              ================================================= */}
+
+                <div className="p-5 md:p-6">
+                  <div className="space-y-5">
+                    {order.items?.map((item, index) => {
+                      const image =
+                        item.image || item.product?.images?.[0]?.url || "";
+
+                      const itemTotal =
+                        Number(item.price || 0) * Number(item.quantity || 0);
+
+                      return (
+                        <div
+                          key={`${order._id}-${item.product?._id || index}`}
+                          className="flex gap-4"
+                        >
+                          {/* IMAGE */}
+
+                          <div className="h-28 w-20 shrink-0 overflow-hidden rounded-lg bg-white/[0.03] md:h-32 md:w-24">
+                            {image ? (
+                              <img
+                                src={image}
+                                alt={item.name}
+                                className="h-full w-full object-cover"
+                              />
+                            ) : (
+                              <div className="flex h-full w-full items-center justify-center text-white/20">
+                                <FiPackage size={20} />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* DETAILS */}
+
+                          <div className="min-w-0 flex-1">
+                            <div className="flex  justify-between gap-2 flex-row">
+                              <div>
+                                <h3 className="line-clamp-2 text-sm font-medium md:text-base">
+                                  {item.name}
+                                </h3>
+
+                                <div className="mt-2 space-y-1 text-xs text-white/40">
+                                  <p>
+                                    Size:{" "}
+                                    <span className="text-white/70">
+                                      {item.size}
+                                    </span>
+                                  </p>
+
+                                  <p>
+                                    Quantity:{" "}
+                                    <span className="text-white/70">
+                                      {item.quantity}
+                                    </span>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <p className="shrink-0 text-sm text-[#C19A6B]">
+                                ₹{formatPrice(itemTotal)}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* =================================================
                     SUMMARY
                 ================================================= */}
 
-                <div className="mt-6 border-t border-white/10 pt-5">
-                  <div className="flex  gap-5 flex-row items-end justify-between">
-                    <div className="space-y-2 text-xs">
-                      <div className="flex gap-8">
-                        <span className="text-white/30">Subtotal</span>
+                  <div className="mt-6 border-t border-white/10 pt-5">
+                    <div className="flex  gap-5 flex-row items-end justify-between">
+                      <div className="space-y-2 text-xs">
+                        <div className="flex gap-8">
+                          <span className="text-white/30">Subtotal</span>
 
-                        <span className="text-white/70">
-                          ₹{formatPrice(order.orderSummary?.subtotal)}
-                        </span>
+                          <span className="text-white/70">
+                            ₹{formatPrice(order.orderSummary?.subtotal)}
+                          </span>
+                        </div>
+
+                        <div className="flex gap-8">
+                          <span className="text-white/30">Shipping</span>
+
+                          <span className="text-white/70">
+                            {order.orderSummary?.shipping === 0
+                              ? "FREE"
+                              : `₹${formatPrice(order.orderSummary?.shipping)}`}
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="flex gap-8">
-                        <span className="text-white/30">Shipping</span>
+                      <div className="text-right">
+                        <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
+                          Order Total
+                        </p>
 
-                        <span className="text-white/70">
-                          {order.orderSummary?.shipping === 0
-                            ? "FREE"
-                            : `₹${formatPrice(order.orderSummary?.shipping)}`}
-                        </span>
+                        <p className="mt-1 text-xl text-[#C19A6B]">
+                          ₹{formatPrice(order.orderSummary?.total)}
+                        </p>
                       </div>
-                    </div>
-
-                    <div className="text-right">
-                      <p className="text-[10px] uppercase tracking-[0.15em] text-white/30">
-                        Order Total
-                      </p>
-
-                      <p className="mt-1 text-xl text-[#C19A6B]">
-                        ₹{formatPrice(order.orderSummary?.total)}
-                      </p>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* =================================================
+                {/* =================================================
                   FOOTER
               ================================================= */}
 
-              <div className="flex  gap-2 md:gap-4 border-t border-white/10 bg-white/[0.015] px-2 md:px-5 py-4 flex-row items-center justify-between ">
-                <div className="flex items-center gap-2 text-[10px] uppercase tracking-tight text-white/25">
-                  <FiShield size={13} />
-                  Secure ThreadCraft Order
-                </div>
+                <div className="flex  gap-2 md:gap-4 border-t border-white/10 bg-white/[0.015] px-2 md:px-5 py-4 flex-row items-center justify-between ">
+                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-tight text-white/25">
+                    <FiShield size={13} />
+                    Secure ThreadCraft Order
+                  </div>
 
-                <Link
-                  to={`/orders/${order._id}`}
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-white/50 transition hover:text-[#C19A6B]"
-                >
-                  View Order
-                  <FiChevronRight size={14} />
-                </Link>
-              </div>
-            </article>
-          ))}
+                  <Link
+                    to={`/orders/${order._id}`}
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-white/50 transition hover:text-[#C19A6B]"
+                  >
+                    View Order
+                    <FiChevronRight size={14} />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
 
