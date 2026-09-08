@@ -1,4 +1,4 @@
-import Chatbot from "./Components/ChatBot/chatbot";
+import Chatbot from "./Components/ChatBot/Chatbot";
 
 import OrganizationSchema from "./Components/SEO/OrganizationSchema";
 import AppRoutes from "./Routes/AppRoutes";
